@@ -1,32 +1,33 @@
 package com.curuza;
 
-import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 
-public class MainActivity extends AppCompatActivity  implements NavigationView.OnNavigationItemSelectedListener {
+public class Products extends AppCompatActivity  implements NavigationView.OnNavigationItemSelectedListener {
 
 
     FloatingActionButton fab;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.products);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+        getSupportActionBar().setTitle("Products");
 
         DrawerLayout drawer =  findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -38,9 +39,8 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
                 findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+
     }
-
-
 
     @Override
     public void onBackPressed() {
@@ -83,13 +83,13 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
 
         if (id == R.id.nav_home) {
             // Handle the camera action
-            Toast.makeText(getApplicationContext(),"home",Toast.LENGTH_LONG).show();
+            startActivity(new Intent(Products.this,MainActivity.class));
 
         } else if (id == R.id.nav_products) {
-            startActivity(new Intent(MainActivity.this,Products.class));
+            startActivity(new Intent(Products.this,Products.class));
 
         } else if (id == R.id.nav_documents) {
-            startActivity(new Intent(MainActivity.this,Documents.class));
+            startActivity(new Intent(Products.this,Documents.class));
 
 
         }
