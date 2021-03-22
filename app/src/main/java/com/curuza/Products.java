@@ -1,10 +1,10 @@
-package com.curuza;
+ package com.curuza;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.LinearLayout;
+import android.view.View;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -16,7 +16,9 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import com.getbase.floatingactionbutton.FloatingActionButton;
+import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.google.android.material.navigation.NavigationView;
 
 import java.util.ArrayList;
@@ -25,7 +27,9 @@ import java.util.List;
 public class Products extends AppCompatActivity  implements NavigationView.OnNavigationItemSelectedListener {
 
     private RecyclerView rcvProduct;
-    private FloatingActionButton fab;
+    private FloatingActionsMenu fab;
+    private FloatingActionButton fab1;
+    private FloatingActionButton fab2;
     private ProductsAdapter productsAdapter;
 
     @Override
@@ -36,6 +40,7 @@ public class Products extends AppCompatActivity  implements NavigationView.OnNav
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Products");
+
 
         DrawerLayout drawer =  findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -48,22 +53,39 @@ public class Products extends AppCompatActivity  implements NavigationView.OnNav
         navigationView.setNavigationItemSelectedListener(this);
 
         rcvProduct = findViewById(R.id.rcv_product);
-        fab = findViewById(R.id.btn_floating);
+        fab1 = findViewById(R.id.sell_article_fb);
+        fab1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(Products.this,SellArticle.class));
+            }
+        });
+
+        fab2 = findViewById(R.id.add_article_fb);
+        fab2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(Products.this,AddArticle.class));
+            }
+        });
+
+
 
         productsAdapter = new ProductsAdapter();
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         rcvProduct.setLayoutManager(linearLayoutManager);
 
-        productsAdapter.setData(getListProduct());
+        productsAdapter.setData(getListProduct(),getApplicationContext());
         rcvProduct.setAdapter(productsAdapter);
+        fab= findViewById(R.id.float_menu);
         rcvProduct.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
                 if (dy > 0) {
-                    fab.hide();
+                   // fab.();
                 } else {
-                    fab.show();
+                  //  fab.show();
                 }
                 super.onScrolled(recyclerView, dx, dy);
             }
@@ -71,22 +93,26 @@ public class Products extends AppCompatActivity  implements NavigationView.OnNav
 
     }
 
+    public void showToast(String message) {
+        Toast.makeText(this,message, Toast.LENGTH_SHORT).show();
+    }
+
     private List<Product> getListProduct() {
         List<Product> list = new ArrayList<>();
-        list.add(new Product(R.drawable.bestii,"best friendoo"));
-        list.add(new Product(R.drawable.bestii,"best friendoo"));
-        list.add(new Product(R.drawable.bestii,"best friendoo"));
-        list.add(new Product(R.drawable.bestii,"best friendoo"));
-        list.add(new Product(R.drawable.bestii,"best friendoo"));
-        list.add(new Product(R.drawable.bestii,"best friendoo"));
-        list.add(new Product(R.drawable.bestii,"best friendoo"));
-        list.add(new Product(R.drawable.bestii,"best friendoo"));
-        list.add(new Product(R.drawable.bestii,"best friendoo"));
-        list.add(new Product(R.drawable.bestii,"best friendoo"));
-        list.add(new Product(R.drawable.bestii,"best friendoo"));
-        list.add(new Product(R.drawable.bestii,"best friendoo"));
-        list.add(new Product(R.drawable.bestii,"best friendoo"));
-        list.add(new Product(R.drawable.bestii,"best friendoo"));
+        list.add(new Product(R.drawable.bestii,"best friendoo","ikaranga ziryoshe cannee",500,1000,1500));
+        list.add(new Product(R.drawable.bestii,"best friendoo","ikaranga ziryoshe cannee",500,1000,1500));
+        list.add(new Product(R.drawable.bestii,"best friendoo","ikaranga ziryoshe cannee",500,1000,1500));
+        list.add(new Product(R.drawable.bestii,"best friendoo","ikaranga ziryoshe cannee",500,1000,1500));
+        list.add(new Product(R.drawable.bestii,"best friendoo","ikaranga ziryoshe cannee",500,1000,1500));
+        list.add(new Product(R.drawable.bestii,"best friendoo","ikaranga ziryoshe cannee",500,1000,1500));
+        list.add(new Product(R.drawable.bestii,"best friendoo","ikaranga ziryoshe cannee",500,1000,1500));
+        list.add(new Product(R.drawable.bestii,"best friendoo","ikaranga ziryoshe cannee",500,1000,1500));
+        list.add(new Product(R.drawable.bestii,"best friendoo","ikaranga ziryoshe cannee",500,1000,1500));
+        list.add(new Product(R.drawable.bestii,"best friendoo","ikaranga ziryoshe cannee",500,1000,1500));
+        list.add(new Product(R.drawable.bestii,"best friendoo","ikaranga ziryoshe cannee",500,1000,1500));
+        list.add(new Product(R.drawable.bestii,"best friendoo","ikaranga ziryoshe cannee",500,1000,1500));
+        list.add(new Product(R.drawable.bestii,"best friendoo","ikaranga ziryoshe cannee",500,1000,1500));
+        list.add(new Product(R.drawable.bestii,"best friendoo","ikaranga ziryoshe cannee",500,1000,1500));
         return list;
     }
 
