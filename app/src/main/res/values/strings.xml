@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">Curuza</string>
+    <string name="products_activity">Products</string>
+    <string name="documents_activity">Documents</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">kazetechnologies16@gmail.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+    <string name="nom">Nom</string>
+    <string name="invalid_picture">Invalid Picture</string>
+    <string name="check_evrything">check evrything</string>
+</resources>
