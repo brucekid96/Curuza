@@ -31,21 +31,22 @@
                     android:id="@+id/product_icon"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:layout_marginTop="32dp"
-                    android:src="@drawable/ic_baseline_whito"
+                    android:layout_marginTop="24dp"
+                    android:src="@drawable/ic_open_box"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:tint="@color/colorWhite" />
 
                 <TextView
                     android:id="@+id/product_title"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="4dp"
                     android:gravity="center"
                     android:text="Products"
-                    android:textColor="#fff"
-                    android:textSize="24sp"
+                    android:textColor="#a0d8d2"
+                    android:textSize="18sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/product_icon" />
@@ -69,8 +70,8 @@
                     android:id="@+id/document_icon"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:layout_marginTop="32dp"
-                    android:src="@drawable/ic_baseline_menu_book_whito"
+                    android:layout_marginTop="24dp"
+                    android:src="@drawable/ic_baseline_import_export_24"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -79,11 +80,11 @@
                     android:id="@+id/document_title"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="4dp"
                     android:gravity="center"
                     android:text="Documents"
-                    android:textColor="#fff"
-                    android:textSize="24sp"
+                    android:textColor="#a0d8d2"
+                    android:textSize="18sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/document_icon" />
@@ -123,7 +124,7 @@
                         android:id="@+id/add_product_icon"
                         android:layout_width="25dp"
                         android:layout_height="25dp"
-                        android:src="@drawable/ic_baseline_whito"
+                        android:src="@drawable/ic_baseline_add_shopping_cart_24"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -149,11 +150,12 @@
                         android:id="@+id/add_fournisseur_icon"
                         android:layout_width="65dp"
                         android:layout_height="25dp"
-                        android:src="@drawable/ic_baseline_menu_book_whito"
+                        android:src="@drawable/ic_hotel_supplier"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:tint="@color/colorWhite"/>
 
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
@@ -184,7 +186,7 @@
                     android:id="@+id/sell_product_icon"
                     android:layout_width="25dp"
                     android:layout_height="25dp"
-                    android:src="@drawable/ic_baseline_whito"
+                    android:src="@drawable/ic_baseline_remove_shopping_cart_24"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -210,11 +212,12 @@
                     android:id="@+id/add_credit_icon"
                     android:layout_width="25dp"
                     android:layout_height="25dp"
-                    android:src="@drawable/ic_baseline_menu_book_whito"
+                    android:src="@drawable/ic_credit"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:tint="@color/colorWhite"/>
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -243,8 +246,8 @@
                     android:id="@+id/depense_icon"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:layout_marginTop="32dp"
-                    android:src="@drawable/ic_baseline_whito"
+                    android:layout_marginTop="24dp"
+                    android:src="@drawable/ic_baseline_assignment_24"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -253,11 +256,11 @@
                     android:id="@+id/depense_title"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="4dp"
                     android:gravity="center"
-                    android:text="Products"
-                    android:textColor="#fff"
-                    android:textSize="24sp"
+                    android:text="Depenses"
+                    android:textColor="#a0d8d2"
+                    android:textSize="18sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/depense_icon" />
@@ -295,7 +298,7 @@
                     android:id="@+id/add_settings_icon"
                     android:layout_width="25dp"
                     android:layout_height="25dp"
-                    android:src="@drawable/ic_baseline_whito"
+                    android:src="@drawable/ic_baseline_settings_24"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -321,7 +324,7 @@
                     android:id="@+id/help_icon"
                     android:layout_width="65dp"
                     android:layout_height="25dp"
-                    android:src="@drawable/ic_baseline_menu_book_whito"
+                    android:src="@drawable/ic_baseline_help_24"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -356,11 +359,12 @@
                         android:id="@+id/contact_us_icon"
                         android:layout_width="25dp"
                         android:layout_height="25dp"
-                        android:src="@drawable/ic_baseline_whito"
+                        android:src="@drawable/ic_whatsapp__1_"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:tint="@color/colorWhite"/>
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.cardview.widget.CardView>
@@ -382,7 +386,7 @@
                         android:id="@+id/share_app_icon"
                         android:layout_width="25dp"
                         android:layout_height="25dp"
-                        android:src="@drawable/ic_baseline_menu_book_whito"
+                        android:src="@drawable/ic_baseline_share_24"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -415,21 +419,22 @@
                         android:id="@+id/rapport_icon"
                         android:layout_width="50dp"
                         android:layout_height="50dp"
-                        android:layout_marginTop="32dp"
-                        android:src="@drawable/ic_baseline_whito"
+                        android:layout_marginTop="24dp"
+                        android:src="@drawable/ic_trend"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:tint="@color/colorWhite"/>
 
                     <TextView
                         android:id="@+id/rapport_title"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
+                        android:layout_marginTop="4dp"
                         android:gravity="center"
-                        android:text="Products"
-                        android:textColor="#fff"
-                        android:textSize="24sp"
+                        android:text="Rapports"
+                        android:textColor="#a0d8d2"
+                        android:textSize="18sp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/rapport_icon" />

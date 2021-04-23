@@ -149,13 +149,22 @@ public class DepenseActivity extends AppCompatActivity implements NavigationView
             startActivity(new Intent( DepenseActivity.this,CreditActivity.class));
         } else if (id == R.id.nav_depense) {
             startActivity(new Intent( DepenseActivity.this,DepenseActivity.class));
-        } else if (id == R.id.nav_rapport) {
-            Toast.makeText(getApplicationContext(),"rapport",Toast.LENGTH_LONG).show();
         }
         else if (id == R.id.nav_fournisseur) {
             startActivity(new Intent( DepenseActivity.this,FournisseurActivity.class));
         }  else if (id == R.id.nav_client) {
             startActivity(new Intent( DepenseActivity.this,ClientActivity.class));
+        }
+        else if (id == R.id.nav_rapport) {
+            startActivity(new Intent( DepenseActivity.this,RapportActivity.class));
+        }  else if (id == R.id.nav_settings) {
+            startActivity(new Intent( DepenseActivity.this,SettingsActivity.class));
+        } else if (id == R.id.nav_question) {
+            startActivity(new Intent( DepenseActivity.this,QuestionsActivity.class));
+        } else if (id == R.id.nav_subscription) {
+            startActivity(new Intent( DepenseActivity.this,SubscriptionsActivity.class));
+        } else if (id == R.id.nav_help) {
+            startActivity(new Intent( DepenseActivity.this,HelpActivity.class));
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

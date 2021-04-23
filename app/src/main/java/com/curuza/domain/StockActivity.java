@@ -153,6 +153,17 @@ public class StockActivity extends AppCompatActivity implements NavigationView.O
         }  else if (id == R.id.nav_client) {
             startActivity(new Intent( StockActivity.this,ClientActivity.class));
         }
+        else if (id == R.id.nav_rapport) {
+            startActivity(new Intent( StockActivity.this,RapportActivity.class));
+        }  else if (id == R.id.nav_settings) {
+            startActivity(new Intent( StockActivity.this,SettingsActivity.class));
+        } else if (id == R.id.nav_question) {
+            startActivity(new Intent( StockActivity.this,QuestionsActivity.class));
+        } else if (id == R.id.nav_subscription) {
+            startActivity(new Intent( StockActivity.this,SubscriptionsActivity.class));
+        } else if (id == R.id.nav_help) {
+            startActivity(new Intent( StockActivity.this,HelpActivity.class));
+        }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;

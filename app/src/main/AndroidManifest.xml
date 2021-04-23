@@ -33,6 +33,11 @@
             android:name=".domain.Products"
             />
         <activity android:name=".domain.DocumentsActivity"/>
+        <activity android:name=".domain.ShareApp"/>
+        <activity android:name=".domain.SettingsActivity"/>
+        <activity android:name=".domain.HelpActivity"/>
+        <activity android:name=".domain.QuestionsActivity"/>
+        <activity android:name=".domain.RapportActivity"/>
         <activity android:name=".domain.AddArticle"
             android:launchMode="singleTop"
             android:windowSoftInputMode="stateHidden"

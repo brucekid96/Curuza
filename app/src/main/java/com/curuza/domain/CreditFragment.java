@@ -13,29 +13,23 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.curuza.R;
-import com.curuza.data.movements.Movement;
-import com.curuza.data.view.ProductMovement;
 import com.curuza.data.movements.MovementViewModel;
+import com.curuza.data.view.ProductMovement;
 
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class EnterProductsFragment extends Fragment implements ProductMovementsAdapter.OnDeleteClickListener {
-
-
-
-
-
+public class CreditFragment extends Fragment {
 
     private RecyclerView mRecyclerView;
     private ProductMovementsAdapter mAdapter;
 
-   MovementViewModel mModel;
-    private EnterProductsFragment.OnFragmentInteractionListener mListener;
+    MovementViewModel mModel;
+    private CreditFragment.OnFragmentInteractionListener mListener;
 
-    public EnterProductsFragment() {
+    public CreditFragment() {
 
     }
 
@@ -63,15 +57,15 @@ public class EnterProductsFragment extends Fragment implements ProductMovementsA
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
-        View view = inflater.inflate(R.layout.fragment_enter_products, container, false);
-        mRecyclerView =view.findViewById(R.id.enter_products_recyclerview);
+        View view = inflater.inflate(R.layout.fragment_credit, container, false);
+        mRecyclerView =view.findViewById(R.id.credit_recyclerview);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        mAdapter = new ProductMovementsAdapter(getContext(),this::OnDeleteClickListener);
+        mAdapter = new ProductMovementsAdapter(getContext(),null);
         mRecyclerView.setAdapter(mAdapter);
         mModel= ViewModelProviders.of(this).get(MovementViewModel.class);
         mModel.getEnterProductMovements().observe(this, productMovements ->  {
 
-                mAdapter.setData(productMovements);
+            mAdapter.setData(productMovements);
 
         });
 
@@ -91,8 +85,8 @@ public class EnterProductsFragment extends Fragment implements ProductMovementsA
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof EnterProductsFragment.OnFragmentInteractionListener) {
-            mListener = (EnterProductsFragment.OnFragmentInteractionListener) context;
+        if (context instanceof CreditFragment.OnFragmentInteractionListener) {
+            mListener = (CreditFragment.OnFragmentInteractionListener) context;
         } else {
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
@@ -117,10 +111,5 @@ public class EnterProductsFragment extends Fragment implements ProductMovementsA
 
 
         return list;
-    }
-
-    @Override
-    public void OnDeleteClickListener(Movement mouvement) {
-
     }
 }

@@ -223,12 +223,21 @@ import java.util.List;
             startActivity(new Intent(Products.this, CreditActivity.class));
         }  else if (id == R.id.nav_depense) {
             startActivity(new Intent( Products.this,DepenseActivity.class));
-        } else if (id == R.id.nav_rapport) {
-            Toast.makeText(getApplicationContext(),"rapport",Toast.LENGTH_LONG).show();
         }  else if (id == R.id.nav_fournisseur) {
             startActivity(new Intent( Products.this,FournisseurActivity.class));
         }  else if (id == R.id.nav_client) {
             startActivity(new Intent( Products.this,ClientActivity.class));
+        }
+        else if (id == R.id.nav_rapport) {
+            startActivity(new Intent( Products.this,RapportActivity.class));
+        }  else if (id == R.id.nav_settings) {
+            startActivity(new Intent( Products.this,SettingsActivity.class));
+        } else if (id == R.id.nav_question) {
+            startActivity(new Intent( Products.this,QuestionsActivity.class));
+        } else if (id == R.id.nav_subscription) {
+            startActivity(new Intent( Products.this,SubscriptionsActivity.class));
+        } else if (id == R.id.nav_help) {
+            startActivity(new Intent( Products.this,HelpActivity.class));
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

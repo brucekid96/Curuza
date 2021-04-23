@@ -17,6 +17,7 @@ import com.curuza.data.fournisseur.Fournisseur;
 import com.curuza.data.fournisseur.FournisseurDao;
 import com.curuza.data.movements.Movement;
 import com.curuza.data.view.ProductMovement;
+import com.curuza.data.view.Rapport;
 import com.curuza.domain.Converters;
 import com.curuza.data.stock.Product;
 import com.curuza.data.stock.ProductDao;
@@ -25,7 +26,7 @@ import com.curuza.data.movements.MovementDao;
 @TypeConverters({Converters.class})
 @Database(entities = {Product.class, Movement.class, Credit.class, Depense.class, Client.class, Fournisseur.class},
         views = {
-                ProductMovement.class,
+                ProductMovement.class, Rapport.class
 
 
         }, version = 1)
@@ -63,5 +64,4 @@ public abstract class MainDatabase extends RoomDatabase {
     public abstract DepenseDao depenseDao();
     public abstract ClientDao clientDao();
     public abstract FournisseurDao fournisseurDao();
-
 }

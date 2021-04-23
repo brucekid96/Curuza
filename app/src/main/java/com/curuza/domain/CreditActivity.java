@@ -149,13 +149,23 @@ public class CreditActivity extends AppCompatActivity implements NavigationView.
             startActivity(new Intent( CreditActivity.this,CreditActivity.class));
         }  else if (id == R.id.nav_depense) {
             startActivity(new Intent( CreditActivity.this,DepenseActivity.class));
-        } else if (id == R.id.nav_rapport) {
-            Toast.makeText(getApplicationContext(),"rapport",Toast.LENGTH_LONG).show();
         }
         else if (id == R.id.nav_fournisseur) {
             startActivity(new Intent( CreditActivity.this,FournisseurActivity.class));
         }  else if (id == R.id.nav_client) {
             startActivity(new Intent( CreditActivity.this,ClientActivity.class));
+        }
+
+        else if (id == R.id.nav_rapport) {
+            startActivity(new Intent( CreditActivity.this,RapportActivity.class));
+        }  else if (id == R.id.nav_settings) {
+            startActivity(new Intent( CreditActivity.this,SettingsActivity.class));
+        } else if (id == R.id.nav_question) {
+            startActivity(new Intent( CreditActivity.this,QuestionsActivity.class));
+        } else if (id == R.id.nav_subscription) {
+            startActivity(new Intent( CreditActivity.this,SubscriptionsActivity.class));
+        } else if (id == R.id.nav_help) {
+            startActivity(new Intent( CreditActivity.this,HelpActivity.class));
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

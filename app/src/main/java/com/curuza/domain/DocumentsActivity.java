@@ -46,7 +46,7 @@ public class DocumentsActivity extends AppCompatActivity implements NavigationVi
 
 
         final ViewPager viewPager = findViewById(R.id.pager);
-        final PagerAdapter adapter = new PagerAdapter
+        final DocumentPagerAdapter adapter = new DocumentPagerAdapter
                 (getSupportFragmentManager(), tabLayout.getTabCount());
         viewPager.setAdapter(adapter);
         viewPager.setOnPageChangeListener
@@ -148,6 +148,18 @@ public class DocumentsActivity extends AppCompatActivity implements NavigationVi
             startActivity(new Intent( DocumentsActivity.this,FournisseurActivity.class));
         }  else if (id == R.id.nav_client) {
             startActivity(new Intent( DocumentsActivity.this,ClientActivity.class));
+        }
+
+        else if (id == R.id.nav_rapport) {
+            startActivity(new Intent( DocumentsActivity.this,RapportActivity.class));
+        }  else if (id == R.id.nav_settings) {
+            startActivity(new Intent( DocumentsActivity.this,SettingsActivity.class));
+        } else if (id == R.id.nav_question) {
+            startActivity(new Intent( DocumentsActivity.this,QuestionsActivity.class));
+        } else if (id == R.id.nav_subscription) {
+            startActivity(new Intent( DocumentsActivity.this,SubscriptionsActivity.class));
+        } else if (id == R.id.nav_help) {
+            startActivity(new Intent( DocumentsActivity.this,HelpActivity.class));
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
