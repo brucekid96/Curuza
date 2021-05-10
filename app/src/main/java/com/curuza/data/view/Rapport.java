@@ -19,36 +19,37 @@ import java.util.UUID;
 
 @DatabaseView(
         viewName = "rapport",
-        value = "select SUM(movement_p_vente), CAST(movement_date AS DATE) as 'p vente amount per day' from MOVEMENT "
-)
+        value = "select date_only as date, sum(movement_p_vente) as total_vente " +
+                "from (select *, substr(movement_date, 1, 10)  as date_only  from movement) group by date_only ")
 public class Rapport implements Parcelable {
     public static final String RAPPORT_EXTRA = "rapport_code";
-    @Embedded
-    private Movement mMovement;
+
+    private String date;
+    @ColumnInfo(name = "total_vente")
+    private int totalVente;
 
 
-
-    public Rapport(Movement movement) {
-        this.mMovement = movement;
+    public Rapport(String date, int totalVente) {
+        this.date = date;
+        this.totalVente = totalVente;
     }
 
-    public Movement getMovement() {
-        return mMovement;
+    public String getDate() {
+        return date;
     }
 
-
-
-    public String toString() {
-        return "Rapport{" +
-                ", mMovement=" + mMovement +
-                '}';
+    public void setDate(String date) {
+        this.date = date;
     }
 
-    // PARCELABLE IMPLEMENTATION METHODS
-
-    public Rapport(Parcel in) {
-        mMovement = in.readParcelable(Movement.class.getClassLoader());
+    public int getTotalVente() {
+        return totalVente;
     }
+
+    public void setTotalVente(int totalVente) {
+        this.totalVente = totalVente;
+    }
+
 
     @Override
     public int describeContents() {
@@ -57,22 +58,43 @@ public class Rapport implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.date);
+        dest.writeInt(this.totalVente);
+    }
 
-        dest.writeParcelable(mMovement, 0);
-
+    public void readFromParcel(Parcel source) {
+        this.date = source.readString();
+        this.totalVente = source.readInt();
     }
 
 
-    public static final Parcelable.Creator<Rapport> CREATOR =
-            new Parcelable.Creator<Rapport>() {
-                @Override
-                public Rapport createFromParcel(Parcel source) {
-                    return new Rapport(source);
-                }
+    protected Rapport(Parcel in) {
+        this.date = in.readString();
+        this.totalVente = in.readInt();
+    }
 
-                @Override
-                public Rapport[] newArray(int size) {
-                    return new Rapport[size];
-                }
-            };
+    public String toString() {
+        return
+                 "Rapport["
+
+                +"mDate="
+                + date
+                + ","
+                +"mTotalAmount="
+                + totalVente
+
+                + "]";
+    }
+
+    public static final Creator<Rapport> CREATOR = new Creator<Rapport>() {
+        @Override
+        public Rapport createFromParcel(Parcel source) {
+            return new Rapport(source);
+        }
+
+        @Override
+        public Rapport[] newArray(int size) {
+            return new Rapport[size];
+        }
+    };
 }

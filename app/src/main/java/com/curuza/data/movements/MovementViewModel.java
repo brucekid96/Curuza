@@ -7,6 +7,7 @@ import androidx.lifecycle.LiveData;
 
 
 import com.curuza.data.view.ProductMovement;
+import com.curuza.data.view.Rapport;
 
 import java.util.List;
 
@@ -24,6 +25,9 @@ public class MovementViewModel extends AndroidViewModel {
 
     public LiveData<List<ProductMovement>> getAllProductMovements() {
         return mTransactionRepository.getProductMovements();
+    }
+    public LiveData<List<Rapport>> getRapportList() {
+        return mTransactionRepository.getRapportList();
     }
 
     public LiveData<List<ProductMovement>> getEnterProductMovements() {

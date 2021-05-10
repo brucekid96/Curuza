@@ -1,6 +1,7 @@
 package com.curuza.domain;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +10,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -23,6 +26,7 @@ public class SellArticleAdapter extends RecyclerView.Adapter<SellArticleAdapter.
     private List<Product> mListProduct;
     private Context mContext;
     private SellArticleAdapter.OnItemListener mOnitemListener;
+    private SellArticleFragment mSellFragment;
 
     public interface OnItemListener{
         void onItemClick(int position);
@@ -57,21 +61,19 @@ public class SellArticleAdapter extends RecyclerView.Adapter<SellArticleAdapter.
         holder.tvName.setText(product.getName());
         holder.tvQuantity.setText(String.valueOf(product.getQuantity()));
 
-        Glide.with(mContext)
-                .load(product.getProductImageUri())
-                .circleCrop()
-                .into(holder.imgProducts);
+       if(product.getProductImageUri()!=null) {
+           Glide.with(mContext)
+                   .load(product.getProductImageUri())
+                   .circleCrop()
+                   .into(holder.imgProducts);
+       }
 
-        holder.container.setOnClickListener(new View.OnClickListener() {
 
-            @Override
-            public void onClick(View v) {
-                // TODO Auto-generated method stub
 
-                Intent intent = new Intent(mContext, SellArticleDetails.class);
-                intent.putExtra(Product.PRODUCT_EXTRA,product);
-                mContext.startActivity(intent);
-            }
+        holder.container.setOnClickListener(v -> {
+            mSellFragment = new SellArticleFragment();
+            mSellFragment.setData(product);
+            mSellFragment.show(((AppCompatActivity) mContext).getSupportFragmentManager(),null);
         });
 
     }

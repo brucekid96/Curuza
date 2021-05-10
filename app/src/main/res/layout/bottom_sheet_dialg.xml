@@ -11,35 +11,34 @@
         android:id="@+id/pict_people"
         android:layout_width="150dp"
         android:layout_height="150dp"
-        android:src="@drawable/profile_pict_big" />
+        android:src="@drawable/ic_baseline_shopping_basket_green" />
 
     <EditText
         android:id="@+id/name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="add quantity"
-        android:padding="10dp"
         android:layout_marginTop="50dp"
-        android:background="@drawable/round_edittext"/>
+        android:background="@drawable/round_edittext"
+        android:hint="name"
+        android:padding="10dp" />
+
     <EditText
         android:id="@+id/quantiti"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="add quantity"
-        android:padding="10dp"
         android:layout_marginTop="10dp"
-        android:background="@drawable/round_edittext"/>
-
+        android:background="@drawable/round_edittext"
+        android:hint="@string/add_quantity"
+        android:padding="10dp" />
 
 
     <Button
         android:id="@+id/submit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="submit"
         android:layout_marginTop="20dp"
         android:background="@drawable/rounded_button"
-        />
+        android:text="@string/submit" />
 
 
 

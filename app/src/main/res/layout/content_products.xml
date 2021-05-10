@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".domain.Products">
+    tools:context=".domain.ProductsActivity">
 
   <androidx.recyclerview.widget.RecyclerView
       android:id="@+id/rcv_product"
@@ -54,7 +54,7 @@
         app:fab_colorNormal="@color/colorWhite"
         app:fab_colorPressed="#CC0548"
         app:fab_icon="@drawable/ic_baseline_shopping_cart_24"
-        app:fab_label="Add article"
+        app:fab_label="@string/add_article"
         app:fab_labelStyle="@style/custom_fab"
         app:fab_size="mini" />
 
@@ -67,7 +67,7 @@
         app:fab_colorNormal="@color/colorWhite"
         app:fab_colorPressed="#CC0548"
         app:fab_icon="@drawable/ic_baseline_remove_shopping_cart_24"
-        app:fab_label="Sell article"
+        app:fab_label="@string/sell_article"
         app:fab_labelStyle="@style/custom_fab"
         app:fab_size="mini"
         tools:ignore="MissingClass" />

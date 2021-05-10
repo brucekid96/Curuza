@@ -1,14 +1,17 @@
 package com.curuza.domain;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -27,13 +30,14 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class StockActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, StockAdapter.OnDeleteClickListener {
+public class StockActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private RecyclerView rcvProduct;
     private StockAdapter stockAdapter;
     private View mShadowView;
     private ProductViewModel mModel;
     private ProductRepository mProductRepository;
+    private List<Product> productList;
 
 
 
@@ -61,21 +65,36 @@ public class StockActivity extends AppCompatActivity implements NavigationView.O
         mShadowView = findViewById(R.id.shadow);
 
 
-        stockAdapter = new StockAdapter(getListProduct(),this,this::OnDeleteClickListener);
+        stockAdapter = new StockAdapter(getListProduct(),this);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         rcvProduct.setLayoutManager(linearLayoutManager);
-
         stockAdapter.setData(getListProduct());
+
+
         rcvProduct.setAdapter(stockAdapter);
         mModel= ViewModelProviders.of(this).get(ProductViewModel.class);
-        mModel.getAllProducts().observe(this, new Observer<List<Product>>() {
-            @Override
-            public void onChanged(List<Product> products) {
-                stockAdapter.setData(products);
-            }
+        mModel.getAllProducts().observe(this, products -> {
+            productList = products;
+            stockAdapter.setData(products);
         });
 
+    }
+
+    public void updateSearchResults(String searchQuery) {
+        if(productList != null) {
+            List<Product> searchResults = new ArrayList<>();
+
+            for (Product product : productList) {
+
+                if (product.getName().toLowerCase().contains(searchQuery.toLowerCase()) ||
+                        product.getDescription().toLowerCase().contains(searchQuery.toLowerCase())) {
+                    searchResults.add(product);
+                }
+            }
+
+            stockAdapter.setData(searchResults);
+        }
     }
 
     public void showToast(String message) {
@@ -104,7 +123,26 @@ public class StockActivity extends AppCompatActivity implements NavigationView.O
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.home, menu);
+        getMenuInflater().inflate(R.menu.stock, menu);
+        MenuItem menuItem = menu.findItem(R.id.menu_item_search);
+        SearchView searchView =(SearchView) menuItem.getActionView();
+        searchView.requestFocus();
+        searchView.setImeOptions(EditorInfo.IME_ACTION_DONE);
+
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String query) {
+                updateSearchResults(query);
+                return false;
+            }
+        });
         return true;
     }
 
@@ -133,7 +171,7 @@ public class StockActivity extends AppCompatActivity implements NavigationView.O
             startActivity(new Intent(StockActivity.this, MainActivity.class));
 
         } else if (id == R.id.nav_products) {
-            startActivity(new Intent(StockActivity.this,Products.class));
+            startActivity(new Intent(StockActivity.this, ProductsActivity.class));
 
         } else if (id == R.id.nav_documents) {
             startActivity(new Intent(StockActivity.this, DocumentsActivity.class));
@@ -145,8 +183,6 @@ public class StockActivity extends AppCompatActivity implements NavigationView.O
         }
         else if (id == R.id.nav_depense) {
             startActivity(new Intent( StockActivity.this,DepenseActivity.class));
-        } else if (id == R.id.nav_rapport) {
-            Toast.makeText(getApplicationContext(),"rapport",Toast.LENGTH_LONG).show();
         }
         else if (id == R.id.nav_fournisseur) {
             startActivity(new Intent( StockActivity.this,FournisseurActivity.class));
@@ -158,7 +194,10 @@ public class StockActivity extends AppCompatActivity implements NavigationView.O
         }  else if (id == R.id.nav_settings) {
             startActivity(new Intent( StockActivity.this,SettingsActivity.class));
         } else if (id == R.id.nav_question) {
-            startActivity(new Intent( StockActivity.this,QuestionsActivity.class));
+            String url = "https://api.whatsapp.com/send?phone=+25779841239";
+            Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(i);
         } else if (id == R.id.nav_subscription) {
             startActivity(new Intent( StockActivity.this,SubscriptionsActivity.class));
         } else if (id == R.id.nav_help) {
@@ -169,11 +208,6 @@ public class StockActivity extends AppCompatActivity implements NavigationView.O
         return true;
     }
 
-    @Override
-    public void OnDeleteClickListener(Product product) {
-        mProductRepository = new ProductRepository(getApplicationContext());
-        mProductRepository.delete(product);
-    }
 
 
 

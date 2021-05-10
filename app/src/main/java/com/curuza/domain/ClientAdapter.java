@@ -21,25 +21,19 @@ import com.curuza.data.credit.Credit;
 import com.curuza.data.stock.ProductRepository;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ClientAdapter  extends RecyclerView.Adapter<ClientAdapter.ViewHolder>{
     private List<Client> mClients;
-    private Client client;
     private Context mContext;
-    private OnDeleteClickListener onDeleteClickListener;
     private ClientRepository mClientRepository;
 
-    public interface OnDeleteClickListener {
-        void OnDeleteClickListener(Client client);
-    }
 
 
-    public ClientAdapter(List<Client> listClient, Context mContext, OnDeleteClickListener listener) {
-        this.mClients = listClient;
+    public ClientAdapter(List<Client> mClients,Context mContext) {
+        this.mClients = mClients;
         this.mContext = mContext;
-        this.onDeleteClickListener = listener;
-
     }
 
 
@@ -48,7 +42,7 @@ public class ClientAdapter  extends RecyclerView.Adapter<ClientAdapter.ViewHolde
         notifyDataSetChanged();
     }
 
-    private void showCardDialog() {
+    private void showCardDialog(Client client) {
         mClientRepository = new ClientRepository(mContext.getApplicationContext());
         AlertDialog.Builder cardDialog = new AlertDialog.Builder(mContext);
         cardDialog.setTitle("Select Action");
@@ -57,15 +51,12 @@ public class ClientAdapter  extends RecyclerView.Adapter<ClientAdapter.ViewHolde
         };
 
         cardDialog.setItems(cardDialogItems,
-                new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        switch (which) {
-                            case 0:
-                                mClientRepository.delete(client);
+                (dialog, which) -> {
+                    switch (which) {
+                        case 0:
+                            mClientRepository.delete(client);
 
-                                break;
-                        }
+                            break;
                     }
                 });
         cardDialog.show();
@@ -81,30 +72,23 @@ public class ClientAdapter  extends RecyclerView.Adapter<ClientAdapter.ViewHolde
 
     @Override
     public void onBindViewHolder(@NonNull ClientAdapter.ViewHolder holder, int position) {
-         client = mClients.get(position);
-        if(client ==null) {
-            return;
-        }
+        Client client = mClients.get(position);
 
         holder.tvPersonName.setText(client.getPersonName());
 
         holder.tvDate.setText(DateTimeUtils.getDateString(client.getDate()));
 
-        holder.container.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
+        holder.container.setOnClickListener(v -> {
 
 
-                Intent intent = new Intent(mContext, ClientDetailActivity.class);
-                intent.putExtra(Client.CLIENT_EXTRA,client);
-                mContext.startActivity(intent);
-            }
+            Intent intent = new Intent(mContext, ClientDetailActivity.class);
+            intent.putExtra(Client.CLIENT_EXTRA,client);
+            mContext.startActivity(intent);
         });
         holder.container.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                showCardDialog();
+                showCardDialog(client);
                 return true;
             }
         });
@@ -114,10 +98,7 @@ public class ClientAdapter  extends RecyclerView.Adapter<ClientAdapter.ViewHolde
 
     @Override
     public int getItemCount() {
-        if (mClients != null) {
             return mClients.size();
-        }
-        return 0;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

@@ -38,7 +38,7 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.Produc
         this.mListProduct = mListProduct;
         this.mContext = mContext;
         this.mOnitemListener = OnitemListener;
-        this.mArticleFragment = new AddArticleFragemt();
+
     }
 
 
@@ -69,19 +69,20 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.Produc
         holder.tvName.setText(product.getName());
         holder.tvQuantity.setText(String.valueOf(product.getQuantity()));
 
-        Glide.with(mContext)
-                .load(product.getProductImageUri())
-                .circleCrop()
-                .into(holder.imgProducts);
+        if (product.getProductImageUri()!=null){
 
-        holder.container.setOnClickListener(new View.OnClickListener() {
+            Glide.with(mContext)
+                    .load(product.getProductImageUri())
+                    .circleCrop()
+                    .into(holder.imgProducts);
+        }
 
-            @Override
-            public void onClick(View v) {
-                mArticleFragment.setData(product);
-                mArticleFragment.show(((AppCompatActivity) mContext).getSupportFragmentManager(),null);
-            }
 
+
+        holder.container.setOnClickListener(v -> {
+            mArticleFragment = new AddArticleFragemt();
+            mArticleFragment.setData(product);
+            mArticleFragment.show(((AppCompatActivity) mContext).getSupportFragmentManager(),null);
         });
 
     }

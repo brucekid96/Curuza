@@ -81,7 +81,7 @@ public class SellArticleDetails  extends AppCompatActivity {
                     public void afterTextChanged(Editable s) {}
                 }
         );
-        mAmount = findViewById(R.id.amount_total);
+        mAmount = findViewById(R.id.name_textview_error);
         mValidate = findViewById(R.id.credit_validate);
 
         mValidate.setOnClickListener(new View.OnClickListener() {

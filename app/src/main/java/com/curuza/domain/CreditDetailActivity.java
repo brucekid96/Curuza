@@ -12,6 +12,7 @@ import androidx.appcompat.widget.Toolbar;
 import com.curuza.R;
 import com.curuza.data.credit.Credit;
 import com.curuza.data.credit.CreditRepository;
+import com.curuza.data.stock.ProductRepository;
 import com.google.android.material.textfield.TextInputLayout;
 
 public class CreditDetailActivity extends AppCompatActivity {
@@ -34,12 +35,13 @@ public class CreditDetailActivity extends AppCompatActivity {
         Intent intent = getIntent();
         credit = intent.getParcelableExtra(Credit.CREDIT_EXTRA);
 
+
         Toolbar toolbar = findViewById(R.id.toolbar_detail_article);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        Log.d(CreditDetailActivity.class.getSimpleName(),"Credit: " + credit);
+        mCreditRepository = new CreditRepository(this);
 
 
         mName = findViewById(R.id.nom_credit);
@@ -53,7 +55,11 @@ public class CreditDetailActivity extends AppCompatActivity {
 
         mValidate = findViewById(R.id.credit_validate);
         mValidate.setOnClickListener(v -> {
+           Credit updatedCredit = new Credit(
+                   credit.getId(),mName.getEditText().getText().toString(),mDescription.getEditText().getText().toString(),Integer.parseInt(mAmount.getEditText().getText().toString()),credit.getDate(),mTelephone.getEditText().getText().toString()
 
+           );
+            mCreditRepository.update(updatedCredit);
                 Intent intent2 = new Intent(CreditDetailActivity.this, CreditActivity.class);
                 startActivity(intent2);
 

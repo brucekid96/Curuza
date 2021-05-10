@@ -3,7 +3,9 @@ package com.curuza.domain;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -20,6 +22,7 @@ import java.util.UUID;
 
 public class AddFournisseurActivity extends AppCompatActivity {
     private Fournisseur mFournisseur;
+    private TextView mNameErrorTextview;
     private TextInputLayout mName;
     private TextInputLayout mPhoneNumber;
     private TextInputLayout mDescription;
@@ -44,7 +47,7 @@ public class AddFournisseurActivity extends AppCompatActivity {
 
         mFournisseurRepository = new FournisseurRepository(getApplicationContext());
 
-
+        mNameErrorTextview =findViewById(R.id.name_textview_error);
         mName= findViewById(R.id.nom_fournisseur);
         mPhoneNumber = findViewById(R.id.tel_number);
         mDescription = findViewById(R.id.description_fournisseur);
@@ -53,19 +56,28 @@ public class AddFournisseurActivity extends AppCompatActivity {
         mValidate.setOnClickListener(view -> {
 
             mDate = ZonedDateTime.now().toInstant().toString();
-            Fournisseur fournisseur = new Fournisseur(
-                    UUID.randomUUID().toString(),
-                    mName.getEditText().getText().toString(),
-                    mDescription.getEditText().getText().toString(),
-                    mDate,
-                    mPhoneNumber.getEditText().getText().toString()
-            );
-            mFournisseurRepository.insert(fournisseur);
-            Log.d(AddFournisseurActivity.class.getSimpleName(), "Added fournisseur: " + fournisseur.toString());
 
-            Intent intent1 = new Intent(AddFournisseurActivity.this, FournisseurActivity.class);
-            intent1.putExtra(Fournisseur.FOURNISSEUR_EXTRA, fournisseur);
-            startActivity(intent1);
+            if (mName.getEditText().length()==0) {
+                mNameErrorTextview.setVisibility(View.VISIBLE);
+            }
+            else
+            if(mName.getEditText().length()!=0) {
+
+                Fournisseur fournisseur = new Fournisseur(
+                        UUID.randomUUID().toString(),
+                        mName.getEditText().getText().toString(),
+                        mDescription.getEditText().getText().toString(),
+                        mDate,
+                        mPhoneNumber.getEditText().getText().toString()
+                );
+                mFournisseurRepository.insert(fournisseur);
+                Log.d(AddFournisseurActivity.class.getSimpleName(), "Added fournisseur: " + fournisseur.toString());
+
+                Intent intent1 = new Intent(AddFournisseurActivity.this, FournisseurActivity.class);
+                intent1.putExtra(Fournisseur.FOURNISSEUR_EXTRA, fournisseur);
+                startActivity(intent1);
+            }
+
 
 
         });

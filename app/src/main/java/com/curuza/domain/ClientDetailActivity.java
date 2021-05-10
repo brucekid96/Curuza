@@ -13,6 +13,7 @@ import com.curuza.data.client.Client;
 import com.curuza.data.client.ClientRepository;
 
 
+import com.curuza.data.fournisseur.Fournisseur;
 import com.google.android.material.textfield.TextInputLayout;
 
 public class ClientDetailActivity extends AppCompatActivity {
@@ -38,6 +39,7 @@ public class ClientDetailActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
+        mClientRepository = new ClientRepository(this);
         Log.d(ClientDetailActivity.class.getSimpleName(),"Client: " + client);
 
 
@@ -50,7 +52,11 @@ public class ClientDetailActivity extends AppCompatActivity {
 
         mValidate = findViewById(R.id.client_validate);
         mValidate.setOnClickListener(v -> {
+            Client updatedClient = new Client(
+                    client.getId(),mName.getEditText().getText().toString(),mDescription.getEditText().getText().toString(),mTelephone.getEditText().getText().toString(),client.getDate()
 
+            );
+            mClientRepository.update(updatedClient);
             Intent intent2 = new Intent(ClientDetailActivity.this, ClientActivity.class);
             startActivity(intent2);
 

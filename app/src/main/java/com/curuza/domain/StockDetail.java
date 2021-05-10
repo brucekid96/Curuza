@@ -3,6 +3,7 @@ package com.curuza.domain;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -36,7 +37,6 @@ public class StockDetail extends AppCompatActivity {
     private FloatingActionButton mFab;
 
     private Uri mProductImageURI;
-    Product mProduct;
     ProductRepository mProductRepository;
 
 
@@ -48,11 +48,14 @@ public class StockDetail extends AppCompatActivity {
 
         Intent intent = getIntent();
         produit = intent.getParcelableExtra(Product.PRODUCT_EXTRA);
+        Log.d(StockDetail.class.getSimpleName(), "Retrieved credit: " + produit);
 
         Toolbar toolbar = findViewById (R.id.toolbar_detail_article);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+
+        mProductRepository = new ProductRepository(this);
 
         mArticleImageView = findViewById(R.id.image_content);
         mCameraIconView = findViewById(R.id.iconview);
@@ -69,38 +72,22 @@ public class StockDetail extends AppCompatActivity {
         mPxVente = findViewById(R.id.p_vente_stock);
         mPxVente.getEditText().setText(Integer.toString(produit.getPVente()));
         mUploadImageButton = findViewById(R.id.uploadbutton);
-        mUploadImageButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                choosePhotoFromGallary();
-            }
-        });
+        mUploadImageButton.setOnClickListener(v -> choosePhotoFromGallary());
         mFab = findViewById(R.id.floatingActionButton);
-        mFab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        mFab.setOnClickListener(v -> {
 
-                int quant = Integer.parseInt(mQuantity.getEditText().getText().toString());
-                int P_Achat = Integer.parseInt(mPxAchat.getEditText().getText().toString());
-                int P_Vente = Integer.parseInt(mPxVente.getEditText().getText().toString());
-                mProductRepository = new ProductRepository(getApplication());
-                mProductRepository.update(
-                        new Product(
-                                produit.getId(),
-                                mProductImageURI,
-                                mName.getEditText().getText().toString(),
-                                mDescription.getEditText().getText().toString(),
-                                quant,
-                                P_Achat,
-                                P_Vente
 
-                        )
-                );
-                Intent intent = new Intent(StockDetail.this, StockActivity.class);
-                intent.putExtra(Product.PRODUCT_EXTRA, mProduct);
-                startActivity(intent);
+           Product productUpdate= new Product( produit.getId(),
+                   mProductImageURI,
+                   mName.getEditText().getText().toString(),
+                   mDescription.getEditText().getText().toString(),
+                   Integer.parseInt(mQuantity.getEditText().getText().toString()),
+                   Integer.parseInt(mPxAchat.getEditText().getText().toString()),
+                   Integer.parseInt(mPxVente.getEditText().getText().toString()));
+            mProductRepository.update(productUpdate);
+            Intent intent2 = new Intent(StockDetail.this, StockActivity.class);
+            startActivity(intent2);
 
-            }
         });
 
     }

@@ -1,14 +1,17 @@
 package com.curuza.domain;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -22,8 +25,7 @@ import com.curuza.data.client.Client;
 import com.curuza.data.client.ClientRepository;
 import com.curuza.data.client.ClientViewModel;
 
-import com.curuza.data.credit.Credit;
-import com.curuza.data.credit.CreditRepository;
+import com.curuza.data.fournisseur.Fournisseur;
 import com.github.clans.fab.FloatingActionMenu;
 import com.google.android.material.navigation.NavigationView;
 
@@ -31,7 +33,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class ClientActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, ClientAdapter.OnDeleteClickListener {
+public class ClientActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
     private RecyclerView rcvClient;
     private ClientAdapter clientAdapter;
@@ -39,6 +41,7 @@ public class ClientActivity extends AppCompatActivity implements NavigationView.
     private ClientViewModel mModel;
     private FloatingActionMenu clientFab;
     private ClientRepository mClientRepository;
+    private List<Client> clientList;
 
 
     @Override
@@ -67,21 +70,38 @@ public class ClientActivity extends AppCompatActivity implements NavigationView.
         clientFab.setOnMenuButtonClickListener(v ->  startActivity(new Intent(ClientActivity.this, AddClientActivity.class)));
 
 
-        clientAdapter = new ClientAdapter(getListClient(),this,this);
+        clientAdapter = new ClientAdapter(getListClient(),this);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         rcvClient.setLayoutManager(linearLayoutManager);
-
         clientAdapter.setData(getListClient());
+
         rcvClient.setAdapter(clientAdapter);
         mModel= ViewModelProviders.of(this).get(ClientViewModel.class);
         mModel.getClients().observe(this, new Observer<List<Client>>() {
             @Override
             public void onChanged(List<Client> clients) {
+                clientList = clients;
                 clientAdapter.setData(clients);
             }
         });
 
+    }
+
+    public void updateSearchResults(String searchQuery) {
+        if(clientList != null) {
+            List<Client> searchResults = new ArrayList<>();
+
+            for (Client client : clientList) {
+
+                if (client.getPersonName().toLowerCase().contains(searchQuery.toLowerCase()) ||
+                        client.getDescription().toLowerCase().contains(searchQuery.toLowerCase())) {
+                    searchResults.add(client);
+                }
+            }
+
+            clientAdapter.setData(searchResults);
+        }
     }
 
     public void showToast(String message) {
@@ -110,7 +130,26 @@ public class ClientActivity extends AppCompatActivity implements NavigationView.
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.home, menu);
+        getMenuInflater().inflate(R.menu.client, menu);
+        MenuItem menuItem = menu.findItem(R.id.menu_item_search);
+        SearchView searchView =(SearchView) menuItem.getActionView();
+        searchView.requestFocus();
+        searchView.setImeOptions(EditorInfo.IME_ACTION_DONE);
+
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String query) {
+                updateSearchResults(query);
+                return false;
+            }
+        });
         return true;
     }
 
@@ -139,7 +178,7 @@ public class ClientActivity extends AppCompatActivity implements NavigationView.
             startActivity(new Intent(ClientActivity.this, MainActivity.class));
 
         } else if (id == R.id.nav_products) {
-            startActivity(new Intent(ClientActivity.this,Products.class));
+            startActivity(new Intent(ClientActivity.this, ProductsActivity.class));
 
         } else if (id == R.id.nav_documents) {
             startActivity(new Intent(ClientActivity.this, DocumentsActivity.class));
@@ -160,7 +199,10 @@ public class ClientActivity extends AppCompatActivity implements NavigationView.
         }  else if (id == R.id.nav_settings) {
             startActivity(new Intent( ClientActivity.this,SettingsActivity.class));
         } else if (id == R.id.nav_question) {
-            startActivity(new Intent( ClientActivity.this,QuestionsActivity.class));
+            String url = "https://api.whatsapp.com/send?phone=+25779841239";
+            Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(i);
         } else if (id == R.id.nav_subscription) {
             startActivity(new Intent( ClientActivity.this,SubscriptionsActivity.class));
         } else if (id == R.id.nav_help) {
@@ -171,10 +213,5 @@ public class ClientActivity extends AppCompatActivity implements NavigationView.
         return true;
     }
 
-    @Override
-    public void OnDeleteClickListener(Client client) {
-        mClientRepository = new ClientRepository(getApplicationContext());
-        mClientRepository.delete(client);
-    }
 
 }

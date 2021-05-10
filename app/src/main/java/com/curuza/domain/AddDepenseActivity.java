@@ -3,13 +3,16 @@ package com.curuza.domain;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.curuza.R;
 
+import com.curuza.data.client.Client;
 import com.curuza.data.depense.Depense;
 import com.curuza.data.depense.DepenseRepository;
 import com.google.android.material.textfield.TextInputLayout;
@@ -21,6 +24,8 @@ import java.util.UUID;
 public class AddDepenseActivity extends AppCompatActivity {
 
     private Depense mDepense;
+    private TextView mDescriptionErrorTextview;
+    private TextView mAmountErrorTextview;
     private TextInputLayout mDescription;
     private TextInputLayout mAmount;
     private  String mDate;
@@ -45,25 +50,37 @@ public class AddDepenseActivity extends AppCompatActivity {
 
         mDepenseRepository = new DepenseRepository(getApplicationContext());
 
+        mDescriptionErrorTextview =findViewById(R.id.description_textview_error);
+        mAmountErrorTextview = findViewById(R.id.amount_txview_error);
         mDescription = findViewById(R.id.description);
         mAmount = findViewById(R.id.amount);
         mValidate = findViewById(R.id.validate);
 
         mValidate.setOnClickListener(view -> {
-
             mDate = ZonedDateTime.now().toInstant().toString();
-            Depense depense = new Depense(
-                    UUID.randomUUID().toString(),
-                    mDescription.getEditText().getText().toString(),
-                    Integer.parseInt(mAmount.getEditText().getText().toString()),
-                    mDate
-            );
-            mDepenseRepository.insert(depense);
-            Log.d(AddDepenseActivity.class.getSimpleName(), "Added depense: " + depense.toString());
+            if (mDescription.getEditText().length()==0) {
+                mDescriptionErrorTextview.setVisibility(View.VISIBLE);
+            } else
+            if(mAmount.getEditText().length()==0) {
+                mAmountErrorTextview.setVisibility(View.VISIBLE);
+            }
+            else
+            if(mDescription.getEditText().length()!=0 && mAmount.getEditText().length()!=0) {
 
-            Intent intent1 = new Intent(AddDepenseActivity.this, DepenseActivity.class);
-            intent1.putExtra(Depense.DEPENSE_EXTRA, depense);
-            startActivity(intent1);
+                Depense depense = new Depense(
+                        UUID.randomUUID().toString(),
+                        mDescription.getEditText().getText().toString(),
+                        Integer.parseInt(mAmount.getEditText().getText().toString()),
+                        mDate
+                );
+                mDepenseRepository.insert(depense);
+                Log.d(AddDepenseActivity.class.getSimpleName(), "Added depense: " + depense.toString());
+
+                Intent intent1 = new Intent(AddDepenseActivity.this, DepenseActivity.class);
+                intent1.putExtra(Depense.DEPENSE_EXTRA, depense);
+                startActivity(intent1);
+            }
+
 
 
         });

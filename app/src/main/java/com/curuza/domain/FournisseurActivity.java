@@ -1,14 +1,20 @@
 package com.curuza.domain;
 
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.telephony.PhoneNumberUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -18,11 +24,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.curuza.R;
-import com.curuza.data.credit.Credit;
-import com.curuza.data.credit.CreditRepository;
 import com.curuza.data.fournisseur.Fournisseur;
 import com.curuza.data.fournisseur.FournisseurRepository;
 import com.curuza.data.fournisseur.FournisseurViewModel;
+import com.curuza.data.stock.Product;
 import com.github.clans.fab.FloatingActionMenu;
 import com.google.android.material.navigation.NavigationView;
 
@@ -30,7 +35,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class FournisseurActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, FournisseurAdapter.OnDeleteClickListener {
+public class FournisseurActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private RecyclerView rcvFournisseur;
     private FournisseurAdapter fournisseurAdapter;
@@ -38,6 +43,8 @@ public class FournisseurActivity extends AppCompatActivity implements Navigation
     private FournisseurViewModel mModel;
     private FournisseurRepository mFournisseurRepository;
     private FloatingActionMenu fournisseurFab;
+    private Context context;
+    private List<Fournisseur> fournisseurList;
 
 
     @Override
@@ -66,21 +73,38 @@ public class FournisseurActivity extends AppCompatActivity implements Navigation
         fournisseurFab.setOnMenuButtonClickListener(v ->  startActivity(new Intent(FournisseurActivity.this, AddFournisseurActivity.class)));
 
 
-        fournisseurAdapter = new FournisseurAdapter(getListFournisseur(),this,this::OnDeleteClickListener);
+        fournisseurAdapter = new FournisseurAdapter(getListFournisseur(),this);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         rcvFournisseur.setLayoutManager(linearLayoutManager);
-
         fournisseurAdapter.setData(getListFournisseur());
+
         rcvFournisseur.setAdapter(fournisseurAdapter);
         mModel= ViewModelProviders.of(this).get(FournisseurViewModel.class);
         mModel.getFournisseurs().observe(this, new Observer<List<Fournisseur>>() {
             @Override
             public void onChanged(List<Fournisseur> fournisseurs) {
+                fournisseurList = fournisseurs;
                 fournisseurAdapter.setData(fournisseurs);
             }
         });
 
+    }
+
+    public void updateSearchResults(String searchQuery) {
+        if(fournisseurList != null) {
+            List<Fournisseur> searchResults = new ArrayList<>();
+
+            for (Fournisseur fournisseur : fournisseurList) {
+
+                if (fournisseur.getPersonName().toLowerCase().contains(searchQuery.toLowerCase()) ||
+                        fournisseur.getDescription().toLowerCase().contains(searchQuery.toLowerCase())) {
+                    searchResults.add(fournisseur);
+                }
+            }
+
+            fournisseurAdapter.setData(searchResults);
+        }
     }
 
     public void showToast(String message) {
@@ -109,7 +133,26 @@ public class FournisseurActivity extends AppCompatActivity implements Navigation
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.home, menu);
+        getMenuInflater().inflate(R.menu.fournisseur, menu);
+        MenuItem menuItem = menu.findItem(R.id.menu_item_search);
+        SearchView searchView =(SearchView) menuItem.getActionView();
+        searchView.requestFocus();
+        searchView.setImeOptions(EditorInfo.IME_ACTION_DONE);
+
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String query) {
+                updateSearchResults(query);
+                return false;
+            }
+        });
         return true;
     }
 
@@ -138,7 +181,7 @@ public class FournisseurActivity extends AppCompatActivity implements Navigation
             startActivity(new Intent(FournisseurActivity.this, MainActivity.class));
 
         } else if (id == R.id.nav_products) {
-            startActivity(new Intent(FournisseurActivity.this,Products.class));
+            startActivity(new Intent(FournisseurActivity.this, ProductsActivity.class));
 
         } else if (id == R.id.nav_documents) {
             startActivity(new Intent(FournisseurActivity.this, DocumentsActivity.class));
@@ -158,7 +201,10 @@ public class FournisseurActivity extends AppCompatActivity implements Navigation
         }  else if (id == R.id.nav_settings) {
             startActivity(new Intent( FournisseurActivity.this,SettingsActivity.class));
         } else if (id == R.id.nav_question) {
-            startActivity(new Intent( FournisseurActivity.this,QuestionsActivity.class));
+            String url = "https://api.whatsapp.com/send?phone=+25779841239";
+            Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(i);
         } else if (id == R.id.nav_subscription) {
             startActivity(new Intent( FournisseurActivity.this,SubscriptionsActivity.class));
         } else if (id == R.id.nav_help) {
@@ -168,9 +214,5 @@ public class FournisseurActivity extends AppCompatActivity implements Navigation
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
-    @Override
-    public void OnDeleteClickListener(Fournisseur fournisseur) {
-        mFournisseurRepository = new FournisseurRepository(getApplicationContext());
-        mFournisseurRepository.delete(fournisseur);
-    }
+
 }

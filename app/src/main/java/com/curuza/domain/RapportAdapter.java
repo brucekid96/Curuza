@@ -2,44 +2,47 @@ package com.curuza.domain;
 
 
 import android.content.Context;
+import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.curuza.R;
+import com.curuza.data.fournisseur.Fournisseur;
+import com.curuza.data.fournisseur.FournisseurRepository;
 import com.curuza.data.movements.MovementRepository;
 import com.curuza.data.view.Rapport;
 import com.curuza.data.view.ProductMovement;
+import com.curuza.utils.FormatUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class RapportAdapter extends RecyclerView.Adapter<RapportAdapter.MyViewHolder>  {
 
     private List<Rapport> mRapportList;
-    private Rapport rapport;
     private Context mContext;
-    private OnItemListener mOnitemListener;
-    private MovementRepository movementRepository;
 
-    public interface OnItemListener{
-        void onItemClick(int position);
-    }
-    public RapportAdapter(List<Rapport> listRapport, Context mContext, OnItemListener OnitemListener) {
-        this.mRapportList = listRapport;
+
+    public RapportAdapter(Context mContext) {
+        this.mRapportList = new ArrayList<>();
         this.mContext = mContext;
-        this.mOnitemListener = OnitemListener;
+
     }
 
     public void setData(List<Rapport> rapportList) {
         mRapportList = rapportList;
         notifyDataSetChanged();
-    }
+        Log.d(RapportAdapter.class.getSimpleName(),"rapportList" + rapportList);
 
+    }
 
 
 
@@ -47,21 +50,17 @@ public class RapportAdapter extends RecyclerView.Adapter<RapportAdapter.MyViewHo
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.rapport_item,parent,false);
-        return new MyViewHolder(v,mOnitemListener);
+        return new MyViewHolder(v);
     }
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        final Rapport rapport = mRapportList.get(position);
-        holder.Date.setText(rapport.getMovement().getDate());
-        holder.Amount.setText(rapport.getMovement().getPVente());
+        Rapport rapport = mRapportList.get(position);
+        holder.Date.setText(rapport.getDate());
+        holder.Amount.setText(FormatUtils.getLocalizedMonetaryAmountString(rapport.getTotalVente()));
 
-        holder.container.setOnClickListener(new View.OnClickListener() {
+        holder.container.setOnClickListener(v -> {
 
-            @Override
-            public void onClick(View v) {
-
-            }
         });
 
     }
@@ -76,16 +75,14 @@ public class RapportAdapter extends RecyclerView.Adapter<RapportAdapter.MyViewHo
         public TextView Date;
         public TextView Amount;
         public ConstraintLayout container;
-        OnItemListener mOnItemListener;
         private final Context context;
 
-        public MyViewHolder(@NonNull View itemView,OnItemListener onitemListener) {
+        public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             context = itemView.getContext();
             Date = itemView.findViewById(R.id.date);
             Amount = itemView.findViewById(R.id.amount);
             container= itemView.findViewById(R.id.container_rapport);
-            mOnItemListener =  onitemListener;
 
         }
 

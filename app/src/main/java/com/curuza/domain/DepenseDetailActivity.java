@@ -10,6 +10,8 @@ import androidx.appcompat.widget.Toolbar;
 
 import com.curuza.R;
 
+import com.curuza.data.credit.Credit;
+import com.curuza.data.credit.CreditRepository;
 import com.curuza.data.depense.Depense;
 import com.curuza.data.depense.DepenseRepository;
 import com.google.android.material.textfield.TextInputLayout;
@@ -36,6 +38,9 @@ public class DepenseDetailActivity  extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
+        mDepenseRepository = new DepenseRepository(this);
+
+
         Log.d(CreditDetailActivity.class.getSimpleName(),"Credit: " + depense);
 
 
@@ -46,7 +51,11 @@ public class DepenseDetailActivity  extends AppCompatActivity {
 
         mValidate = findViewById(R.id.validate);
         mValidate.setOnClickListener(v -> {
+            Depense updatedDepense = new Depense(
+                    depense.getId(),mDescription.getEditText().getText().toString(),Integer.parseInt(mAmount.getEditText().getText().toString()),depense.getDate()
 
+            );
+            mDepenseRepository.update(updatedDepense);
             Intent intent2 = new Intent(DepenseDetailActivity.this, DepenseActivity.class);
             startActivity(intent2);
 

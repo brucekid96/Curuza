@@ -6,10 +6,12 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -36,9 +38,9 @@ public class DocumentsActivity extends AppCompatActivity implements NavigationVi
         getSupportActionBar().setTitle("Documents");
 
         TabLayout tabLayout =(TabLayout) findViewById(R.id.tablayout);
-        tabLayout.addTab(tabLayout.newTab().setText("Tous"));
-        tabLayout.addTab(tabLayout.newTab().setText("Entrée"));
-        tabLayout.addTab(tabLayout.newTab().setText("Sortie"));
+        tabLayout.addTab(tabLayout.newTab().setText(R.string.Tous_activity));
+        tabLayout.addTab(tabLayout.newTab().setText(R.string.entree_activity));
+        tabLayout.addTab(tabLayout.newTab().setText(R.string.sortie_activity));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
         tabLayout.setSelectedTabIndicatorColor(Color.parseColor("#FFFFFF"));
         tabLayout.setTabTextColors(Color.parseColor("#a0d8d2"),
@@ -100,7 +102,7 @@ public class DocumentsActivity extends AppCompatActivity implements NavigationVi
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.home, menu);
+        getMenuInflater().inflate(R.menu.documents, menu);
         return true;
     }
 
@@ -130,7 +132,7 @@ public class DocumentsActivity extends AppCompatActivity implements NavigationVi
             startActivity(new Intent(DocumentsActivity.this, MainActivity.class));
 
         } else if (id == R.id.nav_products) {
-            startActivity(new Intent(DocumentsActivity.this, Products.class));
+            startActivity(new Intent(DocumentsActivity.this, ProductsActivity.class));
 
         } else if (id == R.id.nav_documents) {
             startActivity(new Intent(DocumentsActivity.this, DocumentsActivity.class));
@@ -142,8 +144,6 @@ public class DocumentsActivity extends AppCompatActivity implements NavigationVi
             startActivity(new Intent(DocumentsActivity.this, CreditActivity.class));
         }  else if (id == R.id.nav_depense) {
             startActivity(new Intent( DocumentsActivity.this,DepenseActivity.class));
-        } else if (id == R.id.nav_rapport) {
-            Toast.makeText(getApplicationContext(),"rapport",Toast.LENGTH_LONG).show();
         }  else if (id == R.id.nav_fournisseur) {
             startActivity(new Intent( DocumentsActivity.this,FournisseurActivity.class));
         }  else if (id == R.id.nav_client) {
@@ -155,7 +155,10 @@ public class DocumentsActivity extends AppCompatActivity implements NavigationVi
         }  else if (id == R.id.nav_settings) {
             startActivity(new Intent( DocumentsActivity.this,SettingsActivity.class));
         } else if (id == R.id.nav_question) {
-            startActivity(new Intent( DocumentsActivity.this,QuestionsActivity.class));
+            String url = "https://api.whatsapp.com/send?phone=+25779841239";
+            Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(i);
         } else if (id == R.id.nav_subscription) {
             startActivity(new Intent( DocumentsActivity.this,SubscriptionsActivity.class));
         } else if (id == R.id.nav_help) {

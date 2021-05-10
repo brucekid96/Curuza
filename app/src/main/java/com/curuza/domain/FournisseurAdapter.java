@@ -21,26 +21,20 @@ import com.curuza.data.credit.Credit;
 import com.curuza.data.fournisseur.Fournisseur;
 import com.curuza.data.fournisseur.FournisseurRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class FournisseurAdapter extends RecyclerView.Adapter<FournisseurAdapter.ViewHolder> {
 
     private List<Fournisseur> mFournisseurs;
-    private Fournisseur fournisseur;
     private Context mContext;
-    private OnDeleteClickListener onDeleteClickListener;
     private FournisseurRepository mFournisseurRepository;
 
-    public interface OnDeleteClickListener {
-        void OnDeleteClickListener(Fournisseur fournisseur);
-    }
 
 
-    public FournisseurAdapter(List<Fournisseur> listFournisseur, Context mContext,  OnDeleteClickListener listener) {
-        this.mFournisseurs = listFournisseur;
+    public FournisseurAdapter(List<Fournisseur> mFournisseurs,Context mContext) {
+        this.mFournisseurs = mFournisseurs;
         this.mContext = mContext;
-        this.onDeleteClickListener = listener;
-
     }
 
 
@@ -49,7 +43,7 @@ public class FournisseurAdapter extends RecyclerView.Adapter<FournisseurAdapter.
         notifyDataSetChanged();
     }
 
-    private void showCardDialog() {
+    private void showCardDialog(Fournisseur fournisseur) {
         mFournisseurRepository = new FournisseurRepository(mContext.getApplicationContext());
         AlertDialog.Builder cardDialog = new AlertDialog.Builder(mContext);
         cardDialog.setTitle("Delete Fournisseur");
@@ -58,15 +52,12 @@ public class FournisseurAdapter extends RecyclerView.Adapter<FournisseurAdapter.
         };
 
         cardDialog.setItems(cardDialogItems,
-                new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        switch (which) {
-                            case 0:
-                                mFournisseurRepository.delete(fournisseur);
+                (dialog, which) -> {
+                    switch (which) {
+                        case 0:
+                            mFournisseurRepository.delete(fournisseur);
 
-                                break;
-                        }
+                            break;
                     }
                 });
         cardDialog.show();
@@ -82,32 +73,22 @@ public class FournisseurAdapter extends RecyclerView.Adapter<FournisseurAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull FournisseurAdapter.ViewHolder holder, int position) {
-         fournisseur = mFournisseurs.get(position);
-        if(fournisseur ==null) {
-            return;
-        }
+       Fournisseur  fournisseur = mFournisseurs.get(position);
 
         holder.tvPersonName.setText(fournisseur.getPersonName());
 
         holder.tvDate.setText(DateTimeUtils.getDateString(fournisseur.getDate()));
 
-        holder.container.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
+        holder.container.setOnClickListener(v -> {
 
 
-                Intent intent = new Intent(mContext, FournisseurDetailActivity.class);
-                intent.putExtra(Fournisseur.FOURNISSEUR_EXTRA,fournisseur);
-                mContext.startActivity(intent);
-            }
+            Intent intent = new Intent(mContext, FournisseurDetailActivity.class);
+            intent.putExtra(Fournisseur.FOURNISSEUR_EXTRA,fournisseur);
+            mContext.startActivity(intent);
         });
-        holder.container.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                showCardDialog();
-                return true;
-            }
+        holder.container.setOnLongClickListener(v -> {
+            showCardDialog(fournisseur);
+            return true;
         });
 
     }
@@ -115,10 +96,7 @@ public class FournisseurAdapter extends RecyclerView.Adapter<FournisseurAdapter.
 
     @Override
     public int getItemCount() {
-        if (mFournisseurs != null) {
             return mFournisseurs.size();
-        }
-        return 0;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

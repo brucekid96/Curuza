@@ -66,7 +66,7 @@ public class EnterProductsFragment extends Fragment implements ProductMovementsA
         View view = inflater.inflate(R.layout.fragment_enter_products, container, false);
         mRecyclerView =view.findViewById(R.id.enter_products_recyclerview);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        mAdapter = new ProductMovementsAdapter(getContext(),this::OnDeleteClickListener);
+        mAdapter = new ProductMovementsAdapter(getListProduct(),getContext(),this::OnDeleteClickListener);
         mRecyclerView.setAdapter(mAdapter);
         mModel= ViewModelProviders.of(this).get(MovementViewModel.class);
         mModel.getEnterProductMovements().observe(this, productMovements ->  {

@@ -7,17 +7,14 @@
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar_detail_article"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary"
-        android:fontFamily="@font/montserrat_bold"
-        android:minHeight="?attr/actionBarSize"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:menu="@menu/home"
-        app:title="Sell article"
-        app:titleTextAppearance="@style/Ikirori_TextAppearance_Toolbar"
+        app:popupTheme="@style/AppTheme.PopupOverlay"
+        app:title="@string/sell_article"
         app:titleTextColor="@android:color/white" />
 
     <androidx.recyclerview.widget.RecyclerView

@@ -61,7 +61,7 @@ public class DepenseFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_enter_products, container, false);
         mRecyclerView =view.findViewById(R.id.enter_products_recyclerview);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        mAdapter = new ProductMovementsAdapter(getContext(),null);
+        mAdapter = new ProductMovementsAdapter(getListProduct(),getActivity(),null);
         mRecyclerView.setAdapter(mAdapter);
         mModel= ViewModelProviders.of(this).get(MovementViewModel.class);
         mModel.getEnterProductMovements().observe(this, productMovements ->  {

@@ -62,7 +62,7 @@ public class ExitProductsFragment extends Fragment implements ProductMovementsAd
         View view = inflater.inflate(R.layout.fragment_exit_products, container, false);
         mRecyclerView =view.findViewById(R.id.exit_products_recyclerview);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        mAdapter = new ProductMovementsAdapter(getActivity(),this::OnDeleteClickListener);
+        mAdapter = new ProductMovementsAdapter(getListProduct(),getActivity(),this::OnDeleteClickListener);
         mRecyclerView.setAdapter(mAdapter);
         mModel= ViewModelProviders.of(this).get(MovementViewModel.class);
         mModel.getExitProductMovements().observe(this, productMovements ->  {

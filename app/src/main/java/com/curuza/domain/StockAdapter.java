@@ -29,7 +29,6 @@ public class StockAdapter extends RecyclerView.Adapter<StockAdapter.ViewHolder> 
     private List<Product> mListProduct;
     private Context mContext;
     private ProductRepository mStockRepository;
-    private Product product;
 
     private OnDeleteClickListener onDeleteClickListener;
 
@@ -38,10 +37,9 @@ public class StockAdapter extends RecyclerView.Adapter<StockAdapter.ViewHolder> 
         void OnDeleteClickListener(Product product);
     }
 
-    public StockAdapter(List<Product> mListProduct, Context mContext, OnDeleteClickListener listener) {
+    public StockAdapter(List<Product> mListProduct,Context mContext) {
         this.mListProduct = mListProduct;
         this.mContext = mContext;
-        this.onDeleteClickListener = listener;
     }
 
 
@@ -51,7 +49,7 @@ public class StockAdapter extends RecyclerView.Adapter<StockAdapter.ViewHolder> 
     }
 
 
-    private void showCardDialog() {
+    private void showCardDialog(Product product) {
         mStockRepository = new ProductRepository(mContext.getApplicationContext());
         AlertDialog.Builder cardDialog = new AlertDialog.Builder(mContext);
         cardDialog.setTitle("Delete Product");
@@ -60,17 +58,11 @@ public class StockAdapter extends RecyclerView.Adapter<StockAdapter.ViewHolder> 
         };
 
         cardDialog.setItems(cardDialogItems,
-                new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        switch (which) {
-                            case 0:
-                                mStockRepository.delete(product);
-
-                                break;
-                        }
+                (dialog, which) -> {
+                    if (which == 0) {
+                        mStockRepository.delete(product);
                     }
-                });
+                });;
         cardDialog.show();
     }
 
@@ -84,36 +76,29 @@ public class StockAdapter extends RecyclerView.Adapter<StockAdapter.ViewHolder> 
 
     @Override
     public void onBindViewHolder(@NonNull StockAdapter.ViewHolder holder, int position) {
-         product = mListProduct.get(position);
-        if(product ==null) {
-            return;
-        }
+       Product  product = mListProduct.get(position);
 
         holder.tvName.setText(product.getName());
         holder.tvQuantity.setText(String.valueOf(product.getQuantity()));
+        if(product.getProductImageUri()!=null) {
 
-        Glide.with(mContext)
-                .load(product.getProductImageUri())
-                .circleCrop()
-                .into(holder.imgProducts);
+            Glide.with(mContext)
+                    .load(product.getProductImageUri())
+                    .circleCrop()
+                    .into(holder.imgProducts);
+        }
 
-        holder.container.setOnClickListener(new View.OnClickListener() {
 
-            @Override
-            public void onClick(View v) {
-                // TODO Auto-generated method stub
+        holder.container.setOnClickListener(v -> {
 
-                Intent intent = new Intent(mContext, ArticleDetails.class);
-                intent.putExtra(Product.PRODUCT_EXTRA,product);
-                mContext.startActivity(intent);
-            }
+
+            Intent intent = new Intent(mContext, StockDetail.class);
+            intent.putExtra(Product.PRODUCT_EXTRA,product);
+            mContext.startActivity(intent);
         });
-        holder.container.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                showCardDialog();
-                return true;
-            }
+        holder.container.setOnLongClickListener(v -> {
+            showCardDialog(product);
+            return true;
         });
 
     }

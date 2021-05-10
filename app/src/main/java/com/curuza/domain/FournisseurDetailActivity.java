@@ -10,6 +10,8 @@ import androidx.appcompat.widget.Toolbar;
 
 import com.curuza.R;
 import com.curuza.data.credit.Credit;
+import com.curuza.data.depense.Depense;
+import com.curuza.data.depense.DepenseRepository;
 import com.curuza.data.fournisseur.Fournisseur;
 import com.curuza.data.fournisseur.FournisseurRepository;
 import com.google.android.material.textfield.TextInputLayout;
@@ -38,6 +40,8 @@ public class FournisseurDetailActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
+        mFournisseurRepository = new FournisseurRepository(this);
+
         Log.d(FournisseurDetailActivity.class.getSimpleName(),"Fournisseur: " + fournisseur);
 
 
@@ -50,7 +54,11 @@ public class FournisseurDetailActivity extends AppCompatActivity {
 
         mValidate = findViewById(R.id.fournisseur_validate);
         mValidate.setOnClickListener(v -> {
+            Fournisseur updatedFournisseur = new Fournisseur(
+                    fournisseur.getId(),mName.getEditText().getText().toString(),mDescription.getEditText().getText().toString(),mTelephone.getEditText().getText().toString(),fournisseur.getDate()
 
+            );
+            mFournisseurRepository.update(updatedFournisseur);
             Intent intent2 = new Intent(FournisseurDetailActivity.this, FournisseurActivity.class);
             startActivity(intent2);
 

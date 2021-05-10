@@ -21,6 +21,7 @@ import com.curuza.data.movements.Movement;
 import com.curuza.data.stock.Product;
 import com.curuza.data.stock.ProductRepository;
 import com.curuza.data.view.ProductMovement;
+import com.curuza.utils.FormatUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,6 +34,7 @@ public class ProductMovementsAdapter extends RecyclerView.Adapter<RecyclerView.V
     private Context mContext;
     private List<ProductMovement> mProductMovements;
     private OnDeleteClickListener onDeleteClickListener;
+    public ConstraintLayout container;
 
 
     public interface OnDeleteClickListener {
@@ -41,7 +43,7 @@ public class ProductMovementsAdapter extends RecyclerView.Adapter<RecyclerView.V
 
 
 
-    public ProductMovementsAdapter(Context mContext, OnDeleteClickListener listener) {
+    public ProductMovementsAdapter(List<ProductMovement> mProductMovements,Context mContext, OnDeleteClickListener listener) {
         this.mContext = mContext;
         mProductMovements = new ArrayList<>();
         this.onDeleteClickListener = listener;
@@ -62,14 +64,11 @@ public class ProductMovementsAdapter extends RecyclerView.Adapter<RecyclerView.V
         };
 
         cardDialog.setItems(cardDialogItems,
-                new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        switch (which) {
-                            case 0:
-
-                                break;
-                        }
+                (dialog, which) -> {
+                    switch (which) {
+                        case 0:
+                           
+                            break;
                     }
                 });
         cardDialog.show();
@@ -84,7 +83,7 @@ public class ProductMovementsAdapter extends RecyclerView.Adapter<RecyclerView.V
         private TextView tvDate;
         private TextView tvAmount;
         private TextView tvTotalAmount;
-        public ConstraintLayout container;
+
         EnterViewHolder(final View itemView) {
             super(itemView);
 
@@ -103,14 +102,18 @@ public class ProductMovementsAdapter extends RecyclerView.Adapter<RecyclerView.V
             tvName.setText(productMovement.getProduct().getName());
             tvQuantity.setText(String.valueOf(productMovement.getMovement().getQuantity()));
             tvDate.setText(DateTimeUtils.getDateString(productMovement.getMovement().getDate()));
-            tvTotalAmount.setText(String.valueOf(productMovement.getMovement().getPAchat()*productMovement.getMovement().getQuantity()));
-            tvAmount.setText(String.valueOf(productMovement.getProduct().getPAchat()));
+            tvTotalAmount.setText(FormatUtils.getLocalizedMonetaryAmountString(productMovement.getMovement().getPAchat()*productMovement.getMovement().getQuantity()));
+            tvAmount.setText(FormatUtils.getLocalizedMonetaryAmountString(productMovement.getProduct().getPAchat()));
 
+              if(productMovement.getProduct().getProductImageUri()!=null) {
 
-            Glide.with(mContext)
-                    .load(productMovement.getProduct().getProductImageUri())
-                    .circleCrop()
-                    .into(imgProducts);
+                  Glide.with(mContext)
+                          .load(productMovement.getProduct().getProductImageUri())
+                          .circleCrop()
+                          .into(imgProducts);
+
+              }
+
 
             container.setOnClickListener(new View.OnClickListener() {
 
@@ -122,12 +125,9 @@ public class ProductMovementsAdapter extends RecyclerView.Adapter<RecyclerView.V
                     mContext.startActivity(intent);
                 }
             });
-            container.setOnLongClickListener(new View.OnLongClickListener() {
-                @Override
-                public boolean onLongClick(View v) {
-                    showCardDialog();
-                    return true;
-                }
+            container.setOnLongClickListener(v -> {
+                showCardDialog();
+                return true;
             });
 
         }
@@ -158,14 +158,16 @@ public class ProductMovementsAdapter extends RecyclerView.Adapter<RecyclerView.V
             tvName.setText(productMovement.getProduct().getName());
             tvQuantity.setText(String.valueOf(productMovement.getMovement().getQuantity()));
             tvDate.setText(DateTimeUtils.getDateString(productMovement.getMovement().getDate()));
-            tvTotalAmount.setText(String.valueOf(productMovement.getMovement().getPVente()*productMovement.getMovement().getQuantity()));
-            tvAmount.setText(String.valueOf(productMovement.getProduct().getPVente()));
+            tvTotalAmount.setText(FormatUtils.getLocalizedMonetaryAmountString(productMovement.getMovement().getPVente()*productMovement.getMovement().getQuantity()));
+            tvAmount.setText(FormatUtils.getLocalizedMonetaryAmountString(productMovement.getProduct().getPVente()));
 
+             if(productMovement.getProduct().getProductImageUri()!=null) {
+                 Glide.with(mContext)
+                         .load(productMovement.getProduct().getProductImageUri())
+                         .circleCrop()
+                         .into(imgProducts);
+             }
 
-            Glide.with(mContext)
-                    .load(productMovement.getProduct().getProductImageUri())
-                    .circleCrop()
-                    .into(imgProducts);
             container.setOnClickListener(new View.OnClickListener() {
 
                 @Override

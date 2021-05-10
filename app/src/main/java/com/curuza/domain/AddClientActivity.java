@@ -3,7 +3,9 @@ package com.curuza.domain;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -25,6 +27,7 @@ public class AddClientActivity extends AppCompatActivity {
     private TextInputLayout mName;
     private TextInputLayout mPhoneNumber;
     private TextInputLayout mDescription;
+    private TextView mNameErrorTextview;
     private TextInputLayout mAmount;
     private  String mDate;
     private Button mValidate;
@@ -46,36 +49,37 @@ public class AddClientActivity extends AppCompatActivity {
 
         mClientRepository = new ClientRepository(getApplicationContext());
 
-
+        mNameErrorTextview =findViewById(R.id.name_textview_error);
         mName= findViewById(R.id.nom_client);
         mPhoneNumber = findViewById(R.id.tel_number);
         mDescription = findViewById(R.id.description_client);
         mValidate = findViewById(R.id.client_validate);
 
         mValidate.setOnClickListener(view -> {
-
             mDate = ZonedDateTime.now().toInstant().toString();
-            Client client = new Client(
-                    UUID.randomUUID().toString(),
-                    mName.getEditText().getText().toString(),
-                    mDescription.getEditText().getText().toString(),
-                    mDate,
-                    mPhoneNumber.getEditText().getText().toString()
-            );
-            mClientRepository.insert(client);
-            Log.d(AddClientActivity.class.getSimpleName(), "Added client: " + client.toString());
 
-            Intent intent1 = new Intent(AddClientActivity.this, ClientActivity.class);
-            intent1.putExtra(Client.CLIENT_EXTRA, client);
-            startActivity(intent1);
+            if (mName.getEditText().length()==0) {
+                mNameErrorTextview.setVisibility(View.VISIBLE);
+            }
+            else
+                if(mName.getEditText().length()!=0) {
 
+                    Client client = new Client(
+                            UUID.randomUUID().toString(),
+                            mName.getEditText().getText().toString(),
+                            mDescription.getEditText().getText().toString(),
+                            mDate,
+                            mPhoneNumber.getEditText().getText().toString()
+                    );
+                    mClientRepository.insert(client);
+                    Log.d(AddClientActivity.class.getSimpleName(), "Added client: " + client.toString());
+
+                    Intent intent1 = new Intent(AddClientActivity.this, ClientActivity.class);
+                    intent1.putExtra(Client.CLIENT_EXTRA, client);
+                    startActivity(intent1);
+                }
 
         });
-
-
-
-
-
 
 
     }

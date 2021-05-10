@@ -2,72 +2,89 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
-
-
-
-    <group android:checkableBehavior="single">
+    <group android:id="@+id/grp1" android:checkableBehavior="single">
         <item
             android:id="@+id/nav_home"
             android:icon="@drawable/ic_baseline_home_24"
-            android:title="Home" />
+            android:title="@string/Home_activity" />
+    </group>
+
+
+    <group android:id="@+id/grp2" android:checkableBehavior="single">
+
         <item
             android:id="@+id/nav_products"
-            android:icon="@drawable/ic_baseline_receipt_24"
-            android:title="Products" />
+            android:icon="@drawable/ic_open_box"
+            android:title="@string/products_activity" />
         <item
             android:id="@+id/nav_documents"
-            android:icon="@drawable/ic_baseline_menu_book_24"
-            android:title="Documents" />
+            android:icon="@drawable/ic_baseline_import_export_24"
+            android:title="@string/documents_activity" />
 
         <item
             android:id="@+id/nav_stock"
-            android:icon="@drawable/ic_baseline_menu_book_24"
-            android:title="Stock" />
+            android:icon="@drawable/ic_stock"
+            android:title="@string/stock_activity" />
         <item
             android:id="@+id/nav_credit"
-            android:icon="@drawable/ic_baseline_menu_book_24"
-            android:title="Credit" />
+            android:icon="@drawable/ic_credit"
+            android:title="@string/credit_activity" />
+
+    </group>
+    <group android:id="@+id/grp3" android:checkableBehavior="single">
         <item
             android:id="@+id/nav_depense"
-            android:icon="@drawable/ic_baseline_menu_book_24"
-            android:title="Depense" />
+            android:icon="@drawable/ic_baseline_whito"
+            android:title="@string/depense_activity" />
 
         <item
             android:id="@+id/nav_rapport"
-            android:icon="@drawable/ic_baseline_menu_book_24"
-            android:title="Rapport" />
+            android:icon="@drawable/ic_trend"
+            android:title="@string/rapport_activity" />
         <item
             android:id="@+id/nav_fournisseur"
-            android:icon="@drawable/ic_baseline_menu_book_24"
-            android:title="Fournisseur" />
+            android:icon="@drawable/ic_hotel_supplier"
+            android:title="@string/fournisseur_activity" />
         <item
             android:id="@+id/nav_client"
-            android:icon="@drawable/ic_baseline_menu_book_24"
-            android:title="Client" />
-
-        <item
-            android:id="@+id/nav_settings"
-            android:icon="@drawable/ic_baseline_menu_book_24"
-            android:title="Settings" />
-
-        <item
-            android:id="@+id/nav_question"
-            android:icon="@drawable/ic_baseline_menu_book_24"
-            android:title="Question ou Suggestion" />
-        <item
-            android:id="@+id/nav_subscription"
-            android:icon="@drawable/ic_baseline_menu_book_24"
-            android:title="Subscription" />
-        <item
-            android:id="@+id/nav_help"
-            android:icon="@drawable/ic_baseline_menu_book_24"
-            android:title="Help" />
-        <item
-            android:id="@+id/nav_share"
-            android:icon="@drawable/ic_baseline_menu_book_24"
-            android:title="Share" />
-
+            android:icon="@drawable/ic_client"
+            android:title="@string/client_activity" />
     </group>
+        <group android:id="@+id/grp4" android:checkableBehavior="single">
+
+
+            <item
+                android:id="@+id/nav_about"
+                android:icon="@drawable/ic_information"
+                android:title="@string/about_activity" />
+
+
+            <item
+                android:id="@+id/nav_question"
+                android:icon="@drawable/ic_whatsapp__1_"
+                android:title="@string/question_activity" />
+            <item
+                android:id="@+id/nav_subscription"
+                android:icon="@drawable/ic_baseline_shopping_cart_24"
+                android:title="@string/subscription_activity" />
+
+            <item
+                android:id="@+id/nav_settings"
+                android:icon="@drawable/ic_baseline_settings_24"
+                android:title="@string/settings_activity" />
+            <item
+                android:id="@+id/nav_help"
+                android:icon="@drawable/ic_baseline_help_24"
+                android:title="@string/help_activity" />
+            <item
+                android:id="@+id/nav_share"
+                android:icon="@drawable/ic_baseline_share_24"
+                android:title="@string/share_activity" />
+        </group>
+
+
+
+
 
 
 

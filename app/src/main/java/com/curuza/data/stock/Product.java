@@ -22,7 +22,6 @@ public class Product implements Parcelable {
     @PrimaryKey
     @ColumnInfo(name = "id")
     private String mId;
-    @NonNull
     @ColumnInfo(name = "resourceId")
     private Uri mProductImageUri;
     @NonNull
@@ -52,8 +51,6 @@ public class Product implements Parcelable {
         this.mQuantity = mQuantity;
         this.mPAchat = mPAchat;
         this.mPVente = mPVente;
-
-
 
     }
 

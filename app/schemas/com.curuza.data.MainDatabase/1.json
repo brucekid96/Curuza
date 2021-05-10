@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "5588a62ab4122cd9540006f78f62b185",
+    "identityHash": "788a676456685fdeddfcca5bf2803996",
     "entities": [
       {
         "tableName": "products_table",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `resourceId` TEXT NOT NULL, `name` TEXT NOT NULL, `description` TEXT, `quantity` INTEGER NOT NULL, `p_achat` INTEGER NOT NULL, `p_vente` INTEGER NOT NULL, PRIMARY KEY(`id`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `resourceId` TEXT, `name` TEXT NOT NULL, `description` TEXT, `quantity` INTEGER NOT NULL, `p_achat` INTEGER NOT NULL, `p_vente` INTEGER NOT NULL, PRIMARY KEY(`id`))",
         "fields": [
           {
             "fieldPath": "mId",
@@ -18,7 +18,7 @@
             "fieldPath": "mProductImageUri",
             "columnName": "resourceId",
             "affinity": "TEXT",
-            "notNull": true
+            "notNull": false
           },
           {
             "fieldPath": "name",
@@ -297,11 +297,15 @@
       {
         "viewName": "product_movement",
         "createSql": "CREATE VIEW `${VIEW_NAME}` AS select p.id,p.resourceId,p.name,p.description,p.quantity,p.p_vente,p.p_achat , m.movement_id,m.product_id,m.movement_quantity,m.movement_date,m.movement_status,m.movement_p_vente,m.movement_p_achat from products_table p inner join movement m on p.id = m.product_id"
+      },
+      {
+        "viewName": "rapport",
+        "createSql": "CREATE VIEW `${VIEW_NAME}` AS select SUM(movement_p_vente), CAST(movement_date AS DATE) as 'p vente amount per day' from MOVEMENT"
       }
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '5588a62ab4122cd9540006f78f62b185')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '788a676456685fdeddfcca5bf2803996')"
     ]
   }
 }

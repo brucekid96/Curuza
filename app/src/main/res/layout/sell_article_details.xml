@@ -16,9 +16,9 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:menu="@menu/home"
-        app:title="Sell Article"
-        app:titleTextAppearance="@style/Ikirori_TextAppearance_Toolbar"
+        app:menu="@menu/documents"
+        app:title="@string/sell_article_detail"
+        app:titleTextAppearance="@style/Curuza_TextAppearance_Toolbar"
         app:titleTextColor="@android:color/white" />
 
     <ScrollView
@@ -57,7 +57,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:fontFamily="@font/montserrat_regular"
-                android:text="Nom"
+                android:text="@string/nom"
                 android:textColor="@color/colorPrimary"
                 android:textSize="18sp"
                 android:textStyle="bold"
@@ -97,7 +97,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
                 android:fontFamily="@font/montserrat_regular"
-                android:text="Quantite"
+                android:text="@string/quantite"
                 android:textColor="@color/colorPrimary"
                 android:textSize="18sp"
                 android:textStyle="bold"
@@ -134,13 +134,13 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:background="@drawable/rounded_corners"
-                android:text="validate"
+                android:text="@string/validate"
                 app:layout_constraintEnd_toStartOf="@+id/guideline2"
                 app:layout_constraintStart_toStartOf="@+id/guideline"
-                app:layout_constraintTop_toBottomOf="@+id/textView8" />
+                app:layout_constraintTop_toBottomOf="@+id/amount_txview_error" />
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/amount_total"
+                android:id="@+id/name_textview_error"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -167,7 +167,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
                 android:fontFamily="@font/montserrat_regular"
-                android:text="Amount"
+                android:text="@string/amount"
                 android:textColor="@color/colorPrimary"
                 android:textSize="18sp"
                 android:textStyle="bold"
@@ -183,10 +183,10 @@
                 android:textSize="18sp"
                 android:visibility="invisible"
                 app:layout_constraintStart_toStartOf="@+id/guideline"
-                app:layout_constraintTop_toBottomOf="@+id/amount_total" />
+                app:layout_constraintTop_toBottomOf="@+id/name_textview_error" />
 
             <TextView
-                android:id="@+id/textView8"
+                android:id="@+id/amount_txview_error"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -196,7 +196,7 @@
                 android:visibility="invisible"
                 app:layout_constraintEnd_toStartOf="@+id/guideline2"
                 app:layout_constraintStart_toEndOf="@+id/textView7"
-                app:layout_constraintTop_toBottomOf="@+id/amount_total" />
+                app:layout_constraintTop_toBottomOf="@+id/name_textview_error" />
 
             <ImageView
                 android:id="@+id/image_content"

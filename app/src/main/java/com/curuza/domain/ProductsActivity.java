@@ -23,9 +23,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.curuza.R;
 import com.curuza.data.stock.Product;
-import com.curuza.data.stock.ProductRepository;
 import com.curuza.data.stock.ProductViewModel;
-import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
 import com.google.android.material.navigation.NavigationView;
@@ -34,7 +32,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
- public  class  Products extends AppCompatActivity  implements NavigationView.OnNavigationItemSelectedListener {
+ public  class ProductsActivity extends AppCompatActivity  implements NavigationView.OnNavigationItemSelectedListener {
 
     private RecyclerView rcvProduct;
     private FloatingActionMenu fab;
@@ -75,7 +73,7 @@ import java.util.List;
         fab1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(Products.this, SellArticleActivity.class));
+                startActivity(new Intent(ProductsActivity.this, SellArticleActivity.class));
             }
         });
 
@@ -83,7 +81,7 @@ import java.util.List;
         fab2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(Products.this, AddArticle.class));
+                startActivity(new Intent(ProductsActivity.this, AddArticle.class));
             }
         });
 
@@ -96,11 +94,9 @@ import java.util.List;
         productsAdapter.setData(getListProduct());
         rcvProduct.setAdapter(productsAdapter);
         mModel= ViewModelProviders.of(this).get(ProductViewModel.class);
-        mModel.getAllProducts().observe(this, new Observer<List<Product>>() {
-            @Override
-            public void onChanged(List<Product> products) {
-                productsAdapter.setData(products);
-            }
+        mModel.getAllProducts().observe(this, products -> {
+            productList = products;
+            productsAdapter.setData(products);
         });
         rcvProduct.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
@@ -115,6 +111,7 @@ import java.util.List;
         });
 
     }
+
 
 
      public void updateSearchResults(String searchQuery) {
@@ -160,13 +157,13 @@ import java.util.List;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.home, menu);
+
+        getMenuInflater().inflate(R.menu.product, menu);
         MenuItem menuItem = menu.findItem(R.id.menu_item_search);
         SearchView searchView =(SearchView) menuItem.getActionView();
         searchView.requestFocus();
         searchView.setImeOptions(EditorInfo.IME_ACTION_DONE);
-        searchView.setQueryHint("search");
+        
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -208,36 +205,36 @@ import java.util.List;
 
         if (id == R.id.nav_home) {
             // Handle the camera action
-            startActivity(new Intent(Products.this, MainActivity.class));
+            startActivity(new Intent(ProductsActivity.this, MainActivity.class));
 
         } else if (id == R.id.nav_products) {
-            startActivity(new Intent(Products.this,Products.class));
+            startActivity(new Intent(ProductsActivity.this, ProductsActivity.class));
 
         } else if (id == R.id.nav_documents) {
-            startActivity(new Intent(Products.this, DocumentsActivity.class));
+            startActivity(new Intent(ProductsActivity.this, DocumentsActivity.class));
 
 
         } else if (id == R.id.nav_stock) {
-            startActivity(new Intent(Products.this, StockActivity.class));
+            startActivity(new Intent(ProductsActivity.this, StockActivity.class));
         } else if (id == R.id.nav_credit) {
-            startActivity(new Intent(Products.this, CreditActivity.class));
+            startActivity(new Intent(ProductsActivity.this, CreditActivity.class));
         }  else if (id == R.id.nav_depense) {
-            startActivity(new Intent( Products.this,DepenseActivity.class));
+            startActivity(new Intent( ProductsActivity.this,DepenseActivity.class));
         }  else if (id == R.id.nav_fournisseur) {
-            startActivity(new Intent( Products.this,FournisseurActivity.class));
+            startActivity(new Intent( ProductsActivity.this,FournisseurActivity.class));
         }  else if (id == R.id.nav_client) {
-            startActivity(new Intent( Products.this,ClientActivity.class));
+            startActivity(new Intent( ProductsActivity.this,ClientActivity.class));
         }
         else if (id == R.id.nav_rapport) {
-            startActivity(new Intent( Products.this,RapportActivity.class));
+            startActivity(new Intent( ProductsActivity.this,RapportActivity.class));
         }  else if (id == R.id.nav_settings) {
-            startActivity(new Intent( Products.this,SettingsActivity.class));
+            startActivity(new Intent( ProductsActivity.this,SettingsActivity.class));
         } else if (id == R.id.nav_question) {
-            startActivity(new Intent( Products.this,QuestionsActivity.class));
+            startActivity(new Intent( ProductsActivity.this,QuestionsActivity.class));
         } else if (id == R.id.nav_subscription) {
-            startActivity(new Intent( Products.this,SubscriptionsActivity.class));
+            startActivity(new Intent( ProductsActivity.this,SubscriptionsActivity.class));
         } else if (id == R.id.nav_help) {
-            startActivity(new Intent( Products.this,HelpActivity.class));
+            startActivity(new Intent( ProductsActivity.this,HelpActivity.class));
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

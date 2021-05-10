@@ -36,6 +36,7 @@ public class AllProductsFragment extends Fragment implements ProductMovementsAda
     private ProductMovementsAdapter mProductAdapter;
     MovementViewModel mModel;
     private MovementRepository mMovementRepository;
+    private List<ProductMovement> productMovementList;
 
     private OnFragmentInteractionListener mListener;
 
@@ -71,18 +72,36 @@ public class AllProductsFragment extends Fragment implements ProductMovementsAda
 
         mRecyclerView =view.findViewById(R.id.all_products_recyclerview);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        mProductAdapter = new ProductMovementsAdapter(getContext(),this::OnDeleteClickListener);
+        mProductAdapter = new ProductMovementsAdapter(getProductMovementList(),getContext(),this::OnDeleteClickListener);
+        mProductAdapter.setData(getProductMovementList());
         mRecyclerView.setAdapter(mProductAdapter);
         mModel= ViewModelProviders.of(this).get(MovementViewModel.class);
         mModel.getAllProductMovements().observe(this, productMovements -> {
                 Log.d(AllProductsFragment.class.getSimpleName(), "mModel.getProductMovements()");
                 Log.d(AllProductsFragment.class.getSimpleName(), "Product movement list: " + productMovements.toString());
+            productMovementList = productMovements;
                 mProductAdapter.setData(productMovements);
         });
 
         return view;
 
 
+    }
+
+    public void updateSearchResults(String searchQuery) {
+        if(productMovementList != null) {
+            List<ProductMovement> searchResults = new ArrayList<>();
+
+            for (ProductMovement productMovement : productMovementList) {
+
+                if (productMovement.getProduct().getName().toLowerCase().contains(searchQuery.toLowerCase()) ||
+                        productMovement.getProduct().getDescription().toLowerCase().contains(searchQuery.toLowerCase())) {
+                    searchResults.add(productMovement);
+                }
+            }
+
+            mProductAdapter.setData(searchResults);
+        }
     }
 
     public void onButtonPressed(Uri uri) {
@@ -112,7 +131,7 @@ public class AllProductsFragment extends Fragment implements ProductMovementsAda
         void onFragmentInteraction(Uri uri);
     }
 
-    private List<ProductMovement> getmAllMovements() {
+    private List<ProductMovement> getProductMovementList() {
         List<ProductMovement> list = new ArrayList<>();
         Date date = new Date();
 

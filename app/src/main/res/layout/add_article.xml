@@ -17,8 +17,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:title="Add article"
-        app:titleTextAppearance="@style/Ikirori_TextAppearance_Toolbar"
+        app:title="@string/add_article"
+        app:titleTextAppearance="@style/Curuza_TextAppearance_Toolbar"
         app:titleTextColor="@android:color/white" />
 
     <ScrollView
@@ -94,7 +94,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:text="Description"
+                android:text="@string/description"
                 android:textColor="@color/colorPrimary"
                 android:textSize="18sp"
                 android:textStyle="bold"
@@ -132,33 +132,17 @@
                 android:id="@+id/uploadbutton"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="24dp"
                 android:background="@drawable/rounded_corners"
                 android:fontFamily="@font/montserrat_bold"
                 android:paddingRight="16dp"
-                android:text="Upload Image"
+                android:text="@string/Upload_picture"
                 android:textColor="@color/colorWhite"
                 app:drawableRightCompat="@drawable/upload_white"
                 app:layout_constraintEnd_toStartOf="@+id/guideline2"
                 app:layout_constraintStart_toStartOf="@+id/guideline"
-                app:layout_constraintTop_toBottomOf="@+id/textView3" />
-
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/textView3"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginRight="8dp"
-                android:fontFamily="@font/montserrat_regular"
-                android:text=" Recommended Size: 480dp x 300dp "
-                android:textColor="@color/colorPrimary"
-                android:textSize="14sp"
-                app:drawableLeftCompat="@drawable/ic_lightbulb_outline_blue_24dp"
-                app:layout_constraintEnd_toStartOf="@+id/guideline2"
-                app:layout_constraintStart_toStartOf="@+id/guideline"
                 app:layout_constraintTop_toBottomOf="@+id/image_content" />
+
 
             <ImageView
                 android:id="@+id/image_content"
@@ -200,7 +184,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Invalid Title"
-                android:textColor="@color/colorPrimary"
+                android:textColor="@color/colorDarkGrey"
                 android:visibility="invisible"
                 app:drawableLeftCompat="@drawable/ic_report_black_24dp"
                 app:layout_constraintStart_toStartOf="@+id/guideline"
@@ -211,7 +195,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Invalid Description "
-                android:textColor="@color/colorPrimary"
+                android:textColor="@color/colorDarkGrey"
                 android:visibility="invisible"
                 app:layout_constraintStart_toStartOf="@+id/guideline"
                 app:layout_constraintTop_toBottomOf="@+id/description_stock" />
@@ -231,7 +215,7 @@
                 android:id="@+id/textView6"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="Quantite"
+                android:text="@string/quantite"
                 android:textColor="@color/colorPrimary"
                 android:textSize="18sp"
                 android:textStyle="bold"
@@ -265,7 +249,7 @@
                 android:id="@+id/prix_vente_sell"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="Prix d'Achat"
+                android:text="@string/prix_achat"
                 android:textColor="@color/colorPrimary"
                 android:textSize="18sp"
                 android:textStyle="bold"
@@ -299,7 +283,7 @@
                 android:id="@+id/p_vente"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="Prix de Vente"
+                android:text="@string/prix_vente"
                 android:textColor="@color/colorPrimary"
                 android:textSize="18sp"
                 android:textStyle="bold"
@@ -332,7 +316,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Invalid Quantity"
-                android:textColor="@color/colorPrimary"
+                android:textColor="@color/colorDarkGrey"
                 android:visibility="invisible"
                 app:layout_constraintStart_toStartOf="@+id/guideline"
                 app:layout_constraintTop_toBottomOf="@+id/add_quantity_stock" />
@@ -342,7 +326,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Invalid Prix d'achat"
-                android:textColor="@color/colorPrimary"
+                android:textColor="@color/colorDarkGrey"
                 android:visibility="invisible"
                 app:layout_constraintStart_toStartOf="@+id/guideline"
                 app:layout_constraintTop_toBottomOf="@+id/p_vente_input_stock" />
@@ -352,7 +336,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="Invalid Prix de vente"
-                android:textColor="@color/colorPrimary"
+                android:textColor="@color/colorDarkGrey"
                 android:visibility="invisible"
                 app:layout_constraintStart_toStartOf="@+id/guideline"
                 app:layout_constraintTop_toBottomOf="@+id/p_vente_stock" />

@@ -18,7 +18,7 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.MaterialComponents.Light" />
 
-    <style name="Ikirori_TextAppearance_Toolbar">
+    <style name="Curuza_TextAppearance_Toolbar">
         <item name="android:textColor">@color/colorWhite</item>
         <item name="android:textSize">18sp</item>
         <item name="android:fontFamily">@font/montserrat_bold</item>

@@ -7,6 +7,7 @@ import androidx.lifecycle.LiveData;
 
 import com.curuza.data.MainDatabase;
 import com.curuza.data.view.ProductMovement;
+import com.curuza.data.view.Rapport;
 
 
 import java.util.List;
@@ -28,7 +29,9 @@ public class MovementRepository {
     public LiveData<List<ProductMovement>> getProductMovements() {
         return db.movementDao().getProductMovements();
     }
-
+   public LiveData<List<Rapport>>getRapportList() {
+        return db.movementDao().getRapportList();
+   }
     public LiveData<List<ProductMovement>> getEnterProductMovements() {
         return db.movementDao().getEnterProductMovements();
     }

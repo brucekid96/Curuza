@@ -16,8 +16,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:title="Modifier un article"
-        app:titleTextAppearance="@style/Ikirori_TextAppearance_Toolbar"
+        app:title="@string/article_detail"
+        app:titleTextAppearance="@style/Curuza_TextAppearance_Toolbar"
         app:titleTextColor="@android:color/white" />
 
     <ScrollView

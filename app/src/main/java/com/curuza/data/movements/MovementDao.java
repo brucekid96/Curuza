@@ -8,6 +8,7 @@ import androidx.room.Query;
 import androidx.room.Update;
 
 import com.curuza.data.view.ProductMovement;
+import com.curuza.data.view.Rapport;
 
 import java.util.List;
 
@@ -32,6 +33,8 @@ public interface MovementDao {
 
     @Query("SELECT * from  movement where movement_id = :MovementId ")
     LiveData<Movement> getMovement(String MovementId);
+    @Query("select * from rapport ")
+    LiveData<List<Rapport>>getRapportList();
 
     @Query("SELECT * from  product_movement where movement_status= 'Enter'")
     LiveData<List<ProductMovement>>getEnterProductMovements();

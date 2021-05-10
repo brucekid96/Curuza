@@ -1,8 +1,9 @@
 package com.curuza.domain;
 
-import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -13,12 +14,12 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.curuza.R;
 import com.curuza.data.movements.MovementViewModel;
 import com.curuza.data.view.Rapport;
-import com.curuza.data.view.ProductMovement;
 import com.google.android.material.navigation.NavigationView;
 
 import java.util.ArrayList;
@@ -27,11 +28,9 @@ import java.util.List;
 
 public class RapportActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private RapportAdapter rapportAdapter;
-    private List<Rapport> rapportList;
-    private Context mContext;
     private RecyclerView rcvRapport;
     private MovementViewModel mModel;
-    private RapportAdapter.OnItemListener mOnItemListener;
+
 
 
 
@@ -45,9 +44,18 @@ public class RapportActivity extends AppCompatActivity implements NavigationView
         setSupportActionBar(toolbar);
 
         rcvRapport = findViewById(R.id.rcv_rapport);
-        rapportAdapter = new RapportAdapter(getListRapport(),mContext,mOnItemListener);
-        rapportAdapter.setData(getListRapport());
+        rapportAdapter = new RapportAdapter(this);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        rcvRapport.setLayoutManager(linearLayoutManager);
         rcvRapport.setAdapter(rapportAdapter);
+        mModel= ViewModelProviders.of(this).get(MovementViewModel.class);
+        mModel.getRapportList().observe(this, new Observer<List<Rapport>>() {
+            @Override
+            public void onChanged(List<Rapport> rapports) {
+                rapportAdapter.setData(rapports);
+            }
+        });
+
 
 
 
@@ -85,7 +93,7 @@ public class RapportActivity extends AppCompatActivity implements NavigationView
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.home, menu);
+        getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
 
@@ -114,7 +122,7 @@ public class RapportActivity extends AppCompatActivity implements NavigationView
             startActivity(new Intent(RapportActivity.this, MainActivity.class));
 
         } else if (id == R.id.nav_products) {
-            startActivity(new Intent(RapportActivity.this,Products.class));
+            startActivity(new Intent(RapportActivity.this, ProductsActivity.class));
 
         } else if (id == R.id.nav_documents) {
             startActivity(new Intent(RapportActivity.this, DocumentsActivity.class));
@@ -136,7 +144,10 @@ public class RapportActivity extends AppCompatActivity implements NavigationView
         }   else if (id == R.id.nav_settings) {
             startActivity(new Intent( RapportActivity.this,SettingsActivity.class));
         } else if (id == R.id.nav_question) {
-            startActivity(new Intent( RapportActivity.this,QuestionsActivity.class));
+            String url = "https://api.whatsapp.com/send?phone=+25779841239";
+            Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(i);
         } else if (id == R.id.nav_subscription) {
             startActivity(new Intent( RapportActivity.this,SubscriptionsActivity.class));
         } else if (id == R.id.nav_help) {

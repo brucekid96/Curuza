@@ -19,25 +19,23 @@ import com.curuza.data.client.ClientRepository;
 import com.curuza.data.credit.Credit;
 import com.curuza.data.depense.Depense;
 import com.curuza.data.depense.DepenseRepository;
+import com.curuza.utils.FormatUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class DepenseAdapter extends RecyclerView.Adapter<DepenseAdapter.ViewHolder> {
 
     private List<Depense> mDepenses;
-    private Depense depense;
     private Context mContext;
-    private OnDeleteClickListener onDeleteClickListener;
     private DepenseRepository mDepenseRepository;
 
-    public interface OnDeleteClickListener {
-        void OnDeleteClickListener(Depense depense);
-    }
 
-    public DepenseAdapter(List<Depense> listDepenses, Context mContext, OnDeleteClickListener listener) {
-        this.mDepenses = listDepenses;
+
+    public DepenseAdapter(List<Depense> mListDepense, Context mContext) {
+        this.mDepenses = mListDepense;
         this.mContext = mContext;
-        this.onDeleteClickListener = listener;
+
 
     }
 
@@ -47,7 +45,7 @@ public class DepenseAdapter extends RecyclerView.Adapter<DepenseAdapter.ViewHold
         notifyDataSetChanged();
     }
 
-    private void showCardDialog() {
+    private void showCardDialog(Depense depense) {
         mDepenseRepository = new DepenseRepository(mContext.getApplicationContext());
         AlertDialog.Builder cardDialog = new AlertDialog.Builder(mContext);
         cardDialog.setTitle("Delete Depense");
@@ -56,15 +54,12 @@ public class DepenseAdapter extends RecyclerView.Adapter<DepenseAdapter.ViewHold
         };
 
         cardDialog.setItems(cardDialogItems,
-                new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        switch (which) {
-                            case 0:
-                                mDepenseRepository.delete(depense);
+                (dialog, which) -> {
+                    switch (which) {
+                        case 0:
+                            mDepenseRepository.delete(depense);
 
-                                break;
-                        }
+                            break;
                     }
                 });
         cardDialog.show();
@@ -80,33 +75,23 @@ public class DepenseAdapter extends RecyclerView.Adapter<DepenseAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(@NonNull DepenseAdapter.ViewHolder holder, int position) {
-         depense = mDepenses.get(position);
-        if(depense ==null) {
-            return;
-        }
+       Depense  depense = mDepenses.get(position);
 
         holder.tvDescription.setText(depense.getDescription());
-        holder.tvAmount.setText(String.valueOf(depense.getAmount()));
+        holder.tvAmount.setText(FormatUtils.getLocalizedMonetaryAmountString(depense.getAmount()));
 
         holder.tvDate.setText(DateTimeUtils.getDateString(depense.getDate()));
 
-        holder.container.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
+        holder.container.setOnClickListener(v -> {
 
 
-                Intent intent = new Intent(mContext, DepenseDetailActivity.class);
-                intent.putExtra(Depense.DEPENSE_EXTRA,depense);
-                mContext.startActivity(intent);
-            }
+            Intent intent = new Intent(mContext, DepenseDetailActivity.class);
+            intent.putExtra(Depense.DEPENSE_EXTRA,depense);
+            mContext.startActivity(intent);
         });
-        holder.container.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                showCardDialog();
-                return true;
-            }
+        holder.container.setOnLongClickListener(v -> {
+            showCardDialog(depense);
+            return true;
         });
 
     }
@@ -114,10 +99,7 @@ public class DepenseAdapter extends RecyclerView.Adapter<DepenseAdapter.ViewHold
 
     @Override
     public int getItemCount() {
-        if (mDepenses != null) {
             return mDepenses.size();
-        }
-        return 0;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

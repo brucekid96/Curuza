@@ -102,8 +102,9 @@ public class Depense implements Parcelable {
 
         dest.writeString(this.id);
         dest.writeString(this.description);
-        dest.writeString(this.date);
         dest.writeInt(this.amount);
+        dest.writeString(this.date);
+
 
     }
 

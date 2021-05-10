@@ -11,19 +11,17 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.curuza.R;
-import com.curuza.data.view.Rapport;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 
@@ -91,7 +89,7 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
         mProducts = findViewById(R.id.products_card);
         mProducts.setOnClickListener(new View.OnClickListener() {
             @Override public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, Products.class));
+                startActivity(new Intent(MainActivity.this, ProductsActivity.class));
             }
         });
         mDocuments = findViewById(R.id.document_card);
@@ -244,7 +242,7 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
             Toast.makeText(getApplicationContext(),"home",Toast.LENGTH_LONG).show();
 
         } else if (id == R.id.nav_products) {
-            startActivity(new Intent(MainActivity.this, Products.class));
+            startActivity(new Intent(MainActivity.this, ProductsActivity.class));
 
         } else if (id == R.id.nav_documents) {
             startActivity(new Intent(MainActivity.this, DocumentsActivity.class));
@@ -266,7 +264,10 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
         }  else if (id == R.id.nav_settings) {
             startActivity(new Intent( MainActivity.this,SettingsActivity.class));
         } else if (id == R.id.nav_question) {
-            startActivity(new Intent( MainActivity.this,QuestionsActivity.class));
+            String url = "https://api.whatsapp.com/send?phone=+25779841239";
+            Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(i);
         } else if (id == R.id.nav_subscription) {
             startActivity(new Intent( MainActivity.this,SubscriptionsActivity.class));
         } else if (id == R.id.nav_help) {

@@ -3,8 +3,10 @@ package com.curuza.domain;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.inputmethod.EditorInfo;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 
 import androidx.lifecycle.Observer;
@@ -26,6 +28,7 @@ public class SellArticleActivity extends AppCompatActivity {
     private RecyclerView rcvSellArticle;
     private SellArticleAdapter sellArticleAdapter;
     private ProductViewModel mModel;
+    private List<Product> productList;
     private SellArticleAdapter.OnItemListener OnitemListener;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,11 +54,29 @@ public class SellArticleActivity extends AppCompatActivity {
         mModel.getAllProducts().observe(this, new Observer<List<Product>>() {
             @Override
             public void onChanged(List<Product> products) {
+                productList = products;
                 sellArticleAdapter.setData(products);
             }
         });
 
 
+    }
+
+
+    public void updateSearchResults(String searchQuery) {
+        if(productList != null) {
+            List<Product> searchResults = new ArrayList<>();
+
+            for (Product product : productList) {
+
+                if (product.getName().toLowerCase().contains(searchQuery.toLowerCase()) ||
+                        product.getDescription().toLowerCase().contains(searchQuery.toLowerCase())) {
+                    searchResults.add(product);
+                }
+            }
+
+            sellArticleAdapter.setData(searchResults);
+        }
     }
 
     private List<Product> getListProduct() {
@@ -70,7 +91,26 @@ public class SellArticleActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.home, menu);
+        getMenuInflater().inflate(R.menu.product, menu);
+        MenuItem menuItem = menu.findItem(R.id.menu_item_search);
+        SearchView searchView =(SearchView) menuItem.getActionView();
+        searchView.requestFocus();
+        searchView.setImeOptions(EditorInfo.IME_ACTION_DONE);
+
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String query) {
+                updateSearchResults(query);
+                return false;
+            }
+        });
         return true;
     }
 

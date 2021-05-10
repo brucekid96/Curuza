@@ -60,7 +60,7 @@ public class CreditFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_credit, container, false);
         mRecyclerView =view.findViewById(R.id.credit_recyclerview);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        mAdapter = new ProductMovementsAdapter(getContext(),null);
+        mAdapter = new ProductMovementsAdapter(getListProduct(),getContext(),null);
         mRecyclerView.setAdapter(mAdapter);
         mModel= ViewModelProviders.of(this).get(MovementViewModel.class);
         mModel.getEnterProductMovements().observe(this, productMovements ->  {

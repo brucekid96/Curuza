@@ -128,14 +128,12 @@ public class Credit implements Parcelable  {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-
         dest.writeString(this.id);
         dest.writeString(this.personName);
         dest.writeString(this.description);
+        dest.writeInt(this.amount);
         dest.writeString(this.date);
         dest.writeString(this.telephone);
-        dest.writeInt(this.amount);
-
     }
 
     public static final Parcelable.Creator<Credit> CREATOR =

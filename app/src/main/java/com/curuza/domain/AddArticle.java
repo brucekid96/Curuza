@@ -3,16 +3,12 @@ package com.curuza.domain;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 
 import com.bumptech.glide.Glide;
@@ -80,78 +76,64 @@ public class AddArticle extends AppCompatActivity {
         mPrixAchatView = findViewById(R.id.p_vente_input_stock);
         mPrixVenteView = findViewById(R.id.p_vente_stock);
 
-        mUploadImageButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                choosePhotoFromGallery();
-            }
-        });
+        mUploadImageButton.setOnClickListener(v -> choosePhotoFromGallery());
 
 
         mFab = findViewById(R.id.floatingActionButton);
-        mFab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mDate = ZonedDateTime.now().toInstant().toString();
-                int quant = Integer.parseInt(mQuantityView.getEditText().getText().toString());
-                int P_Achat = Integer.parseInt(mPrixAchatView.getEditText().getText().toString());
-                int P_Vente = Integer.parseInt(mPrixVenteView.getEditText().getText().toString());
+        mFab.setOnClickListener(view -> {
+            mDate = ZonedDateTime.now().toInstant().toString();
 
-                if (mNameView.getEditText().length()==0) {
-                    mTitleErrorTextview.setVisibility(View.VISIBLE);
-
-                }
-                else
-                if( mDescriptionView.getEditText().length()==0  ) {
-                    mDescriptionErrorTextview.setVisibility(View.VISIBLE);
-                }
-                if( mQuantityView.getEditText().length()==0  ) {
-                    mQuantityErrorTextView.setVisibility(View.VISIBLE);
-                }
-                if( mPrixAchatView.getEditText().length()==0  ) {
-                    mPAchatErrorTextview.setVisibility(View.VISIBLE);
-                }
-                if( mPrixVenteView.getEditText().length()==0  ) {
-                    mPVenteErrorTextview.setVisibility(View.VISIBLE);
-                }
-                else if( mNameView.getEditText().length()!=0  & mQuantityView.getEditText().length()!=0 & mPrixAchatView.getEditText().length()!=0 & mPrixVenteView.getEditText().length()!=0)
-                {
-
-                    String productId = UUID.randomUUID().toString();
-                    String movementId = UUID.randomUUID().toString();
-
-                    mProductRepository = new ProductRepository(getApplication());
-                    mProductRepository.insert(
-                        new Product(
-                                productId,
-                                mProductImageURI,
-                                mNameView.getEditText().getText().toString(),
-                                mDescriptionView.getEditText().getText().toString(),
-                                quant,
-                                P_Achat,
-                                P_Vente
-
-                        )
-                    );
-                    mMovementRepository = new MovementRepository(getApplication());
-                    mMovementRepository.insert(
-                            new Movement(
-                                    movementId,
-                                productId,
-                                    quant,
-                                    P_Achat,
-                                    P_Vente,
-                                    mDate,
-                                    RequestStatus.Enter
-                            )
-
-                    );
-                    Intent intent = new Intent(AddArticle.this, Products.class);
-                    intent.putExtra(Product.PRODUCT_EXTRA, mProduct);
-                    startActivity(intent);
-                }
-
+            if (mNameView.getEditText().length()==0) {
+                mTitleErrorTextview.setVisibility(View.VISIBLE);
             }
+            else
+
+            if( mQuantityView.getEditText().length()==0  ) {
+                mQuantityErrorTextView.setVisibility(View.VISIBLE);
+            }
+            if( mPrixAchatView.getEditText().length()==0  ) {
+                mPAchatErrorTextview.setVisibility(View.VISIBLE);
+            }
+            if( mPrixVenteView.getEditText().length()==0  ) {
+                mPVenteErrorTextview.setVisibility(View.VISIBLE);
+            }
+            else if(  mNameView.getEditText().length()!=0  && mQuantityView.getEditText().length()!=0 && mPrixAchatView.getEditText().length()!=0 && mPrixVenteView.getEditText().length()!=0)
+            {
+
+                String productId = UUID.randomUUID().toString();
+                String movementId = UUID.randomUUID().toString();
+
+                mProductRepository = new ProductRepository(getApplication());
+                mProductRepository.insert(
+                    new Product(
+                            productId,
+                            mProductImageURI,
+                            mNameView.getEditText().getText().toString(),
+                            mDescriptionView.getEditText().getText().toString(),
+                            Integer.parseInt(mQuantityView.getEditText().getText().toString()),
+                            Integer.parseInt(mPrixAchatView.getEditText().getText().toString()),
+                            Integer.parseInt(mPrixVenteView.getEditText().getText().toString())
+
+                    )
+                );
+                mMovementRepository = new MovementRepository(getApplication());
+                mMovementRepository.insert(
+                        new Movement(
+                                movementId,
+                            productId,
+                                Integer.parseInt(mQuantityView.getEditText().getText().toString()),
+                                Integer.parseInt(mPrixAchatView.getEditText().getText().toString()),
+                                Integer.parseInt(mPrixVenteView.getEditText().getText().toString()),
+                                mDate,
+                                RequestStatus.Enter
+                        )
+
+                );
+                Intent intent = new Intent(AddArticle.this, ProductsActivity.class);
+                intent.putExtra(Product.PRODUCT_EXTRA, mProduct);
+                startActivity(intent);
+            }
+
         });
     }
 

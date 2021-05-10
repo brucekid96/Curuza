@@ -55,7 +55,7 @@ public class SellArticleFragment extends BottomSheetDialogFragment {
         product_image = root.findViewById(R.id.pict_people);
         mName = root.findViewById(R.id.name);
         mQuantity = root.findViewById(R.id.quantiti);
-        mTotalAmount = root.findViewById(R.id.amount);
+        mTotalAmount = root.findViewById(R.id.total_amount);
         mSave = root.findViewById(R.id.submit);
         mSave.setOnClickListener(v -> onSaveButtonClicked());
 
@@ -86,7 +86,7 @@ public class SellArticleFragment extends BottomSheetDialogFragment {
                             return;
                         }
 
-                        Integer PutQuantity= Integer.parseInt(s.toString());
+                        Integer PutQuantity= Integer.parseInt(s.toString().trim());
                         Log.d("somme", String.valueOf(PutQuantity*P_Vente));
                         String total = String.valueOf(PutQuantity*P_Vente);
                         mTotalAmount.setText(total);
@@ -103,21 +103,25 @@ public class SellArticleFragment extends BottomSheetDialogFragment {
         Log.d(DBG_TAG,"onSaveButtonCLicked");
         if(areInputsValid()) {
             int inputQuantity = Integer.parseInt(mQuantity.getText().toString());
-            mProduct.setQuantity(mProduct.getQuantity() - inputQuantity);
+            if(inputQuantity<= mProduct.getQuantity()) {
+                mProduct.setQuantity(mProduct.getQuantity() - inputQuantity);
 
-            Movement movement = new Movement(
-                    UUID.randomUUID().toString(),
-                    mProduct.getId(),
-                    inputQuantity,
-                    mProduct.getPAchat(),
-                    mProduct.getPVente(),
-                    ZonedDateTime.now().toInstant().toString(),
-                    RequestStatus.Exit
-            );
+                Movement movement = new Movement(
+                        UUID.randomUUID().toString(),
+                        mProduct.getId(),
+                        inputQuantity,
+                        mProduct.getPAchat(),
+                        mProduct.getPVente(),
+                        ZonedDateTime.now().toInstant().toString(),
+                        RequestStatus.Exit
+                );
 
-            mProductRepository.update(mProduct);
-            mMovementRepository.insert(movement);
+                mProductRepository.update(mProduct);
+                mMovementRepository.insert(movement);
+            }
 
+
+            dismiss();
         }
 
     }

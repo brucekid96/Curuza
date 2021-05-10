@@ -3,7 +3,9 @@ package com.curuza.domain;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -21,6 +23,8 @@ public class AddCreditActivity extends AppCompatActivity {
 
 
     private Credit mCredit;
+    private TextView mNameErrorTextview;
+    private TextView mAmountErrorTextview;
     private TextInputLayout mName;
     private TextInputLayout mPhoneNumber;
     private TextInputLayout mDescription;
@@ -47,7 +51,8 @@ public class AddCreditActivity extends AppCompatActivity {
 
         mCreditRepository = new CreditRepository(getApplicationContext());
 
-
+        mNameErrorTextview =findViewById(R.id.name_textview_error);
+        mAmountErrorTextview = findViewById(R.id.amount_textview_error);
         mName= findViewById(R.id.nom_credit);
         mPhoneNumber = findViewById(R.id.tel_number);
         mDescription = findViewById(R.id.description_credit);
@@ -57,21 +62,29 @@ public class AddCreditActivity extends AppCompatActivity {
         mValidate.setOnClickListener(view -> {
 
             mDate = ZonedDateTime.now().toInstant().toString();
-            Credit credit = new Credit(
+
+            if (mName.getEditText().length()==0) {
+                mNameErrorTextview.setVisibility(View.VISIBLE);
+            } else
+                if(mAmount.getEditText().length()==0) {
+                    mAmountErrorTextview.setVisibility(View.VISIBLE);
+                }
+                else if (mName.getEditText().length()!=0 && mAmount.getEditText().length()!=0) {
+                    Credit credit = new Credit(
                             UUID.randomUUID().toString(),
                             mName.getEditText().getText().toString(),
                             mDescription.getEditText().getText().toString(),
-                    Integer.parseInt(mAmount.getEditText().getText().toString()),
+                            Integer.parseInt(mAmount.getEditText().getText().toString()),
                             mDate,
                             mPhoneNumber.getEditText().getText().toString()
                     );
-            mCreditRepository.insert(credit);
-            Log.d(AddCreditActivity.class.getSimpleName(), "Added credit: " + credit.toString());
+                    mCreditRepository.insert(credit);
+                    Log.d(AddCreditActivity.class.getSimpleName(), "Added credit: " + credit.toString());
 
-            Intent intent1 = new Intent(AddCreditActivity.this, CreditActivity.class);
-            intent1.putExtra(Credit.CREDIT_EXTRA, credit);
-            startActivity(intent1);
-
+                    Intent intent1 = new Intent(AddCreditActivity.this, CreditActivity.class);
+                    intent1.putExtra(Credit.CREDIT_EXTRA, credit);
+                    startActivity(intent1);
+                }
 
             });
 

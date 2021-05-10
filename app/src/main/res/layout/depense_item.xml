@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="8dp"
         android:ellipsize="end"
         android:fontFamily="@font/montserrat_bold"
         android:singleLine="true"
@@ -29,7 +29,7 @@
         android:id="@+id/divider"
         android:layout_width="0dp"
         android:layout_height="1px"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="8dp"
         android:alpha="0.1"
         android:background="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
@@ -51,12 +51,20 @@
         android:id="@+id/amount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
         android:fontFamily="@font/montserrat_bold"
         android:text="400000"
         app:layout_constraintBottom_toBottomOf="@+id/date"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/currency"
         app:layout_constraintTop_toTopOf="@+id/description" />
+    <TextView
+        android:id="@+id/currency"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:fontFamily="@font/montserrat_bold"
+        android:text="FBU"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/amount" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

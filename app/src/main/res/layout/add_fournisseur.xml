@@ -16,9 +16,9 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:menu="@menu/home"
-        app:title="Add Fournisseur"
-        app:titleTextAppearance="@style/Ikirori_TextAppearance_Toolbar"
+        app:menu="@menu/documents"
+        app:title="@string/add_fournisseur"
+        app:titleTextAppearance="@style/Curuza_TextAppearance_Toolbar"
         app:titleTextColor="@android:color/white" />
 
     <ScrollView
@@ -57,7 +57,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="32dp"
                 android:fontFamily="@font/montserrat_regular"
-                android:text="Nom"
+                android:text="@string/nom"
                 android:textColor="@color/colorPrimary"
                 android:textSize="18sp"
                 android:textStyle="bold"
@@ -95,21 +95,18 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="32dp"
                 android:background="@drawable/rounded_corners"
-                android:text="validate"
+                android:text="@string/validate"
                 app:layout_constraintEnd_toStartOf="@+id/guideline2"
                 app:layout_constraintStart_toStartOf="@+id/guideline"
                 app:layout_constraintTop_toBottomOf="@+id/description_fournisseur" />
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/amount_total"
+            <TextView
+                android:id="@+id/name_textview_error"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                app:boxBackgroundMode="outline"
-                app:boxCornerRadiusBottomEnd="4dp"
-                app:boxCornerRadiusBottomStart="4dp"
-                app:boxCornerRadiusTopEnd="4dp"
-                app:boxCornerRadiusTopStart="4dp"
-                app:boxStrokeColor="@color/colorPrimary"
+                android:text="Invalid Name"
+                android:textColor="@color/colorDarkGrey"
+                android:visibility="invisible"
                 app:layout_constraintEnd_toStartOf="@+id/guideline2"
                 app:layout_constraintStart_toStartOf="@+id/guideline"
                 app:layout_constraintTop_toBottomOf="@+id/nom_fournisseur" />
@@ -118,13 +115,13 @@
                 android:id="@+id/textView11"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="Telephone Number"
+                android:text="@string/telephone_number"
                 android:textColor="@color/colorPrimary"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toStartOf="@+id/guideline2"
                 app:layout_constraintStart_toStartOf="@+id/guideline"
-                app:layout_constraintTop_toBottomOf="@+id/amount_total" />
+                app:layout_constraintTop_toBottomOf="@+id/name_textview_error" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/tel_number"
@@ -152,7 +149,7 @@
                 android:id="@+id/textView12"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="Description"
+                android:text="@string/description"
                 android:textColor="@color/colorPrimary"
                 android:textSize="18sp"
                 android:textStyle="bold"

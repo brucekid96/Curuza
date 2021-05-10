@@ -1,14 +1,17 @@
 package com.curuza.domain;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -19,7 +22,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.curuza.R;
 import com.curuza.data.credit.Credit;
-import com.curuza.data.credit.CreditRepository;
 import com.curuza.data.depense.Depense;
 import com.curuza.data.depense.DepenseRepository;
 import com.curuza.data.depense.DepenseViewModel;
@@ -30,7 +32,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class DepenseActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, DepenseAdapter.OnDeleteClickListener {
+public class DepenseActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private RecyclerView rcvDepense;
     private DepenseAdapter depenseAdapter;
@@ -38,6 +40,7 @@ public class DepenseActivity extends AppCompatActivity implements NavigationView
     private DepenseViewModel mModel;
     private FloatingActionMenu depenseFab;
     private DepenseRepository mDepenseRepository;
+    private List<Depense> depenseList;
 
 
     @Override
@@ -66,21 +69,37 @@ public class DepenseActivity extends AppCompatActivity implements NavigationView
         depenseFab.setOnMenuButtonClickListener(v ->  startActivity(new Intent(DepenseActivity.this, AddDepenseActivity.class)));
 
 
-        depenseAdapter = new DepenseAdapter(getDepenses(),this,this);
+        depenseAdapter = new DepenseAdapter(getDepenses(),this);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         rcvDepense.setLayoutManager(linearLayoutManager);
-
         depenseAdapter.setData(getDepenses());
+
         rcvDepense.setAdapter(depenseAdapter);
         mModel= ViewModelProviders.of(this).get(DepenseViewModel.class);
         mModel.getDepenses().observe(this, new Observer<List<Depense>>() {
             @Override
             public void onChanged(List<Depense> depenses) {
+                depenseList = depenses;
                 depenseAdapter.setData(depenses);
             }
         });
 
+    }
+
+    public void updateSearchResults(String searchQuery) {
+        if(depenseList != null) {
+            List<Depense> searchResults = new ArrayList<>();
+
+            for (Depense depense : depenseList) {
+
+                if (depense.getDescription().toLowerCase().contains(searchQuery.toLowerCase())) {
+                    searchResults.add(depense);
+                }
+            }
+
+            depenseAdapter.setData(searchResults);
+        }
     }
 
     public void showToast(String message) {
@@ -109,7 +128,26 @@ public class DepenseActivity extends AppCompatActivity implements NavigationView
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.home, menu);
+        getMenuInflater().inflate(R.menu.depense, menu);
+        MenuItem menuItem = menu.findItem(R.id.menu_item_search);
+        SearchView searchView =(SearchView) menuItem.getActionView();
+        searchView.requestFocus();
+        searchView.setImeOptions(EditorInfo.IME_ACTION_DONE);
+
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String query) {
+                updateSearchResults(query);
+                return false;
+            }
+        });
         return true;
     }
 
@@ -138,7 +176,7 @@ public class DepenseActivity extends AppCompatActivity implements NavigationView
             startActivity(new Intent(DepenseActivity.this, MainActivity.class));
 
         } else if (id == R.id.nav_products) {
-            startActivity(new Intent(DepenseActivity.this,Products.class));
+            startActivity(new Intent(DepenseActivity.this, ProductsActivity.class));
 
         } else if (id == R.id.nav_documents) {
             startActivity(new Intent(DepenseActivity.this, DocumentsActivity.class));
@@ -160,7 +198,10 @@ public class DepenseActivity extends AppCompatActivity implements NavigationView
         }  else if (id == R.id.nav_settings) {
             startActivity(new Intent( DepenseActivity.this,SettingsActivity.class));
         } else if (id == R.id.nav_question) {
-            startActivity(new Intent( DepenseActivity.this,QuestionsActivity.class));
+            String url = "https://api.whatsapp.com/send?phone=+25779841239";
+            Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(i);
         } else if (id == R.id.nav_subscription) {
             startActivity(new Intent( DepenseActivity.this,SubscriptionsActivity.class));
         } else if (id == R.id.nav_help) {
@@ -171,9 +212,4 @@ public class DepenseActivity extends AppCompatActivity implements NavigationView
         return true;
     }
 
-    @Override
-    public void OnDeleteClickListener(Depense depense) {
-        mDepenseRepository = new DepenseRepository(getApplicationContext());
-        mDepenseRepository.delete(depense);
-    }
 }

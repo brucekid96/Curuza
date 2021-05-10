@@ -3,6 +3,7 @@ package com.curuza.domain;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,8 +20,10 @@ import com.curuza.data.credit.Credit;
 import com.curuza.data.credit.CreditRepository;
 import com.curuza.data.stock.Product;
 import com.curuza.data.stock.ProductRepository;
+import com.curuza.utils.FormatUtils;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CreditAdapter extends RecyclerView.Adapter<CreditAdapter.ViewHolder> {
@@ -28,28 +31,21 @@ public class CreditAdapter extends RecyclerView.Adapter<CreditAdapter.ViewHolder
 
     private List<Credit> mListCredit;
     private Context mContext;
-    private OnDeleteClickListener onDeleteClickListener;
     private CreditRepository mCreditRepository;
-    private Credit credit;
 
-
-    public interface OnDeleteClickListener {
-        void OnDeleteClickListener(Credit credit);
-    }
-    public CreditAdapter(List<Credit> listCredit, Context mContext, OnDeleteClickListener listener) {
-        this.mListCredit = listCredit;
+    public CreditAdapter(List<Credit> mListCredit,Context mContext) {
+        this.mListCredit = mListCredit;
         this.mContext = mContext;
-        this.onDeleteClickListener = listener;
 
     }
 
 
-    public void setData(List<Credit>list) {
-        this.mListCredit=list;
+    public void setData(List<Credit> list) {
+        this.mListCredit = list;
         notifyDataSetChanged();
     }
 
-    private void showCardDialog() {
+    private void showCardDialog(Credit credit) {
         mCreditRepository = new CreditRepository(mContext.getApplicationContext());
         AlertDialog.Builder cardDialog = new AlertDialog.Builder(mContext);
         cardDialog.setTitle("Delete Credit");
@@ -58,15 +54,9 @@ public class CreditAdapter extends RecyclerView.Adapter<CreditAdapter.ViewHolder
         };
 
         cardDialog.setItems(cardDialogItems,
-                new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        switch (which) {
-                            case 0:
-                                mCreditRepository.delete(credit);
-
-                                break;
-                        }
+                (dialog, which) -> {
+                    if (which == 0) {
+                        mCreditRepository.delete(credit);
                     }
                 });
         cardDialog.show();
@@ -76,39 +66,29 @@ public class CreditAdapter extends RecyclerView.Adapter<CreditAdapter.ViewHolder
     @NonNull
     @Override
     public CreditAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.credit_item,parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.credit_item, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull CreditAdapter.ViewHolder holder, int position) {
-         credit = mListCredit.get(position);
-        if(credit ==null) {
-            return;
-        }
+        Credit credit = mListCredit.get(position);
 
         holder.tvPersonName.setText(credit.getPersonName());
-        holder.tvAmount.setText(String.valueOf(credit.getAmount()));
+        holder.tvAmount.setText(FormatUtils.getLocalizedMonetaryAmountString(credit.getAmount()));
 
         holder.tvDate.setText(DateTimeUtils.getDateString(credit.getDate()));
 
-        holder.container.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-
-
-                Intent intent = new Intent(mContext, CreditDetailActivity.class);
-                intent.putExtra(Credit.CREDIT_EXTRA,credit);
-                mContext.startActivity(intent);
-            }
+        holder.container.setOnClickListener(v -> {
+            Log.d(CreditAdapter.class.getSimpleName(), "Clicked credit = " + credit);
+            Intent intent = new Intent(mContext, CreditDetailActivity.class);
+            intent.putExtra(Credit.CREDIT_EXTRA, credit);
+            mContext.startActivity(intent);
         });
-        holder.container.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                showCardDialog();
-                return true;
-            }
+
+        holder.container.setOnLongClickListener(v -> {
+            showCardDialog(credit);
+            return true;
         });
 
     }
@@ -116,10 +96,7 @@ public class CreditAdapter extends RecyclerView.Adapter<CreditAdapter.ViewHolder
 
     @Override
     public int getItemCount() {
-        if (mListCredit != null) {
-            return mListCredit.size();
-        }
-        return 0;
+        return mListCredit.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -132,16 +109,15 @@ public class CreditAdapter extends RecyclerView.Adapter<CreditAdapter.ViewHolder
         public ConstraintLayout container;
 
 
-
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             tvPersonPict = itemView.findViewById(R.id.img_person);
             tvPersonName = itemView.findViewById(R.id.credit_people_name);
-            tvTelephone  = itemView.findViewById(R.id.tel_number);
+            tvTelephone = itemView.findViewById(R.id.tel_number);
             tvDescription = itemView.findViewById(R.id.description_credit);
             tvDate = itemView.findViewById(R.id.date);
             tvAmount = itemView.findViewById(R.id.amount);
-            container= itemView.findViewById(R.id.container);
+            container = itemView.findViewById(R.id.container);
 
         }
     }
