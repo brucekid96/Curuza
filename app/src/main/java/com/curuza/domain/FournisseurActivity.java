@@ -77,6 +77,7 @@ public class FournisseurActivity extends AppCompatActivity implements Navigation
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         rcvFournisseur.setLayoutManager(linearLayoutManager);
+        rcvFournisseur.scrollToPosition(0);
         fournisseurAdapter.setData(getListFournisseur());
 
         rcvFournisseur.setAdapter(fournisseurAdapter);

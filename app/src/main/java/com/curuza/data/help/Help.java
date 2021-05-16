@@ -1,37 +1,37 @@
 package com.curuza.data.help;
 
-import android.net.Uri;
-
 
 public class Help {
 
     public static final String HELP_EXTRA = "help_code";
 
-    private String mId;
-    private Uri mProductImageUri;
+    private int mId;
+    private int mHelpImage;
     private String name;
+    private String description;
 
-    public Help(String mId, Uri mProductImageUri, String name) {
+    public Help(int mId, int mHelpImage, String name,String description) {
         this.mId = mId;
-        this.mProductImageUri = mProductImageUri;
+        this.mHelpImage = mHelpImage;
         this.name = name;
+        this.description = description;
     }
 
 
-    public String getmId() {
+    public int getmId() {
         return mId;
     }
 
-    public void setmId(String mId) {
+    public void setmId(int mId) {
         this.mId = mId;
     }
 
-    public Uri getmProductImageUri() {
-        return mProductImageUri;
+    public int getmHelpImage() {
+        return mHelpImage;
     }
 
-    public void setmProductImageUri(Uri mProductImageUri) {
-        this.mProductImageUri = mProductImageUri;
+    public void setmHelpImage(int mHelpImage) {
+        this.mHelpImage = mHelpImage;
     }
 
     public String getName() {
@@ -40,5 +40,13 @@ public class Help {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

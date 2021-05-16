@@ -18,6 +18,7 @@ import com.curuza.R;
 import com.curuza.data.fournisseur.Fournisseur;
 import com.curuza.data.fournisseur.FournisseurRepository;
 import com.curuza.data.movements.MovementRepository;
+import com.curuza.data.stock.Product;
 import com.curuza.data.view.Rapport;
 import com.curuza.data.view.ProductMovement;
 import com.curuza.utils.FormatUtils;
@@ -60,7 +61,9 @@ public class RapportAdapter extends RecyclerView.Adapter<RapportAdapter.MyViewHo
         holder.Amount.setText(FormatUtils.getLocalizedMonetaryAmountString(rapport.getTotalVente()));
 
         holder.container.setOnClickListener(v -> {
-
+            Intent intent = new Intent(mContext, RapportOverviewActivity.class);
+            intent.putExtra(Rapport.RAPPORT_EXTRA,rapport);
+            mContext.startActivity(intent);
         });
 
     }

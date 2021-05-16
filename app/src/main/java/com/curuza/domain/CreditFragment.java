@@ -13,6 +13,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.curuza.R;
+import com.curuza.data.credit.Credit;
+import com.curuza.data.credit.CreditViewModel;
 import com.curuza.data.movements.MovementViewModel;
 import com.curuza.data.view.ProductMovement;
 
@@ -24,19 +26,19 @@ import java.util.List;
 public class CreditFragment extends Fragment {
 
     private RecyclerView mRecyclerView;
-    private ProductMovementsAdapter mAdapter;
+    private CreditAdapter mAdapter;
 
-    MovementViewModel mModel;
+    CreditViewModel mModel;
     private CreditFragment.OnFragmentInteractionListener mListener;
 
     public CreditFragment() {
 
     }
 
-    public static EnterProductsFragment newInstance(String param1, String param2) {
-        EnterProductsFragment fragment = new EnterProductsFragment();
+   public static CreditFragment newInstance(String param1, String param2) {
+        CreditFragment fragment = new CreditFragment();
         Bundle args = new Bundle();
-
+        fragment.setArguments(args);
         return fragment;
     }
 
@@ -60,12 +62,12 @@ public class CreditFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_credit, container, false);
         mRecyclerView =view.findViewById(R.id.credit_recyclerview);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        mAdapter = new ProductMovementsAdapter(getListProduct(),getContext(),null);
+        mAdapter = new CreditAdapter(getListCredit(),getContext());
         mRecyclerView.setAdapter(mAdapter);
-        mModel= ViewModelProviders.of(this).get(MovementViewModel.class);
-        mModel.getEnterProductMovements().observe(this, productMovements ->  {
+        mModel= ViewModelProviders.of(this).get(CreditViewModel.class);
+        mModel.getCredits().observe(this, credits ->  {
 
-            mAdapter.setData(productMovements);
+            mAdapter.setData(credits);
 
         });
 
@@ -103,8 +105,8 @@ public class CreditFragment extends Fragment {
         void onFragmentInteraction(Uri uri);
     }
 
-    private List<ProductMovement> getListProduct() {
-        List<ProductMovement> list = new ArrayList<>();
+    private List<Credit> getListCredit() {
+        List<Credit> list = new ArrayList<>();
         Date date = new Date();
 
         String stringDate = DateFormat.getDateTimeInstance().format(date);

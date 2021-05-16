@@ -56,23 +56,7 @@ public class ProductMovementsAdapter extends RecyclerView.Adapter<RecyclerView.V
         notifyDataSetChanged();
     }
 
-    private void showCardDialog() {
-        AlertDialog.Builder cardDialog = new AlertDialog.Builder(mContext);
-        cardDialog.setTitle("Delete Movement");
-        String[] cardDialogItems = {
-                "delete",
-        };
 
-        cardDialog.setItems(cardDialogItems,
-                (dialog, which) -> {
-                    switch (which) {
-                        case 0:
-                           
-                            break;
-                    }
-                });
-        cardDialog.show();
-    }
 
     private class EnterViewHolder extends RecyclerView.ViewHolder {
 
@@ -125,10 +109,7 @@ public class ProductMovementsAdapter extends RecyclerView.Adapter<RecyclerView.V
                     mContext.startActivity(intent);
                 }
             });
-            container.setOnLongClickListener(v -> {
-                showCardDialog();
-                return true;
-            });
+
 
         }
     }
@@ -178,13 +159,7 @@ public class ProductMovementsAdapter extends RecyclerView.Adapter<RecyclerView.V
                     mContext.startActivity(intent);
                 }
             });
-            container.setOnLongClickListener(new View.OnLongClickListener() {
-                @Override
-                public boolean onLongClick(View v) {
-                    showCardDialog();
-                    return true;
-                }
-            });
+
         }
     }
 

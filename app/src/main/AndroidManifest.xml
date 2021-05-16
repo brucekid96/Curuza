@@ -29,7 +29,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".domain.MainActivity"/>
-        <activity android:name=".domain.Preference"/>
+        <activity android:name=".domain.RapportOverviewActivity"/>
 
         <activity
             android:name=".domain.ProductsActivity"

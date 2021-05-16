@@ -1,46 +1,57 @@
 package com.curuza.domain;
 
+
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.inputmethod.EditorInfo;
-import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
 import com.curuza.R;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.curuza.data.movements.MovementViewModel;
+import com.curuza.data.view.Rapport;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
 
-public class DocumentsActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, AllProductsFragment.OnFragmentInteractionListener,
-        EnterProductsFragment.OnFragmentInteractionListener, ExitProductsFragment.OnFragmentInteractionListener {
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+public class RapportOverviewActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener , SelledFragment.OnFragmentInteractionListener,
+        CreditFragment.OnFragmentInteractionListener, DepenseFragment.OnFragmentInteractionListener {
+    private RapportAdapter rapportAdapter;
+    private RecyclerView rcvRapport;
+    private MovementViewModel mModel;
 
 
-    FloatingActionButton fab;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.documents);
+        setContentView(R.layout.rapport_overview);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("Documents");
 
-        TabLayout tabLayout =(TabLayout) findViewById(R.id.tablayout);
-        tabLayout.addTab(tabLayout.newTab().setText(R.string.Tous_activity));
-        tabLayout.addTab(tabLayout.newTab().setText(R.string.entree_activity));
-        tabLayout.addTab(tabLayout.newTab().setText(R.string.sortie_activity));
+        TabLayout tabLayout =findViewById(R.id.tablayout);
+        tabLayout.addTab(tabLayout.newTab().setText("Selled"));
+        tabLayout.addTab(tabLayout.newTab().setText("Credits"));
+        tabLayout.addTab(tabLayout.newTab().setText("Expenses"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
         tabLayout.setSelectedTabIndicatorColor(Color.parseColor("#FFFFFF"));
         tabLayout.setTabTextColors(Color.parseColor("#a0d8d2"),
@@ -48,7 +59,7 @@ public class DocumentsActivity extends AppCompatActivity implements NavigationVi
 
 
         final ViewPager viewPager = findViewById(R.id.pager);
-        final DocumentPagerAdapter adapter = new DocumentPagerAdapter
+        final RapportPageAdapter adapter = new RapportPageAdapter
                 (getSupportFragmentManager(), tabLayout.getTabCount());
         viewPager.setAdapter(adapter);
         viewPager.setOnPageChangeListener
@@ -73,6 +84,11 @@ public class DocumentsActivity extends AppCompatActivity implements NavigationVi
             }
         });
 
+
+
+
+
+
         DrawerLayout drawer =  findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -82,8 +98,6 @@ public class DocumentsActivity extends AppCompatActivity implements NavigationVi
         NavigationView navigationView =
                 findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
-
 
 
     }
@@ -102,34 +116,13 @@ public class DocumentsActivity extends AppCompatActivity implements NavigationVi
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.documents, menu);
-        MenuItem menuItem = menu.findItem(R.id.menu_item_search);
-        SearchView searchView =(SearchView) menuItem.getActionView();
-        searchView.requestFocus();
-        searchView.setImeOptions(EditorInfo.IME_ACTION_DONE);
-
-
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String query) {
-                AllProductsFragment all = new AllProductsFragment();
-                all.updateSearchResults(query);
-                return false;
-            }
-        });
+        getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
 
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-
 
         int id = item.getItemId();
 
@@ -149,48 +142,50 @@ public class DocumentsActivity extends AppCompatActivity implements NavigationVi
 
         if (id == R.id.nav_home) {
             // Handle the camera action
-            startActivity(new Intent(DocumentsActivity.this, MainActivity.class));
+            startActivity(new Intent(RapportOverviewActivity.this, MainActivity.class));
 
         } else if (id == R.id.nav_products) {
-            startActivity(new Intent(DocumentsActivity.this, ProductsActivity.class));
+            startActivity(new Intent(RapportOverviewActivity.this, ProductsActivity.class));
 
         } else if (id == R.id.nav_documents) {
-            startActivity(new Intent(DocumentsActivity.this, DocumentsActivity.class));
+            startActivity(new Intent(RapportOverviewActivity.this, DocumentsActivity.class));
 
+        }  else if (id == R.id.nav_stock) {
+            startActivity(new Intent( RapportOverviewActivity.this, StockActivity.class));
+        }  else if (id == R.id.nav_credit) {
+            startActivity(new Intent( RapportOverviewActivity.this,CreditActivity.class));
         }
-        else if (id == R.id.nav_stock) {
-            startActivity(new Intent(DocumentsActivity.this, StockActivity.class));
-        } else if (id == R.id.nav_credit) {
-            startActivity(new Intent(DocumentsActivity.this, CreditActivity.class));
-        }  else if (id == R.id.nav_depense) {
-            startActivity(new Intent( DocumentsActivity.this,DepenseActivity.class));
-        }  else if (id == R.id.nav_fournisseur) {
-            startActivity(new Intent( DocumentsActivity.this,FournisseurActivity.class));
+        else if (id == R.id.nav_depense) {
+            startActivity(new Intent( RapportOverviewActivity.this,DepenseActivity.class));
+        } else if (id == R.id.nav_rapport) {
+            startActivity(new Intent( RapportOverviewActivity.this,RapportActivity.class));
+        }
+        else if (id == R.id.nav_fournisseur) {
+            startActivity(new Intent( RapportOverviewActivity.this,FournisseurActivity.class));
         }  else if (id == R.id.nav_client) {
-            startActivity(new Intent( DocumentsActivity.this,ClientActivity.class));
-        }
-
-        else if (id == R.id.nav_rapport) {
-            startActivity(new Intent( DocumentsActivity.this,RapportActivity.class));
-        }  else if (id == R.id.nav_settings) {
-            startActivity(new Intent( DocumentsActivity.this,SettingsActivity.class));
+            startActivity(new Intent( RapportOverviewActivity.this,ClientActivity.class));
+        }   else if (id == R.id.nav_settings) {
+            startActivity(new Intent( RapportOverviewActivity.this,SettingsActivity.class));
         } else if (id == R.id.nav_question) {
             String url = "https://api.whatsapp.com/send?phone=+25779841239";
             Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
             i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(i);
         } else if (id == R.id.nav_subscription) {
-            startActivity(new Intent( DocumentsActivity.this,SubscriptionsActivity.class));
+            startActivity(new Intent( RapportOverviewActivity.this,SubscriptionsActivity.class));
         } else if (id == R.id.nav_help) {
-            startActivity(new Intent( DocumentsActivity.this,HelpActivity.class));
+            startActivity(new Intent( RapportOverviewActivity.this,HelpActivity.class));
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
 
+
     @Override
     public void onFragmentInteraction(Uri uri) {
 
     }
+
+
 }

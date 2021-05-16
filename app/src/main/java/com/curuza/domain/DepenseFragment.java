@@ -13,6 +13,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.curuza.R;
+import com.curuza.data.depense.Depense;
+import com.curuza.data.depense.DepenseViewModel;
 import com.curuza.data.movements.MovementViewModel;
 import com.curuza.data.view.ProductMovement;
 
@@ -25,10 +27,10 @@ public class DepenseFragment extends Fragment {
 
 
     private RecyclerView mRecyclerView;
-    private ProductMovementsAdapter mAdapter;
+    private DepenseAdapter mAdapter;
 
-    MovementViewModel mModel;
-    private EnterProductsFragment.OnFragmentInteractionListener mListener;
+    DepenseViewModel mModel;
+    private DepenseFragment.OnFragmentInteractionListener mListener;
 
     public DepenseFragment() {
 
@@ -61,12 +63,12 @@ public class DepenseFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_enter_products, container, false);
         mRecyclerView =view.findViewById(R.id.enter_products_recyclerview);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        mAdapter = new ProductMovementsAdapter(getListProduct(),getActivity(),null);
+        mAdapter = new DepenseAdapter(getListDepenses(),getActivity());
         mRecyclerView.setAdapter(mAdapter);
-        mModel= ViewModelProviders.of(this).get(MovementViewModel.class);
-        mModel.getEnterProductMovements().observe(this, productMovements ->  {
+        mModel= ViewModelProviders.of(this).get(DepenseViewModel.class);
+        mModel.getDepenses().observe(this, depenses ->  {
 
-            mAdapter.setData(productMovements);
+            mAdapter.setData(depenses);
 
         });
 
@@ -86,8 +88,8 @@ public class DepenseFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof EnterProductsFragment.OnFragmentInteractionListener) {
-            mListener = (EnterProductsFragment.OnFragmentInteractionListener) context;
+        if (context instanceof DepenseFragment.OnFragmentInteractionListener) {
+            mListener = (DepenseFragment.OnFragmentInteractionListener) context;
         } else {
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
@@ -104,8 +106,8 @@ public class DepenseFragment extends Fragment {
         void onFragmentInteraction(Uri uri);
     }
 
-    private List<ProductMovement> getListProduct() {
-        List<ProductMovement> list = new ArrayList<>();
+    private List<Depense> getListDepenses() {
+        List<Depense> list = new ArrayList<>();
         Date date = new Date();
 
         String stringDate = DateFormat.getDateTimeInstance().format(date);

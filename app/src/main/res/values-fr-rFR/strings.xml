@@ -54,4 +54,7 @@
     <string name="action_settings">Paramètres</string>
     <string name="action_help">Aide</string>
     <string name="stock_detail">Modifier un Article</string>
+    <string name="share_playstore">Sur Google Play Store</string>
+    <string name="share_header_intent">Partager L\'Application curuza Avec tes Amis</string>
+    <string name="extra_msg_link">Curuza est l\'application qui vous aide à gérer votre business facilement.</string>
 </resources>

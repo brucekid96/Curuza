@@ -51,4 +51,7 @@
     <string name="prix_achat">Ingero yo Kurangura</string>
     <string name="prix_vente">Ingero yo Kudandaza</string>
     <string name="stock_detail">Ibiranga Ikidandazwa</string>
+    <string name="share_playstore">Kuri Google Play Store</string>
+    <string name="share_header_intent">Sangiza Bagenzi Bawe Apirikasiyo ya Curuza</string>
+    <string name="extra_msg_link">Curuza ni apirikasiyo ifasha umudandaza gukurikirana business yiwe vyoroshe.</string>
 </resources>

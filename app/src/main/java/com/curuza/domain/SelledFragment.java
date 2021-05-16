@@ -34,8 +34,8 @@ public class SelledFragment extends Fragment {
 
     }
 
-    public static EnterProductsFragment newInstance(String param1, String param2) {
-        EnterProductsFragment fragment = new EnterProductsFragment();
+    public static ExitProductsFragment newInstance(String param1, String param2) {
+        ExitProductsFragment fragment = new ExitProductsFragment();
         Bundle args = new Bundle();
 
         return fragment;
@@ -64,7 +64,7 @@ public class SelledFragment extends Fragment {
         mAdapter = new ProductMovementsAdapter(getListProduct(),getContext(),null);
         mRecyclerView.setAdapter(mAdapter);
         mModel= ViewModelProviders.of(this).get(MovementViewModel.class);
-        mModel.getEnterProductMovements().observe(this, productMovements ->  {
+        mModel.getExitProductMovements().observe(this, productMovements ->  {
 
             mAdapter.setData(productMovements);
 

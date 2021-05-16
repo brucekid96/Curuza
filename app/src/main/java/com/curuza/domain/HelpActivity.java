@@ -11,11 +11,21 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.curuza.R;
+import com.curuza.data.help.Help;
 import com.google.android.material.navigation.NavigationView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class HelpActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
+    private RecyclerView mRecyclerView;
+    private HelpAdapter helpAdapter;
+    private List<Help> helpList;
+    private HelpAdapter.OnItemListener OnitemListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +34,17 @@ public class HelpActivity extends AppCompatActivity implements NavigationView.On
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        mRecyclerView =findViewById(R.id.recyclerview);
+        mRecyclerView.setHasFixedSize(true);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        helpList = new ArrayList<>(SampleData.getSampleHelp());
+
+        helpAdapter = new HelpAdapter(SampleData.getSampleHelp(),this,OnitemListener);
+        mRecyclerView.setAdapter(helpAdapter);
+
+
+
 
 
         DrawerLayout drawer =  findViewById(R.id.drawer_layout);
@@ -48,12 +69,6 @@ public class HelpActivity extends AppCompatActivity implements NavigationView.On
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }
 
 
     @Override

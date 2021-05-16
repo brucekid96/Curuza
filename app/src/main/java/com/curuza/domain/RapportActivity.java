@@ -1,6 +1,7 @@
 package com.curuza.domain;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,17 +17,20 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager.widget.ViewPager;
 
 import com.curuza.R;
 import com.curuza.data.movements.MovementViewModel;
 import com.curuza.data.view.Rapport;
 import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class RapportActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class RapportActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener , SelledFragment.OnFragmentInteractionListener,
+        CreditFragment.OnFragmentInteractionListener, DepenseFragment.OnFragmentInteractionListener {
     private RapportAdapter rapportAdapter;
     private RecyclerView rcvRapport;
     private MovementViewModel mModel;
@@ -42,6 +46,7 @@ public class RapportActivity extends AppCompatActivity implements NavigationView
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
 
         rcvRapport = findViewById(R.id.rcv_rapport);
         rapportAdapter = new RapportAdapter(this);
@@ -159,7 +164,10 @@ public class RapportActivity extends AppCompatActivity implements NavigationView
     }
 
 
+    @Override
+    public void onFragmentInteraction(Uri uri) {
 
+    }
 
 
 }

@@ -52,13 +52,6 @@
     </group>
         <group android:id="@+id/grp4" android:checkableBehavior="single">
 
-
-            <item
-                android:id="@+id/nav_about"
-                android:icon="@drawable/ic_information"
-                android:title="@string/about_activity" />
-
-
             <item
                 android:id="@+id/nav_question"
                 android:icon="@drawable/ic_whatsapp__1_"
