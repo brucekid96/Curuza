@@ -8,7 +8,7 @@
     android:background="?android:selectableItemBackground">
 
     <ImageView
-        android:id="@+id/img_person"
+        android:id="@+id/img_user"
         android:layout_width="45dp"
         android:layout_height="45dp"
         android:layout_marginStart="8dp"
@@ -31,8 +31,8 @@
         android:textColor="@color/colorPrimary"
         android:textSize="16sp"
         app:layout_constraintEnd_toStartOf="@+id/amount"
-        app:layout_constraintStart_toEndOf="@+id/img_person"
-        app:layout_constraintTop_toTopOf="@+id/img_person"
+        app:layout_constraintStart_toEndOf="@+id/img_user"
+        app:layout_constraintTop_toTopOf="@+id/img_user"
         tools:text="igitumbura" />
 
     <View
@@ -44,7 +44,7 @@
         android:background="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/img_person" />
+        app:layout_constraintTop_toBottomOf="@+id/img_user" />
 
     <TextView
         android:id="@+id/date"

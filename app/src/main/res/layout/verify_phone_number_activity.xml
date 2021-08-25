@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        style="@style/toolbar_light"
+        app:title="Verify phone number"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/instructions"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="24dp"
+        android:fontFamily="@font/montserrat_regular"
+        android:text="An SMS was sent to +257 71 127 780. Enter the verification code below."
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/verification_code_input"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:boxBackgroundColor="@color/lightest_gray"
+        app:boxBackgroundMode="outline"
+        app:startIconDrawable="@drawable/ic_baseline_lock_24"
+        app:startIconTint="@color/colorPrimary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/instructions">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/verification_code_edit_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/montserrat_bold"
+            android:includeFontPadding="false"
+            android:inputType="number"
+            android:minEms="7"
+            android:maxLength="6"
+            android:paddingLeft="6dp"
+            android:paddingTop="8dp"
+            android:paddingRight="4dp"
+            android:paddingBottom="8dp"
+            android:singleLine="true"
+            android:letterSpacing="0.1"
+            android:textColor="@color/colorPrimary"
+            android:textSize="24dp" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:id="@+id/resend_sms"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:drawablePadding="6dp"
+        android:fontFamily="@font/montserrat_regular"
+        android:text="@string/resend_sms_without_timer"
+        android:textColor="@color/colorPrimary"
+        android:textSize="14sp"
+        app:drawableLeftCompat="@drawable/ic_baseline_sms_24"
+        app:drawableTint="@color/black_alpha_60"
+        app:layout_constraintEnd_toEndOf="@+id/verification_code_input"
+        app:layout_constraintStart_toStartOf="@+id/verification_code_input"
+        app:layout_constraintTop_toBottomOf="@+id/verification_code_input" />
+
+    <Button
+        android:id="@+id/continue_button"
+        style="@style/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="8dp"
+        android:text="@string/continue_"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/resend_sms" />
+
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/ui_group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:constraint_referenced_ids="instructions, verification_code_input, resend_sms, continue_button" />
+</androidx.constraintlayout.widget.ConstraintLayout>

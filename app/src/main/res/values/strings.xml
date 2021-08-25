@@ -31,6 +31,7 @@
     <string name="prix_achat">Purchasing Price</string>
     <string name="prix_vente">Selling Price</string>
     <string name="telephone_number">Phone Number</string>
+
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="nav_header_title">Android Studio</string>
@@ -63,4 +64,31 @@
     <string name="share_playstore">On Google Play Store</string>
     <string name="share_header_intent">Share with your Friends  Curuza Application</string>
     <string name="extra_msg_link">Curuza is the App that  help you to manage your business.</string>
+    <string name="didn_t_get_otp_resend">Didn\'t get OTP? <b>Resend</b></string>
+    <string name="too_many_verification_attempts_erro">You\\\'ve reached the maximum verification attempts allowed. Please try again later.</string>
+    <string name="network_unavailable_error">Network unavailable. Please check your internet connection and try again.</string>
+    <string name="resend_sms_without_timer">&lt;u>Resend SMS&lt;/u></string>
+    <string name="phone_number_verification_instructions">An SMS was sent to &lt;b>%1$s&lt;/b>. Please enter the verification code below.</string>
+    <string name="resend_sms_with_timer">Resend SMS (%1$s)</string>
+    <string name="no_password_entered">no password_entered</string>
+    <string name="invalid_password_entered">invalid password entered</string>
+    <string name="no_confirmation_password_entered">no confirmation password entered</string>
+    <string name="confirmation_password_mismatch">confirmation password mismatch</string>
+    <string name="continue_">continue</string>
+    <string name="creating_new_account">creating new account</string>
+    <string name="request_unsuccessful">request unsuccessful</string>
+    <string name="incorrect_credentials">incorrect credentials</string>
+    <string name="enter_a_password">enter a password</string>
+    <string name="enter_valid_password">enter valid password</string>
+    <string name="uploading_profile_picture">uploading profile picture</string>
+    <string name="profile_photo_prompt_title">profile photo prompt title</string>
+    <string name="profile_photo_prompt_body">profile photo prompt body</string>
+    <string name="verify_phone_number_body_1">verify phone number</string>
+    <string name="edit_number">edit number</string>
+    <string name="it_s_correct">it\'s correct</string>
+    <string name="verify_phone_number">verify phone number</string>
+    <string name="later">later</string>
+    <string name="yes">yes</string>
+    <string name="please_wait">please wait</string>
+    <string name="too_many_verification_attempts_error" />
 </resources>

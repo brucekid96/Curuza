@@ -1,7 +1,6 @@
 package com.curuza.domain;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -18,12 +17,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.curuza.R;
 import com.curuza.data.credit.Credit;
 import com.curuza.data.credit.CreditRepository;
-import com.curuza.data.stock.Product;
-import com.curuza.data.stock.ProductRepository;
 import com.curuza.utils.FormatUtils;
 
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class CreditAdapter extends RecyclerView.Adapter<CreditAdapter.ViewHolder> {
@@ -111,7 +107,7 @@ public class CreditAdapter extends RecyclerView.Adapter<CreditAdapter.ViewHolder
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            tvPersonPict = itemView.findViewById(R.id.img_person);
+            tvPersonPict = itemView.findViewById(R.id.img_user);
             tvPersonName = itemView.findViewById(R.id.credit_people_name);
             tvTelephone = itemView.findViewById(R.id.tel_number);
             tvDescription = itemView.findViewById(R.id.description_credit);

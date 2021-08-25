@@ -1,0 +1,17 @@
+{
+  "trigger": true,
+  "modules": [
+    "custom"
+  ],
+  "parentResource": "curuza92aa13fd92aa13fd",
+  "functionName": "curuza92aa13fd92aa13fdPreSignup",
+  "resourceName": "curuza92aa13fd92aa13fdPreSignup",
+  "parentStack": "auth",
+  "triggerEnvs": [],
+  "triggerDir": "/home/brice/.config/yarn/global/node_modules/amplify-category-auth/provider-utils/awscloudformation/triggers/PreSignup",
+  "triggerTemplate": "PreSignup.json.ejs",
+  "triggerEventPath": "PreSignup.event.json",
+  "roleName": "curuza92aa13fd92aa13fdPreSignup",
+  "skipEdit": true,
+  "enableCors": false
+}

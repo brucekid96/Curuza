@@ -114,10 +114,6 @@ public class SellArticleDetails  extends AppCompatActivity {
         });
 
 
-
-
-
-
     }
 
     public void setData(Product product) {

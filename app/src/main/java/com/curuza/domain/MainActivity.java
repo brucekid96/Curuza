@@ -9,6 +9,7 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -32,12 +33,15 @@ import org.threeten.bp.ZonedDateTime;
 import org.threeten.bp.format.DateTimeFormatter;
 import org.threeten.bp.format.FormatStyle;
 
+import io.reactivex.disposables.CompositeDisposable;
+
 public class MainActivity extends AppCompatActivity  implements NavigationView.OnNavigationItemSelectedListener {
 
 
     FloatingActionButton fab;
     private CardView mProducts;
     private CardView mDocuments;
+    private ImageView mProfileIMG;
     private ImageView productIcon;
     private ImageView documentIcon;
     private TextView ProductTitle;
@@ -65,7 +69,20 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
     private ImageView mRapportIcon;
     private TextView mRapportTitle;
 
+    private CompositeDisposable mDisposable = new CompositeDisposable();
 
+    public static void launch(Context context, boolean clearHistory) {
+        Intent intent = new Intent(context, MainActivity.class);
+        if (clearHistory) {
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        }
+
+        context.startActivity(intent);
+    }
+
+    public static void launch(Context context) {
+        launch(context, true);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -174,6 +191,13 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
         });
         mRapportIcon=findViewById(R.id.rapport_icon);
         mRapportTitle=findViewById(R.id.rapport_title);
+        mProfileIMG = findViewById(R.id.img_profile);
+        mProfileIMG.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, AccountActivity.class));
+            }
+        });
 
 
 

@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "656294807942",
+    "project_id": "curuza-dfa5d",
+    "storage_bucket": "curuza-dfa5d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:656294807942:android:8b10c77bca13b999eac407",
+        "android_client_info": {
+          "package_name": "com.curuza"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "656294807942-vr08fjv7nv5hgsnp8eefoecb880h5i65.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.curuza",
+            "certificate_hash": "dfcd7a0d73dd07b18ae8deae3705ad17b9e66293"
+          }
+        },
+        {
+          "client_id": "656294807942-blor5tjksail1nnfhj6naqrf07ja3l5h.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBW3CbJy63DHiWpPEwJApfLuNC26ZH2pHo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "656294807942-blor5tjksail1nnfhj6naqrf07ja3l5h.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

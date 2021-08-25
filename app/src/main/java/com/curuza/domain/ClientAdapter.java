@@ -1,7 +1,6 @@
 package com.curuza.domain;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,11 +16,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.curuza.R;
 import com.curuza.data.client.Client;
 import com.curuza.data.client.ClientRepository;
-import com.curuza.data.credit.Credit;
-import com.curuza.data.stock.ProductRepository;
 
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ClientAdapter  extends RecyclerView.Adapter<ClientAdapter.ViewHolder>{
@@ -113,7 +109,7 @@ public class ClientAdapter  extends RecyclerView.Adapter<ClientAdapter.ViewHolde
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            tvPersonPict = itemView.findViewById(R.id.img_person);
+            tvPersonPict = itemView.findViewById(R.id.img_user);
             tvPersonName = itemView.findViewById(R.id.client_people_name);
             tvTelephone  = itemView.findViewById(R.id.tel_number);
             tvDescription = itemView.findViewById(R.id.description_client);

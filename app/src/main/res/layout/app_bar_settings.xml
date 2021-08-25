@@ -23,6 +23,6 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <include layout="@layout/content_settings" />
+    <include layout="@layout/account_settings" />
 
 </LinearLayout>

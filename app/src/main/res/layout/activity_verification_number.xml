@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:padding="10dp"
+    android:background="#f7f7f7"
+    tools:context=".domain.VerificationNumberActivity">
+
+    <ImageView
+        android:id="@+id/iconIv"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20dp"
+        android:src="@drawable/ic_baseline_phone_android_24"/>
+
+    <LinearLayout
+        android:id="@+id/phoneLl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="center_horizontal"
+            android:text="Phone Number"
+            android:textAlignment="center"
+            android:textColor="#000" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Please Enter your Phone Number to Continue"
+            android:textAlignment="center"
+            android:gravity="center_horizontal"
+            android:textColor="#777777"/>
+
+        <EditText
+            android:id="@+id/phoneEt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="#fff"
+            android:hint="+257xxxxxxxx"
+            android:inputType="phone"
+            android:padding="10dp"
+            android:textAlignment="center"
+            android:gravity="center_horizontal"
+            android:textColor="#000"
+            android:textColorHint="#c5c5c5"/>
+
+        <Button
+            android:id="@+id/phoneContiueBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="5dp"
+            android:text="Continue"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/codeLl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="center_horizontal"
+            android:text="Verification Code"
+            android:textAlignment="center"
+            android:textColor="#000" />
+
+        <TextView
+            android:id="@+id/codeSentDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="center_horizontal"
+            android:text="Please Enter the Verification Code We Sent \nto+257xxxxxxxx "
+            android:textAlignment="center"
+            android:textColor="#777777" />
+
+
+        <EditText
+            android:id="@+id/codeEt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="#fff"
+            android:hint="+257xxxxxxxx"
+            android:inputType="phone"
+            android:padding="10dp"
+            android:textAlignment="center"
+            android:gravity="center_horizontal"
+            android:textColor="#000"
+            android:textColorHint="#c5c5c5"/>
+
+        <TextView
+            android:id="@+id/resendCodeTv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:textAlignment="center"
+            android:textColor="#777777"
+            android:text="@string/didn_t_get_otp_resend"
+            android:gravity="center_horizontal" />
+
+
+        <Button
+            android:id="@+id/codeSubmitBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="5dp"
+            android:text="Submit"/>
+
+    </LinearLayout>
+
+</LinearLayout>

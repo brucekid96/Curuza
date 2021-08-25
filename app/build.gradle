@@ -1,5 +1,6 @@
 plugins {
     id 'com.android.application'
+    id 'com.google.gms.google-services'
 }
 
 android {
@@ -28,6 +29,8 @@ android {
         }
 
 
+            vectorDrawables.useSupportLibrary = true
+      
     }
 
     buildTypes {
@@ -37,15 +40,23 @@ android {
         }
     }
     compileOptions {
-
+        coreLibraryDesugaringEnabled true
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
+    //enable view binding(optional)
+    buildFeatures{
+        viewBinding true
+    }
+
 }
 
 dependencies {
     implementation 'androidx.room:room-runtime:2.1.0-rc01'
     implementation 'androidx.room:room-rxjava2:2.1.0-rc01'
+    implementation platform('com.google.firebase:firebase-bom:28.3.1')
+    implementation 'com.google.firebase:firebase-auth'
     annotationProcessor 'androidx.room:room-compiler:2.1.0-rc01'
     implementation 'de.hdodenhof:circleimageview:3.1.0'
     implementation 'androidx.appcompat:appcompat:1.2.0'
@@ -57,6 +68,7 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
     implementation "androidx.recyclerview:recyclerview:1.1.0"
     implementation "androidx.cardview:cardview:1.0.0"
+    implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
     implementation 'com.github.bumptech.glide:glide:4.9.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'
     implementation 'com.getbase:floatingactionbutton:1.10.1'
@@ -64,6 +76,18 @@ dependencies {
     implementation 'com.android.support:multidex:1.0.3'
     implementation 'com.makeramen:roundedimageview:2.3.0'
     implementation 'com.facebook.stetho:stetho:1.5.1'
+    implementation 'com.google.firebase:firebase-analytics'
+    implementation platform('com.google.firebase:firebase-bom:28.0.1')
+    implementation 'com.theartofdev.edmodo:android-image-cropper:2.8.0'
+
+    implementation 'com.amplifyframework:core:1.17.4'
+    implementation 'com.amplifyframework:aws-api:1.17.4'
+    implementation 'com.amplifyframework:aws-auth-cognito:1.17.4'
+    implementation 'com.amplifyframework:aws-storage-s3:1.17.4'
+    implementation 'com.amplifyframework:aws-datastore:1.17.4'
+
+    // Support for Java 8 features
+    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.1.5'
 
 
 

@@ -47,11 +47,7 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.Produc
         notifyDataSetChanged();
     }
 
-
     // method to open a popup menu(list) upon long click in the recyclerView item
-
-
-
     @NonNull
     @Override
     public ProductViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {

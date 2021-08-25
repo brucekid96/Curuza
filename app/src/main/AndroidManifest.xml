@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.curuza">
-
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -15,80 +15,96 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_box_log_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Curuza">
+        android:theme="@style/Theme.Curuza"
+        android:usesCleartextTraffic="true">
+        <activity android:name=".domain.onboarding.auth.VerificationNumberActivity"></activity>
         <activity
-            android:name=".domain.SplashScreen"
-            android:launchMode="singleTask"
-            android:label="@string/app_name"
-            android:theme="@style/Theme.Curuza.NoActionBar"
-            >
+            android:name=".domain.onboarding.auth.SplashScreen"
+            android:noHistory="true"
+            android:screenOrientation="portrait"
+            android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".domain.MainActivity"/>
-        <activity android:name=".domain.RapportOverviewActivity"/>
-
+        <activity android:name=".domain.onboarding.auth.WelcomeActivity" />
+        <activity android:name=".domain.onboarding.auth.ChoosePasswordActivity" />
+        <activity android:name=".domain.AccountActivity" />
+        <activity android:name=".domain.MainActivity" />
+        <activity android:name=".domain.onboarding.auth.RegistrationActivity" />
+        <activity android:name=".domain.onboarding.auth.CompleteRegistrationActivity" />
+        <activity android:name=".domain.RapportOverviewActivity" />
+        <activity android:name=".domain.ProductsActivity" />
+        <activity android:name=".domain.DocumentsActivity" />
+        <activity android:name=".domain.ShareApp" />
+        <activity android:name=".domain.SettingsActivity" />
+        <activity android:name=".domain.HelpActivity" />
+        <activity android:name=".domain.QuestionsActivity" />
+        <activity android:name=".domain.RapportActivity" />
         <activity
-            android:name=".domain.ProductsActivity"
-            />
-        <activity android:name=".domain.DocumentsActivity"/>
-        <activity android:name=".domain.ShareApp"/>
-        <activity android:name=".domain.SettingsActivity"/>
-        <activity android:name=".domain.HelpActivity"/>
-        <activity android:name=".domain.QuestionsActivity"/>
-        <activity android:name=".domain.RapportActivity"/>
-        <activity android:name=".domain.AddArticle"
-            android:windowSoftInputMode="stateHidden"
-            android:parentActivityName=".domain.ProductsActivity"/>
-        <activity android:name=".domain.SellArticleActivity"
-            android:parentActivityName=".domain.ProductsActivity"/>
-        <activity android:name=".domain.ArticleDetails"
-            android:windowSoftInputMode="stateHidden"
-            android:parentActivityName=".domain.ProductsActivity"/>
-        <activity android:name=".domain.SellArticleDetails"
-            android:windowSoftInputMode="stateHidden"
-            android:parentActivityName=".domain.SellArticleActivity"/>
-        <activity android:name=".domain.StockActivity"/>
-        <activity android:name=".domain.StockDetail"
-            android:windowSoftInputMode="stateHidden"
-            android:parentActivityName=".domain.StockActivity"/>
-        <activity android:name=".domain.EnterMovementDetail"
-            android:windowSoftInputMode="stateHidden"/>
-        <activity android:name=".domain.SellMovementDetail"
-            android:windowSoftInputMode="stateHidden"/>
-        <activity android:name=".domain.CreditActivity"/>
-        <activity android:name=".domain.AddCreditActivity"
-            android:windowSoftInputMode="stateHidden"
-            android:parentActivityName=".domain.CreditActivity"/>
-        <activity android:name=".domain.CreditDetailActivity"
-            android:windowSoftInputMode="stateHidden"
-            android:parentActivityName=".domain.CreditActivity"/>
-        <activity android:name=".domain.DepenseActivity"/>
-        <activity android:name=".domain.AddDepenseActivity"
-            android:windowSoftInputMode="stateHidden"
-            android:parentActivityName=".domain.DepenseActivity"/>
-        <activity android:name=".domain.DepenseDetailActivity"
-            android:windowSoftInputMode="stateHidden"
-            android:parentActivityName=".domain.DepenseActivity"/>
-        <activity android:name=".domain.FournisseurActivity"/>
-        <activity android:name=".domain.AddFournisseurActivity"
-            android:windowSoftInputMode="stateHidden"
-            android:parentActivityName=".domain.FournisseurActivity"/>
-        <activity android:name=".domain.FournisseurDetailActivity"
-            android:windowSoftInputMode="stateHidden"
-            android:parentActivityName=".domain.FournisseurActivity"/>
-        <activity android:name=".domain.ClientActivity"/>
-        <activity android:name=".domain.AddClientActivity"
-            android:windowSoftInputMode="stateHidden"
-            android:parentActivityName=".domain.ClientActivity"/>
-        <activity android:name=".domain.ClientDetailActivity"
-            android:windowSoftInputMode="stateHidden"
-            android:parentActivityName=".domain.ClientActivity"/>
-
-
+            android:name=".domain.AddArticle"
+            android:parentActivityName=".domain.ProductsActivity"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".domain.SellArticleActivity"
+            android:parentActivityName=".domain.ProductsActivity" />
+        <activity
+            android:name=".domain.ArticleDetails"
+            android:parentActivityName=".domain.ProductsActivity"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".domain.SellArticleDetails"
+            android:parentActivityName=".domain.SellArticleActivity"
+            android:windowSoftInputMode="stateHidden" />
+        <activity android:name=".domain.StockActivity" />
+        <activity
+            android:name=".domain.StockDetail"
+            android:parentActivityName=".domain.StockActivity"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".domain.EnterMovementDetail"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".domain.SellMovementDetail"
+            android:windowSoftInputMode="stateHidden" />
+        <activity android:name=".domain.CreditActivity" />
+        <activity
+            android:name=".domain.AddCreditActivity"
+            android:parentActivityName=".domain.CreditActivity"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".domain.CreditDetailActivity"
+            android:parentActivityName=".domain.CreditActivity"
+            android:windowSoftInputMode="stateHidden" />
+        <activity android:name=".domain.DepenseActivity" />
+        <activity
+            android:name=".domain.AddDepenseActivity"
+            android:parentActivityName=".domain.DepenseActivity"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".domain.DepenseDetailActivity"
+            android:parentActivityName=".domain.DepenseActivity"
+            android:windowSoftInputMode="stateHidden" />
+        <activity android:name=".domain.FournisseurActivity" />
+        <activity
+            android:name=".domain.AddFournisseurActivity"
+            android:parentActivityName=".domain.FournisseurActivity"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".domain.FournisseurDetailActivity"
+            android:parentActivityName=".domain.FournisseurActivity"
+            android:windowSoftInputMode="stateHidden" />
+        <activity android:name=".domain.ClientActivity" />
+        <activity
+            android:name=".domain.AddClientActivity"
+            android:parentActivityName=".domain.ClientActivity"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".domain.ClientDetailActivity"
+            android:parentActivityName=".domain.ClientActivity"
+            android:windowSoftInputMode="stateHidden" />
     </application>
 
 </manifest>

@@ -1,7 +1,6 @@
 package com.curuza.domain;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,13 +14,9 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.curuza.R;
-import com.curuza.data.client.Client;
-import com.curuza.data.client.ClientRepository;
-import com.curuza.data.credit.Credit;
 import com.curuza.data.fournisseur.Fournisseur;
 import com.curuza.data.fournisseur.FournisseurRepository;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class FournisseurAdapter extends RecyclerView.Adapter<FournisseurAdapter.ViewHolder> {
@@ -112,8 +107,8 @@ public class FournisseurAdapter extends RecyclerView.Adapter<FournisseurAdapter.
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            tvPersonPict = itemView.findViewById(R.id.img_person);
-            tvPersonName = itemView.findViewById(R.id.fournisseur_people_name);
+            tvPersonPict = itemView.findViewById(R.id.img_user);
+            tvPersonName = itemView.findViewById(R.id.user_name);
             tvTelephone  = itemView.findViewById(R.id.tel_number);
             tvDescription = itemView.findViewById(R.id.description_fournisseur);
             tvDate = itemView.findViewById(R.id.date);

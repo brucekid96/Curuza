@@ -8,7 +8,7 @@
     android:background="?android:selectableItemBackground">
 
     <ImageView
-        android:id="@+id/img_person"
+        android:id="@+id/img_user"
         android:layout_width="55dp"
         android:layout_height="55dp"
         android:layout_marginStart="8dp"
@@ -16,11 +16,11 @@
         android:layout_marginTop="8dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:src="@drawable/ic_baseline_person_green" />
+        app:srcCompat="@drawable/ic_baseline_person_green" />
 
     <TextView
 
-        android:id="@+id/fournisseur_people_name"
+        android:id="@+id/user_name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
@@ -34,8 +34,8 @@
         android:textColor="@color/colorPrimary"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/img_person"
-        app:layout_constraintTop_toTopOf="@+id/img_person"
+        app:layout_constraintStart_toEndOf="@+id/img_user"
+        app:layout_constraintTop_toTopOf="@+id/img_user"
         tools:text="igitumbura" />
 
     <View
@@ -47,7 +47,7 @@
         android:background="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/img_person" />
+        app:layout_constraintTop_toBottomOf="@+id/img_user" />
 
     <TextView
         android:id="@+id/date"
@@ -56,8 +56,8 @@
         android:layout_marginTop="4dp"
         android:fontFamily="@font/montserrat_regular"
         android:text="30/02/2021"
-        app:layout_constraintEnd_toEndOf="@+id/fournisseur_people_name"
-        app:layout_constraintStart_toStartOf="@+id/fournisseur_people_name"
-        app:layout_constraintTop_toBottomOf="@+id/fournisseur_people_name" />
+        app:layout_constraintEnd_toEndOf="@+id/user_name"
+        app:layout_constraintStart_toStartOf="@+id/user_name"
+        app:layout_constraintTop_toBottomOf="@+id/user_name" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
