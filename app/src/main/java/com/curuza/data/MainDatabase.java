@@ -7,6 +7,8 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
 
+import com.curuza.data.accounts.AccountDao;
+import com.curuza.data.accounts.AccountsManagement;
 import com.curuza.data.client.Client;
 import com.curuza.data.client.ClientDao;
 import com.curuza.data.credit.Credit;
@@ -24,10 +26,9 @@ import com.curuza.data.stock.ProductDao;
 import com.curuza.data.movements.MovementDao;
 
 @TypeConverters({Converters.class})
-@Database(entities = {Product.class, Movement.class, Credit.class, Depense.class, Client.class, Fournisseur.class},
+@Database(entities = {Product.class, Movement.class, Credit.class, Depense.class, Client.class, Fournisseur.class, AccountsManagement.class},
         views = {
                 ProductMovement.class, Rapport.class
-
 
         }, version = 1)
 public abstract class MainDatabase extends RoomDatabase {
@@ -64,4 +65,5 @@ public abstract class MainDatabase extends RoomDatabase {
     public abstract DepenseDao depenseDao();
     public abstract ClientDao clientDao();
     public abstract FournisseurDao fournisseurDao();
+    public abstract AccountDao accountDao();
 }

@@ -24,6 +24,7 @@ public class CuruzaApplication extends MultiDexApplication {
 
         try {
             Amplify.addPlugin(new AWSCognitoAuthPlugin());
+            Amplify.addPlugin(new AWSS3StoragePlugin());
             Amplify.configure(
                     AmplifyConfiguration.builder(this, R.raw.amplifyconfiguration)
                             .devMenuEnabled(false)

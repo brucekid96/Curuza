@@ -16,7 +16,6 @@ public  class ProductRepository {
 
     public  ProductRepository(Context context) {
         db = MainDatabase.getDatabase(context);
-
     }
 
 
@@ -29,7 +28,6 @@ public  class ProductRepository {
     public LiveData<Product> getProduct(String productId) {
         return db.productDao().getProduct(productId);
     }
-
 
     public void insert(Product product) {
         new insertAsyncTask(db.productDao()).execute(product);
@@ -82,6 +80,5 @@ public  class ProductRepository {
             return null;
         }
     }
-
 
 }

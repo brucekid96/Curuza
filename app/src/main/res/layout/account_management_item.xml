@@ -35,6 +35,18 @@
         app:layout_constraintTop_toTopOf="@+id/img_user"
         tools:text="Kaze Brice" />
 
+    <ImageView
+        android:id="@+id/user_status"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginRight="24dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/img_user"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/img_user"
+        app:srcCompat="@drawable/ic_baseline_check_24" />
+
     <View
         android:id="@+id/divider"
         android:layout_width="0dp"
@@ -45,15 +57,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/img_user" />
-
-    <RadioButton
-        android:id="@+id/user_status"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        app:layout_constraintBottom_toBottomOf="@+id/img_user"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/img_user"
-        android:layout_marginRight="16dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

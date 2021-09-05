@@ -5,98 +5,103 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.RadioButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.curuza.R;
-import com.curuza.data.AccountsManagement;
-import com.curuza.data.stock.Product;
+import com.curuza.data.accounts.AccountsManagement;
+import com.curuza.utils.ResourceUtils;
 
+import java.util.Arrays;
 import java.util.List;
 
-public class AccountManagementAdapter extends RecyclerView.Adapter<AccountManagementAdapter.AccountViewHolder>{
+public class AccountManagementAdapter extends RecyclerView.Adapter<AccountManagementAdapter.AccountViewHolder> {
 
-    private List<AccountsManagement> mListAccounts;
+    private List<AccountsManagement> mAccounts;
     private Context mContext;
-    private AccountManagementAdapter.OnItemListener mOnitemListener;
+    private int mSelectedAccountPosition;
 
-    public interface OnItemListener{
-        void onItemClick(int position);
-    }
 
-    public AccountManagementAdapter(List<AccountsManagement> mListAccounts, Context mContext, AccountManagementAdapter.OnItemListener OnitemListener) {
-        this.mListAccounts = mListAccounts;
-        this.mContext = mContext;
-        this.mOnitemListener = OnitemListener;
 
+    public AccountManagementAdapter(Context context) {
+        this.mAccounts = getSampleAccounts(context);
+        this.mContext = context;
     }
 
 
-    public void setData(List<AccountsManagement>list) {
-        this.mListAccounts=list;
+    public void setData(List<AccountsManagement> list) {
+        this.mAccounts = list;
         notifyDataSetChanged();
     }
 
     @NonNull
     @Override
     public AccountManagementAdapter.AccountViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.account_management_item,parent,false);
-        return new AccountManagementAdapter.AccountViewHolder(view,mOnitemListener);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.account_management_item, parent, false);
+        return new AccountManagementAdapter.AccountViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull AccountManagementAdapter.AccountViewHolder holder, int position) {
-        AccountsManagement accounts = mListAccounts.get(position);
-        if(accounts ==null) {
-            return;
-        }
 
-        holder.tvName.setText(accounts.getName());
-        holder.tvStatus.setText(String.valueOf(accounts.getmStatus()));
-
-        if (accounts.getmProfileImageUri()!=null){
-
-            Glide.with(mContext)
-                    .load(accounts.getmProfileImageUri())
-                    .circleCrop()
-                    .into(holder.imgUser);
-        }
-
-
+        holder.bind(mAccounts.get(position));
     }
 
 
     @Override
     public int getItemCount() {
-        if (mListAccounts != null) {
-            return mListAccounts.size();
-        }
-        return 0;
+        return mAccounts.size();
     }
 
     public class AccountViewHolder extends RecyclerView.ViewHolder {
 
         private ImageView imgUser;
         private TextView tvName;
-        private RadioButton tvStatus;
+        private ImageView tvStatus;
         public ConstraintLayout container;
-        AccountManagementAdapter.OnItemListener mOnItemListener;
 
 
-        public AccountViewHolder(@NonNull View itemView, AccountManagementAdapter.OnItemListener onitemListener) {
+        public AccountViewHolder(@NonNull View itemView) {
             super(itemView);
 
             imgUser = itemView.findViewById(R.id.img_user);
             tvName = itemView.findViewById(R.id.user_name);
             tvStatus = itemView.findViewById(R.id.user_status);
-            container= itemView.findViewById(R.id.container);
-            mOnItemListener =  onitemListener;
+            container = itemView.findViewById(R.id.container);
+        }
+
+        public void bind(AccountsManagement account) {
+            tvName.setText(account.getName());
+            if(account.isSelected()) {
+                tvStatus.setImageResource(R.drawable.ic_baseline_check_24);
+                tvStatus.setVisibility(View.VISIBLE);
+            }
+            else {
+                tvStatus.setVisibility(View.INVISIBLE);
+            }
+
+            if (account.getProfileImageUri() != null) {
+
+                Glide.with(mContext)
+                        .load(account.getProfileImageUri())
+                        .circleCrop()
+                        .into(imgUser);
+            }
         }
     }
+
+    public  List<AccountsManagement> getSampleAccounts(Context context) {
+
+        AccountsManagement[] accountsArray = {
+                new AccountsManagement("1", ResourceUtils.getResourceUri(context,R.drawable.bestii),"kaze brice",true),
+                new AccountsManagement("2", ResourceUtils.getResourceUri(context,R.drawable.bestii),"Yohani MIkayeri",false)
+        };
+        return Arrays.asList(accountsArray);
+    }
 }
+
+

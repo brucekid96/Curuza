@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "788a676456685fdeddfcca5bf2803996",
+    "identityHash": "069e5a89bd160b085a6a7a5fc4364e10",
     "entities": [
       {
         "tableName": "products_table",
@@ -291,6 +291,44 @@
         },
         "indices": [],
         "foreignKeys": []
+      },
+      {
+        "tableName": "accounts_table",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `resourceId` TEXT, `name` TEXT NOT NULL, `isSelected` INTEGER, PRIMARY KEY(`id`))",
+        "fields": [
+          {
+            "fieldPath": "mId",
+            "columnName": "id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "mProfileImageUri",
+            "columnName": "resourceId",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "isSelected",
+            "columnName": "isSelected",
+            "affinity": "INTEGER",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
       }
     ],
     "views": [
@@ -300,12 +338,12 @@
       },
       {
         "viewName": "rapport",
-        "createSql": "CREATE VIEW `${VIEW_NAME}` AS select SUM(movement_p_vente), CAST(movement_date AS DATE) as 'p vente amount per day' from MOVEMENT"
+        "createSql": "CREATE VIEW `${VIEW_NAME}` AS select date_only as date, sum(movement_p_vente) as total_vente from (select *, substr(movement_date, 1, 10)  as date_only  from movement) group by date_only"
       }
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '788a676456685fdeddfcca5bf2803996')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '069e5a89bd160b085a6a7a5fc4364e10')"
     ]
   }
 }

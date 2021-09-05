@@ -43,6 +43,7 @@
         <activity android:name=".domain.HelpActivity" />
         <activity android:name=".domain.QuestionsActivity" />
         <activity android:name=".domain.RapportActivity" />
+
         <activity
             android:name=".domain.AddArticle"
             android:parentActivityName=".domain.ProductsActivity"

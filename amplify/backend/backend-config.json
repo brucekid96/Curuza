@@ -23,5 +23,11 @@
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
     }
+  },
+  "storage": {
+    "s33c4093f7": {
+      "service": "S3",
+      "providerPlugin": "awscloudformation"
+    }
   }
 }

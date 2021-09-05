@@ -10,13 +10,9 @@ import java.util.List;
 public  class ProductViewModel extends AndroidViewModel {
     private ProductRepository mProductRepository;
 
-
     public ProductViewModel (Application application) {
         super(application);
         mProductRepository = new ProductRepository(application.getApplicationContext());
-
-
-
     }
 
     public LiveData<List<Product>> getAllProducts() {

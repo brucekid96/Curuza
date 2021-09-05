@@ -1,5 +1,6 @@
 package com.curuza.domain.onboarding.auth;
 
+import android.content.Context;
 import android.util.Log;
 
 import com.amazonaws.services.cognitoidentityprovider.model.NotAuthorizedException;
@@ -11,6 +12,8 @@ import com.amplifyframework.auth.options.AuthSignUpOptions;
 import com.amplifyframework.auth.result.AuthSignInResult;
 import com.amplifyframework.auth.result.AuthSignUpResult;
 import com.amplifyframework.core.Amplify;
+import com.curuza.data.MainDatabase;
+import com.curuza.data.photos.StandardPhotoRepository;
 
 import java.util.Arrays;
 import java.util.List;
@@ -150,5 +153,12 @@ public class AuthService {
         }
 
         return phoneNumber;
+    }
+
+    public static Completable clearUserData(Context context) {
+        return Completable.create(source -> {
+            MainDatabase.getDatabase(context).clearAllTables();
+            source.onComplete();
+        });
     }
 }

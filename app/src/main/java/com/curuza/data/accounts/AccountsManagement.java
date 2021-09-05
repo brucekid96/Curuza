@@ -1,8 +1,9 @@
-package com.curuza.data;
+package com.curuza.data.accounts;
 
 import android.net.Uri;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
@@ -21,33 +22,25 @@ public class AccountsManagement  implements Parcelable {
     @NonNull
     @ColumnInfo(name = "name")
     private String name;
-    @ColumnInfo(name = "status")
-    private Boolean mStatus;
+    @ColumnInfo(name = "isSelected")
+    private Boolean isSelected;
 
 
-    public AccountsManagement(@NonNull String mId, Uri mProfileImageUri, @NonNull String name, Boolean mStatus) {
-        this.mId = mId;
+    public AccountsManagement(String id, Uri mProfileImageUri,  String name, Boolean isSelected) {
+        mId = id;
         this.mProfileImageUri = mProfileImageUri;
         this.name = name;
-        this.mStatus = mStatus;
+        this.isSelected = isSelected;
     }
 
 
     @NonNull
-    public String getmId() {
+    public String getId() {
         return mId;
     }
 
-    public void setmId(@NonNull String mId) {
-        this.mId = mId;
-    }
-
-    public Uri getmProfileImageUri() {
+    public Uri getProfileImageUri() {
         return mProfileImageUri;
-    }
-
-    public void setmProfileImageUri(Uri mProfileImageUri) {
-        this.mProfileImageUri = mProfileImageUri;
     }
 
     @NonNull
@@ -55,16 +48,30 @@ public class AccountsManagement  implements Parcelable {
         return name;
     }
 
+    public Boolean isSelected() {
+        return isSelected;
+    }
+
+    public void setmId(@NonNull String mId) {
+        this.mId = mId;
+    }
+
+
+
+    public void setmProfileImageUri(Uri mProfileImageUri) {
+        this.mProfileImageUri = mProfileImageUri;
+    }
+
+
+
     public void setName(@NonNull String name) {
         this.name = name;
     }
 
-    public Boolean getmStatus() {
-        return mStatus;
-    }
+
 
     public void setmStatus(Boolean mStatus) {
-        this.mStatus = mStatus;
+        this.isSelected = mStatus;
     }
 
     public String toString() {
@@ -79,7 +86,7 @@ public class AccountsManagement  implements Parcelable {
                 + name
                 + ","
                 +"mStatus="
-                + mStatus
+                + isSelected
                 +
                "]";
     }
@@ -95,21 +102,21 @@ public class AccountsManagement  implements Parcelable {
         dest.writeString(this.mId);
         dest.writeParcelable(this.mProfileImageUri, flags);
         dest.writeString(this.name);
-        dest.writeValue(this.mStatus);
+        dest.writeValue(this.isSelected);
     }
 
     public void readFromParcel(Parcel source) {
         this.mId = source.readString();
         this.mProfileImageUri = source.readParcelable(Uri.class.getClassLoader());
         this.name = source.readString();
-        this.mStatus = (Boolean) source.readValue(Boolean.class.getClassLoader());
+        this.isSelected = (Boolean) source.readValue(View.class.getClassLoader());
     }
 
     protected AccountsManagement(Parcel in) {
         this.mId = in.readString();
         this.mProfileImageUri = in.readParcelable(Uri.class.getClassLoader());
         this.name = in.readString();
-        this.mStatus = (Boolean) in.readValue(Boolean.class.getClassLoader());
+        this.isSelected = (Boolean) in.readValue(View.class.getClassLoader());
     }
 
     public static final Creator<AccountsManagement> CREATOR = new Creator<AccountsManagement>() {
