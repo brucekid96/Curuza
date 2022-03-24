@@ -12,7 +12,10 @@ import com.amplifyframework.core.AmplifyConfiguration;
 import com.amplifyframework.storage.s3.AWSS3StoragePlugin;
 import com.curuza.R;
 import com.facebook.stetho.Stetho;
+import com.franmontiel.localechanger.LocaleChanger;
 import com.jakewharton.threetenabp.AndroidThreeTen;
+
+import static com.curuza.utils.LocaleUtils.APP_LOCALES;
 
 public class CuruzaApplication extends MultiDexApplication {
 
@@ -21,6 +24,8 @@ public class CuruzaApplication extends MultiDexApplication {
         super.onCreate();
         AndroidThreeTen.init(this);
         Stetho.initializeWithDefaults(this);
+        LocaleChanger.initialize(this, APP_LOCALES);
+
 
         try {
             Amplify.addPlugin(new AWSCognitoAuthPlugin());

@@ -5,6 +5,7 @@ import android.content.Context;
 import androidx.core.os.ConfigurationCompat;
 
 import com.curuza.R;
+import com.franmontiel.localechanger.LocaleChanger;
 
 import java.util.Arrays;
 import java.util.List;
@@ -22,14 +23,14 @@ public class LocaleUtils {
         return ConfigurationCompat.getLocales(context.getResources().getConfiguration()).get(0);
     }
 
-//    public static String getCurrentLocaleDisplayName(Context context) {
-//        Locale currentLocale = LocaleChanger.getLocale();
-//        if(currentLocale.getISO3Language().equals(FRENCH.getISO3Language())) {
-//            return context.getString(R.string.french);
-//        } else if (currentLocale.getISO3Language().equals(KIRUNDI.getISO3Language())) {
-//            return context.getString(R.string.kirundi);
-//        } else {
-//            return context.getString(R.string.english);
-//        }
-//    }
+    public static String getCurrentLocaleDisplayName(Context context) {
+        Locale currentLocale = LocaleChanger.getLocale();
+        if(currentLocale.getISO3Language().equals(FRENCH.getISO3Language())) {
+            return context.getString(R.string.French);
+        } else if (currentLocale.getISO3Language().equals(KIRUNDI.getISO3Language())) {
+            return context.getString(R.string.kirundi);
+        } else {
+            return context.getString(R.string.English);
+        }
+    }
 }

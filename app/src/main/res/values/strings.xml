@@ -42,7 +42,6 @@
     <string name="invalid_picture">invalidate picture</string>
     <string name="check_evrything">check evrything</string>
     <string name="language">Kirundi</string>
-    <string name="kirundi">French</string>
     <string name="about_activity">About Us</string>
     <string name="action_more">more</string>
     <string name="add_credit">Add Credit</string>
@@ -91,4 +90,7 @@
     <string name="yes">yes</string>
     <string name="please_wait">please wait</string>
     <string name="too_many_verification_attempts_error" />
+    <string name="English">English</string>
+    <string name="kirundi">kirundi</string>
+    <string name="French">French</string>
 </resources>

@@ -76,7 +76,7 @@ public class AllProductsFragment extends Fragment implements ProductMovementsAda
         mProductAdapter.setData(getProductMovementList());
         mRecyclerView.setAdapter(mProductAdapter);
         mModel= ViewModelProviders.of(this).get(MovementViewModel.class);
-        mModel.getAllProductMovements().observe(this, productMovements -> {
+        mModel.getAllProductMovements().observe(getViewLifecycleOwner(), productMovements -> {
                 Log.d(AllProductsFragment.class.getSimpleName(), "mModel.getProductMovements()");
                 Log.d(AllProductsFragment.class.getSimpleName(), "Product movement list: " + productMovements.toString());
             productMovementList = productMovements;

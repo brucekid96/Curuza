@@ -16,7 +16,7 @@
     <string name="depense_activity">Amafaranga Yakoreshejwe</string>
     <string name="selectedlanguage">Icongereza</string>
     <string name="language">Ikirundi</string>
-    <string name="kirundi">Igifaransa</string>
+    <string name="kirundi">Ikirundi</string>
     <string name="add_depense">Gukoresha Amafaranga</string>
     <string name="rapport_activity">Raporo</string>
     <string name="Home_activity">Ibirimwo</string>
@@ -54,4 +54,6 @@
     <string name="share_playstore">Kuri Google Play Store</string>
     <string name="share_header_intent">Sangiza Bagenzi Bawe Apirikasiyo ya Curuza</string>
     <string name="extra_msg_link">Curuza ni apirikasiyo ifasha umudandaza gukurikirana business yiwe vyoroshe.</string>
+    <string name="English">Icongereza</string>
+    <string name="French">Igifaransa</string>
 </resources>

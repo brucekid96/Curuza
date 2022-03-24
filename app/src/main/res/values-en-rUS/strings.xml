@@ -50,7 +50,7 @@
     <string name="invalid_picture">invalidate picture</string>
     <string name="selectedlanguage">English</string>
     <string name="language">Kirundi</string>
-    <string name="kirundi">French</string>
+    <string name="kirundi">Kirundi</string>
     <string name="BIF">BIF</string>
     <string name="prix_achat">Purchasing Price</string>
     <string name="prix_vente">Selling price</string>
@@ -58,4 +58,6 @@
     <string name="share_playstore">On Google Play Store</string>
     <string name="share_header_intent">Share with your Friends  Curuza Application</string>
     <string name="extra_msg_link">Curuza is the App that  help you to manage your business.</string>
+    <string name="English">English</string>
+    <string name="French">French</string>
 </resources>

@@ -1,4 +1,4 @@
- package com.curuza.domain;
+  package com.curuza.domain;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -160,6 +160,7 @@ import java.util.List;
 
         getMenuInflater().inflate(R.menu.product, menu);
         MenuItem menuItem = menu.findItem(R.id.menu_item_search);
+        MenuItem listProduct = menu.findItem(R.id.list_product);
         SearchView searchView =(SearchView) menuItem.getActionView();
         searchView.requestFocus();
         searchView.setImeOptions(EditorInfo.IME_ACTION_DONE);

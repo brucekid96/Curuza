@@ -13,7 +13,7 @@
         android:layout_height="50dp"
         android:layout_marginTop="8dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/ic_box__logo"
+        app:srcCompat="@drawable/ic_box__logo"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

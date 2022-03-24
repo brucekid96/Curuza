@@ -24,7 +24,7 @@
         </menu>
     </item>
     <item
-        android:id="@+id/mor"
+        android:id="@+id/list_product"
         android:icon="@drawable/ic_baseline_more_vert_24"
         android:title="@string/action_help"
         app:showAsAction="never" />

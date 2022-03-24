@@ -35,7 +35,7 @@
     <string name="telephone_number">Numéro de Téléphone</string>
     <string name="invalid_picture">invalider l\'image</string>
     <string name="language">Kirundi</string>
-    <string name="kirundi">Français</string>
+    <string name="kirundi">Kirundi</string>
     <string name="selectedlanguage">Anglais</string>
     <string name="amount">Montant</string>
     <string name="add_quantity">Ajouter la Quantité</string>
@@ -57,4 +57,6 @@
     <string name="share_playstore">Sur Google Play Store</string>
     <string name="share_header_intent">Partager L\'Application curuza Avec tes Amis</string>
     <string name="extra_msg_link">Curuza est l\'application qui vous aide à gérer votre business facilement.</string>
+    <string name="English">Anglais</string>
+    <string name="French">Français</string>
 </resources>

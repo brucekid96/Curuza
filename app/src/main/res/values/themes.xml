@@ -12,6 +12,12 @@
         <item name="backgroundTint">@color/colorPrimary</item>
     </style>
 
+    <style name="Header3">
+        <item name="android:fontFamily">@font/montserrat_semi_bold</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
 
 
     <style name="BottomSheetDialogTheme" parent="Theme.Design.BottomSheetDialog">
