@@ -25,7 +25,6 @@ import java.util.List;
 
 public class StockAdapter extends RecyclerView.Adapter<StockAdapter.ViewHolder> {
 
-
     private List<Product> mListProduct;
     private Context mContext;
     private ProductRepository mStockRepository;

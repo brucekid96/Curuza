@@ -21,7 +21,7 @@ public interface DepenseDao {
     @Update
     int update(Depense depense);
 
-    @Query("SELECT * from depense")
+    @Query("SELECT * from depense order by date desc ")
     LiveData<List<Depense>> getDepenses();
 
     @Query("SELECT * from  credit where id = :depenseId ")

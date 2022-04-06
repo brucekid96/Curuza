@@ -39,10 +39,13 @@ public class Product implements Parcelable {
     @ColumnInfo(name = "p_vente")
     private int mPVente;
 
+    @ColumnInfo(name = "p_date")
+    private String mDate;
 
 
 
-    public Product(String id, Uri mProductImageUri, String name, String mDescription, int mQuantity, int mPAchat, int mPVente) {
+
+    public Product(String id, Uri mProductImageUri, String name, String mDescription, int mQuantity, int mPAchat, int mPVente,String mDate) {
 
         mId = id;
         this.mProductImageUri = mProductImageUri;
@@ -51,6 +54,7 @@ public class Product implements Parcelable {
         this.mQuantity = mQuantity;
         this.mPAchat = mPAchat;
         this.mPVente = mPVente;
+        this.mDate = mDate;
 
     }
 
@@ -111,6 +115,14 @@ public class Product implements Parcelable {
         this.mPVente = mPVente;
     }
 
+    public String getDate() {
+        return mDate;
+    }
+
+    public void setDate(String mDate) {
+        this.mDate = mDate;
+    }
+
 
 
 
@@ -144,6 +156,7 @@ public class Product implements Parcelable {
         this.mQuantity = in.readInt();
         this.mPAchat = in.readInt();
         this.mPVente = in.readInt();
+        this.mDate =in.readString();
 
 
 
@@ -167,6 +180,7 @@ public class Product implements Parcelable {
         dest.writeInt(this.mQuantity);
         dest.writeInt(this.mPAchat);
         dest.writeInt(this.mPVente);
+        dest.writeString(this.mDate);
 
 
 

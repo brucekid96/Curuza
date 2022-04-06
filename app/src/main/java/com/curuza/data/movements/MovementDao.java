@@ -28,7 +28,8 @@ public interface MovementDao {
             "m.movement_date,m.movement_status,m.movement_p_vente,m.movement_p_achat " +
             "from products_table p " +
             "inner join movement m " +
-            "on p.id = m.product_id   ")
+            "on p.id = m.product_id " +
+            "order by m.movement_date desc    ")
     LiveData <List<ProductMovement>> getProductMovements();
 
     @Query("SELECT * from  movement where movement_id = :MovementId ")

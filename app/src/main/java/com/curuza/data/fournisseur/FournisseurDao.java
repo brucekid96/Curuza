@@ -21,7 +21,7 @@ public interface FournisseurDao {
     @Update
     int update(Fournisseur fournisseur);
 
-    @Query("SELECT * from fournisseur")
+    @Query("SELECT * from fournisseur order by date desc ")
     LiveData<List<Fournisseur>> getFournisseurs();
 
     @Query("SELECT * from  fournisseur where id = :fournisseurId ")

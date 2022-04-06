@@ -21,7 +21,7 @@ public interface CreditDao {
     @Update
     int update(Credit credit);
 
-    @Query("SELECT * from credit")
+    @Query("SELECT * from credit order by date desc ")
     LiveData<List<Credit>> getCredits();
 
     @Query("SELECT * from  credit where id = :creditId ")

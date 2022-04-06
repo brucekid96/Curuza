@@ -29,6 +29,7 @@
         android:layout_marginTop="10dp"
         android:background="@drawable/round_edittext"
         android:hint="@string/add_quantity"
+        android:inputType="numberDecimal"
         android:padding="10dp" />
 
 

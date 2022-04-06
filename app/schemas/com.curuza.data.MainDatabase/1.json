@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "069e5a89bd160b085a6a7a5fc4364e10",
+    "identityHash": "224632ba1cab2d86f15a40f4a009e45e",
     "entities": [
       {
         "tableName": "products_table",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `resourceId` TEXT, `name` TEXT NOT NULL, `description` TEXT, `quantity` INTEGER NOT NULL, `p_achat` INTEGER NOT NULL, `p_vente` INTEGER NOT NULL, PRIMARY KEY(`id`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `resourceId` TEXT, `name` TEXT NOT NULL, `description` TEXT, `quantity` INTEGER NOT NULL, `p_achat` INTEGER NOT NULL, `p_vente` INTEGER NOT NULL, `p_date` TEXT, PRIMARY KEY(`id`))",
         "fields": [
           {
             "fieldPath": "mId",
@@ -49,6 +49,12 @@
             "columnName": "p_vente",
             "affinity": "INTEGER",
             "notNull": true
+          },
+          {
+            "fieldPath": "mDate",
+            "columnName": "p_date",
+            "affinity": "TEXT",
+            "notNull": false
           }
         ],
         "primaryKey": {
@@ -334,7 +340,7 @@
     "views": [
       {
         "viewName": "product_movement",
-        "createSql": "CREATE VIEW `${VIEW_NAME}` AS select p.id,p.resourceId,p.name,p.description,p.quantity,p.p_vente,p.p_achat , m.movement_id,m.product_id,m.movement_quantity,m.movement_date,m.movement_status,m.movement_p_vente,m.movement_p_achat from products_table p inner join movement m on p.id = m.product_id"
+        "createSql": "CREATE VIEW `${VIEW_NAME}` AS select p.id,p.resourceId,p.name,p.description,p.quantity,p.p_vente,p.p_achat , m.movement_id,m.product_id,m.movement_quantity,m.movement_date,m.movement_status,m.movement_p_vente,m.movement_p_achat from products_table p inner join movement m on p.id = m.product_id  order by m.movement_date desc"
       },
       {
         "viewName": "rapport",
@@ -343,7 +349,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '069e5a89bd160b085a6a7a5fc4364e10')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '224632ba1cab2d86f15a40f4a009e45e')"
     ]
   }
 }

@@ -29,6 +29,7 @@
         android:layout_marginTop="10dp"
         android:background="@drawable/round_edittext"
         android:hint="@string/quantity_dialog"
+        android:inputType="numberDecimal"
         android:padding="10dp" />
 
     <EditText

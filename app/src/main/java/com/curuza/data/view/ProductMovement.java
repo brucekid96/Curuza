@@ -14,12 +14,13 @@ import com.curuza.data.movements.Movement;
 @DatabaseView(
         viewName = "product_movement",
         value = "select p.id,p.resourceId,p.name,p.description," +
-        "p.quantity,p.p_vente,p.p_achat " +
+        "p.quantity,p.p_vente,p.p_achat,p_date " +
         ", m.movement_id,m.product_id,m.movement_quantity," +
         "m.movement_date,m.movement_status,m.movement_p_vente,m.movement_p_achat " +
         "from products_table p " +
         "inner join movement m " +
-        "on p.id = m.product_id  "
+        "on p.id = m.product_id  "+
+                "order by m.movement_date desc    "
 )
 public class ProductMovement implements Parcelable  {
     public static final String ProductMovement_EXTRA = "product_movement_code";

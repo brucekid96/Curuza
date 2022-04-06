@@ -112,7 +112,8 @@ public class AddArticle extends AppCompatActivity {
                             mDescriptionView.getEditText().getText().toString(),
                             Integer.parseInt(mQuantityView.getEditText().getText().toString()),
                             Integer.parseInt(mPrixAchatView.getEditText().getText().toString()),
-                            Integer.parseInt(mPrixVenteView.getEditText().getText().toString())
+                            Integer.parseInt(mPrixVenteView.getEditText().getText().toString()),
+                            mDate
 
                     )
                 );

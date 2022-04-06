@@ -9,17 +9,18 @@
       "UnauthRoleName": "amplify-curuza-dev-194841-unauthRole",
       "StackName": "amplify-curuza-dev-194841",
       "StackId": "arn:aws:cloudformation:eu-west-2:766274454769:stack/amplify-curuza-dev-194841/f42f8580-f2f0-11eb-8aa2-023c17cb5104",
-      "AmplifyAppId": "d1uw1noe5jb7jg"
+      "AmplifyAppId": "d1uw1noe5jb7jg",
+      "AuthTriggerTemplateURL": "https://s3.amazonaws.com/amplify-curuza-dev-194841-deployment/amplify-cfn-templates/auth/auth-trigger-cloudformation-template.json"
     },
     "categories": {
+      "auth": {
+        "curuza92aa13fd92aa13fd": {}
+      },
       "function": {
         "curuza92aa13fd92aa13fdPreSignup": {
           "deploymentBucketName": "amplify-curuza-dev-194841-deployment",
           "s3Key": "amplify-builds/curuza92aa13fd92aa13fdPreSignup-56397936522b6a784c73-build.zip"
         }
-      },
-      "auth": {
-        "curuza92aa13fd92aa13fd": {}
       }
     }
   }

@@ -20,6 +20,8 @@ import com.curuza.data.stock.ProductRepository;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputLayout;
 
+import org.threeten.bp.ZonedDateTime;
+
 public class StockDetail extends AppCompatActivity {
     private int GALLERY_REQUEST_CODE = 1;
     private int CAMERA_REQUEST_CODE = 2;
@@ -34,6 +36,7 @@ public class StockDetail extends AppCompatActivity {
     private TextInputLayout mQuantity;
     private TextInputLayout mPxAchat;
     private TextInputLayout mPxVente;
+    private String mDate;
     private FloatingActionButton mFab;
 
     private Uri mProductImageURI;
@@ -48,6 +51,7 @@ public class StockDetail extends AppCompatActivity {
 
         Intent intent = getIntent();
         produit = intent.getParcelableExtra(Product.PRODUCT_EXTRA);
+        mProductImageURI = produit.getProductImageUri();
         Log.d(StockDetail.class.getSimpleName(), "Retrieved credit: " + produit);
 
         Toolbar toolbar = findViewById (R.id.toolbar_detail_article);
@@ -75,7 +79,7 @@ public class StockDetail extends AppCompatActivity {
         mUploadImageButton.setOnClickListener(v -> choosePhotoFromGallary());
         mFab = findViewById(R.id.floatingActionButton);
         mFab.setOnClickListener(v -> {
-
+            mDate = ZonedDateTime.now().toInstant().toString();
 
            Product productUpdate= new Product( produit.getId(),
                    mProductImageURI,
@@ -83,7 +87,8 @@ public class StockDetail extends AppCompatActivity {
                    mDescription.getEditText().getText().toString(),
                    Integer.parseInt(mQuantity.getEditText().getText().toString()),
                    Integer.parseInt(mPxAchat.getEditText().getText().toString()),
-                   Integer.parseInt(mPxVente.getEditText().getText().toString()));
+                   Integer.parseInt(mPxVente.getEditText().getText().toString()),
+                   mDate);
             mProductRepository.update(productUpdate);
             Intent intent2 = new Intent(StockDetail.this, StockActivity.class);
             startActivity(intent2);

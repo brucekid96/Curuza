@@ -22,7 +22,7 @@ public interface ClientDao {
     @Update
     int update(Client client);
 
-    @Query("SELECT * from client")
+    @Query("SELECT * from client order by date desc ")
     LiveData<List<Client>> getClients();
 
     @Query("SELECT * from  client where id = :clientId ")

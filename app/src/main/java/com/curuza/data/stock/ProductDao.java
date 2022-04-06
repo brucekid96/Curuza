@@ -22,10 +22,10 @@ public interface ProductDao {
     @Update
     int update(Product product);
 
-    @Query("SELECT * from products_table")
+    @Query("SELECT * from products_table order by p_date desc")
     LiveData<List<Product>> getProducts();
 
-    @Query("SELECT * from products_table where name Like:searchQuery Or description Like:searchQuery")
+    @Query("SELECT * from products_table where name Like :searchQuery Or description Like :searchQuery ")
     LiveData<List<Product>> searchProducts(String searchQuery);
 
     @Query("SELECT * from  products_table where id = :ProductId ")
