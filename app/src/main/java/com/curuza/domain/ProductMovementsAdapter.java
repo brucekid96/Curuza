@@ -1,7 +1,6 @@
 package com.curuza.domain;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -11,15 +10,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.curuza.R;
 import com.curuza.data.movements.Movement;
-import com.curuza.data.stock.Product;
-import com.curuza.data.stock.ProductRepository;
 import com.curuza.data.view.ProductMovement;
 import com.curuza.utils.FormatUtils;
 
@@ -41,8 +37,6 @@ public class ProductMovementsAdapter extends RecyclerView.Adapter<RecyclerView.V
         void OnDeleteClickListener(Movement movement);
     }
 
-
-
     public ProductMovementsAdapter(List<ProductMovement> mProductMovements,Context mContext, OnDeleteClickListener listener) {
         this.mContext = mContext;
         mProductMovements = new ArrayList<>();
@@ -55,8 +49,6 @@ public class ProductMovementsAdapter extends RecyclerView.Adapter<RecyclerView.V
         this.mProductMovements =productMovement;
         notifyDataSetChanged();
     }
-
-
 
     private class EnterViewHolder extends RecyclerView.ViewHolder {
 
@@ -163,7 +155,6 @@ public class ProductMovementsAdapter extends RecyclerView.Adapter<RecyclerView.V
         }
     }
 
-
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -178,7 +169,6 @@ public class ProductMovementsAdapter extends RecyclerView.Adapter<RecyclerView.V
         }
 
     }
-
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
@@ -200,7 +190,6 @@ public class ProductMovementsAdapter extends RecyclerView.Adapter<RecyclerView.V
 
         }
     }
-
 
     @Override
     public int getItemCount() {

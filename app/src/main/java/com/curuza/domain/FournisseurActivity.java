@@ -1,11 +1,12 @@
 package com.curuza.domain;
 
-import android.content.ComponentName;
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
-import android.telephony.PhoneNumberUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -27,7 +28,7 @@ import com.curuza.R;
 import com.curuza.data.fournisseur.Fournisseur;
 import com.curuza.data.fournisseur.FournisseurRepository;
 import com.curuza.data.fournisseur.FournisseurViewModel;
-import com.curuza.data.stock.Product;
+import com.curuza.utils.ExcelExporter;
 import com.github.clans.fab.FloatingActionMenu;
 import com.google.android.material.navigation.NavigationView;
 
@@ -165,6 +166,16 @@ public class FournisseurActivity extends AppCompatActivity implements Navigation
 
         if (id == R.id.menu_item_search) {
             return true;
+        }
+        if (id == R.id.export_fournisseur) {
+            if (Build.VERSION.SDK_INT > Build.VERSION_CODES.M) {
+                if (getApplicationContext().checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED) {
+                    String[] permissions = {Manifest.permission.WRITE_EXTERNAL_STORAGE};
+                    requestPermissions(permissions, 1);
+                } else {
+                    ExcelExporter.exportFournisseurs(getApplicationContext(),fournisseurList);
+                }
+            }
         }
 
         return super.onOptionsItemSelected(item);

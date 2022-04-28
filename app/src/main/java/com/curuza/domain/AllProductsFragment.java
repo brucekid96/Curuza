@@ -16,10 +16,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.curuza.R;
 import com.curuza.data.movements.Movement;
 import com.curuza.data.movements.MovementRepository;
-import com.curuza.data.stock.ProductRepository;
-import com.curuza.data.view.ProductMovement;
-import com.curuza.data.stock.Product;
 import com.curuza.data.movements.MovementViewModel;
+import com.curuza.data.view.ProductMovement;
 
 import java.text.DateFormat;
 import java.util.ArrayList;
@@ -29,7 +27,6 @@ import java.util.List;
 public class AllProductsFragment extends Fragment implements ProductMovementsAdapter.OnDeleteClickListener{
 
 
-    private List<Product> mProducts;
 
 
     private RecyclerView mRecyclerView;
@@ -58,9 +55,6 @@ public class AllProductsFragment extends Fragment implements ProductMovementsAda
         if (getArguments() != null) {
 
         }
-
-
-
     }
 
     @Override

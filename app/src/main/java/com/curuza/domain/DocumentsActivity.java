@@ -1,13 +1,15 @@
 package com.curuza.domain;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.inputmethod.EditorInfo;
-import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,19 +17,25 @@ import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.viewpager.widget.ViewPager;
 
 import com.curuza.R;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.curuza.data.movements.MovementViewModel;
+import com.curuza.data.view.ProductMovement;
+import com.curuza.utils.ExcelExporter;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
+
+import java.util.List;
 
 public class DocumentsActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, AllProductsFragment.OnFragmentInteractionListener,
         EnterProductsFragment.OnFragmentInteractionListener, ExitProductsFragment.OnFragmentInteractionListener {
 
-
-    FloatingActionButton fab;
-
+    private MovementViewModel mModel;
+    private List<ProductMovement> allProductMovements;
+    private List<ProductMovement> enterProductMovements;
+    private List<ProductMovement> exitProductMovements;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -83,6 +91,17 @@ public class DocumentsActivity extends AppCompatActivity implements NavigationVi
                 findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        mModel= ViewModelProviders.of(this).get(MovementViewModel.class);
+        mModel.getAllProductMovements().observe(this, productMovement -> {
+            allProductMovements = productMovement;
+        });
+        mModel.getEnterProductMovements().observe(this, productEnterMovements ->  {
+            enterProductMovements = productEnterMovements;
+        });
+        mModel.getExitProductMovements().observe(this, productExitMovements ->  {
+            exitProductMovements = productExitMovements;
+        });
+
 
 
 
@@ -136,7 +155,36 @@ public class DocumentsActivity extends AppCompatActivity implements NavigationVi
         if (id == R.id.menu_item_search) {
             return true;
         }
-
+        if(id == R.id.all) {
+            if (Build.VERSION.SDK_INT > Build.VERSION_CODES.M) {
+                if (getApplicationContext().checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED) {
+                    String[] permissions = {Manifest.permission.WRITE_EXTERNAL_STORAGE};
+                    requestPermissions(permissions, 1);
+                } else {
+                    ExcelExporter.exportAllDocuments(getApplicationContext(), allProductMovements);
+                }
+            }
+        }
+        if(id == R.id.enter) {
+            if (Build.VERSION.SDK_INT > Build.VERSION_CODES.M) {
+                if (getApplicationContext().checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED) {
+                    String[] permissions = {Manifest.permission.WRITE_EXTERNAL_STORAGE};
+                    requestPermissions(permissions, 1);
+                } else {
+                    ExcelExporter.exportEnterDocuments(getApplicationContext(), enterProductMovements);
+                }
+            }
+        }
+        if(id == R.id.exit) {
+            if (Build.VERSION.SDK_INT > Build.VERSION_CODES.M) {
+                if (getApplicationContext().checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED) {
+                    String[] permissions = {Manifest.permission.WRITE_EXTERNAL_STORAGE};
+                    requestPermissions(permissions, 1);
+                } else {
+                    ExcelExporter.exportExitDocuments(getApplicationContext(), exitProductMovements);
+                }
+            }
+        }
         return super.onOptionsItemSelected(item);
     }
 

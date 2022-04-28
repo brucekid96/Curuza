@@ -1,7 +1,10 @@
 package com.curuza.domain;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -15,7 +18,6 @@ import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -24,6 +26,7 @@ import com.curuza.R;
 import com.curuza.data.stock.Product;
 import com.curuza.data.stock.ProductRepository;
 import com.curuza.data.stock.ProductViewModel;
+import com.curuza.utils.ExcelExporter;
 import com.google.android.material.navigation.NavigationView;
 
 import java.util.ArrayList;
@@ -154,6 +157,16 @@ public class StockActivity extends AppCompatActivity implements NavigationView.O
 
         if (id == R.id.menu_item_search) {
             return true;
+        }
+        if (id == R.id.export) {
+            if (Build.VERSION.SDK_INT > Build.VERSION_CODES.M) {
+                if (getApplicationContext().checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED) {
+                    String[] permissions = {Manifest.permission.WRITE_EXTERNAL_STORAGE};
+                    requestPermissions(permissions, 1);
+                } else {
+                    ExcelExporter.exportProducts(getApplicationContext(),productList);
+                }
+            }
         }
 
         return super.onOptionsItemSelected(item);

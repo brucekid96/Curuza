@@ -15,6 +15,7 @@
         android:icon="@mipmap/ic_box_log"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_box_log_round"
+        android:requestLegacyExternalStorage="true"
         android:supportsRtl="true"
         android:theme="@style/Theme.Curuza"
         android:usesCleartextTraffic="true">

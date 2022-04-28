@@ -1,7 +1,10 @@
 package com.curuza.domain;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -24,8 +27,7 @@ import com.curuza.R;
 import com.curuza.data.client.Client;
 import com.curuza.data.client.ClientRepository;
 import com.curuza.data.client.ClientViewModel;
-
-import com.curuza.data.fournisseur.Fournisseur;
+import com.curuza.utils.ExcelExporter;
 import com.github.clans.fab.FloatingActionMenu;
 import com.google.android.material.navigation.NavigationView;
 
@@ -161,6 +163,16 @@ public class ClientActivity extends AppCompatActivity implements NavigationView.
 
         if (id == R.id.menu_item_search) {
             return true;
+        }
+        if (id == R.id.export_client) {
+            if (Build.VERSION.SDK_INT > Build.VERSION_CODES.M) {
+                if (getApplicationContext().checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED) {
+                    String[] permissions = {Manifest.permission.WRITE_EXTERNAL_STORAGE};
+                    requestPermissions(permissions, 1);
+                } else {
+                    ExcelExporter.exportClients(getApplicationContext(),clientList);
+                }
+            }
         }
 
         return super.onOptionsItemSelected(item);

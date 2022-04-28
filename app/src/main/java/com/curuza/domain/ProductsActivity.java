@@ -1,6 +1,9 @@
   package com.curuza.domain;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -15,15 +18,14 @@ import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-
 import com.curuza.R;
 import com.curuza.data.stock.Product;
 import com.curuza.data.stock.ProductViewModel;
+import com.curuza.utils.ExcelExporter;
 import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
 import com.google.android.material.navigation.NavigationView;
@@ -70,20 +72,10 @@ import java.util.List;
         fab = findViewById(R.id.float_menu);
 
         fab1 = findViewById(R.id.sell_article_fb);
-        fab1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(ProductsActivity.this, SellArticleActivity.class));
-            }
-        });
+        fab1.setOnClickListener(v -> startActivity(new Intent(ProductsActivity.this, SellArticleActivity.class)));
 
         fab2 = findViewById(R.id.add_article_fb);
-        fab2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(ProductsActivity.this, AddArticle.class));
-            }
-        });
+        fab2.setOnClickListener(v -> startActivity(new Intent(ProductsActivity.this, AddArticle.class)));
 
 
         productsAdapter = new ProductsAdapter(getListProduct(),this,OnitemListener);
@@ -112,8 +104,6 @@ import java.util.List;
 
     }
 
-
-
      public void updateSearchResults(String searchQuery) {
          if(productList != null) {
              List<Product> searchResults = new ArrayList<>();
@@ -129,8 +119,6 @@ import java.util.List;
              productsAdapter.setData(searchResults);
          }
      }
-
-
 
     public void showToast(String message) {
         Toast.makeText(this,message, Toast.LENGTH_SHORT).show();
@@ -182,9 +170,6 @@ import java.util.List;
         return true;
     }
 
-
-
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
@@ -192,6 +177,17 @@ import java.util.List;
 
         if (id == R.id.menu_item_search) {
             return true;
+        }
+        if(id == R.id.list_product){
+
+            if (Build.VERSION.SDK_INT > Build.VERSION_CODES.M) {
+                if (getApplicationContext().checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED) {
+                    String[] permissions = {Manifest.permission.WRITE_EXTERNAL_STORAGE};
+                    requestPermissions(permissions, 1);
+                } else {
+                    ExcelExporter.exportProducts(getApplicationContext(),productList);
+                }
+            }
         }
 
         return super.onOptionsItemSelected(item);

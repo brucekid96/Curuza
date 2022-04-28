@@ -11,18 +11,26 @@
     <item
         android:id="@+id/more"
         android:icon="@drawable/ic_baseline_more_vert_24"
-        android:title="more"
+        android:title="Exporter vers Excel"
         app:showAsAction="never" >
 
         <menu>
             <item
-                android:id="@+id/first"
-                android:title="item1"/>
+                android:id="@+id/all"
+                android:title="@string/Tous_activity"/>
             <item
-                android:id="@+id/second"
-                android:title="item2"/>
+                android:id="@+id/enter"
+                android:title="@string/entree_activity"/>
+            <item
+                android:id="@+id/exit"
+                android:title="@string/sortie_activity"/>
         </menu>
     </item>
+    <item
+        android:id="@+id/share_list_documents"
+        android:icon="@drawable/ic_baseline_share_modifie"
+        android:title="@string/share_list_product"
+        app:showAsAction="never" />
     <item
         android:id="@+id/list_product"
         android:icon="@drawable/ic_baseline_more_vert_24"

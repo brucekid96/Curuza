@@ -38,7 +38,7 @@ public class ClientAdapter  extends RecyclerView.Adapter<ClientAdapter.ViewHolde
         notifyDataSetChanged();
     }
 
-    private void showCardDialog(Client client) {
+    private void showCardDialog(Client client)  {
         mClientRepository = new ClientRepository(mContext.getApplicationContext());
         AlertDialog.Builder cardDialog = new AlertDialog.Builder(mContext);
         cardDialog.setTitle("Select Action");

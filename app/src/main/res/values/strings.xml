@@ -93,4 +93,7 @@
     <string name="English">English</string>
     <string name="kirundi">kirundi</string>
     <string name="French">French</string>
+    <string name="list_product">Exporter vers Excel</string>
+    <string name="share_list_product">Share</string>
+    <string name="export_vers_excel">export vers excel</string>
 </resources>
