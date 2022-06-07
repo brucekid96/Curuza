@@ -17,11 +17,10 @@ import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.lifecycle.ViewModelProviders;
 import androidx.viewpager.widget.ViewPager;
 
 import com.curuza.R;
-import com.curuza.data.movements.MovementViewModel;
+import com.curuza.data.movements.MovementRepository;
 import com.curuza.data.view.ProductMovement;
 import com.curuza.utils.ExcelExporter;
 import com.google.android.material.navigation.NavigationView;
@@ -29,13 +28,18 @@ import com.google.android.material.tabs.TabLayout;
 
 import java.util.List;
 
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.schedulers.Schedulers;
+
 public class DocumentsActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, AllProductsFragment.OnFragmentInteractionListener,
         EnterProductsFragment.OnFragmentInteractionListener, ExitProductsFragment.OnFragmentInteractionListener {
 
-    private MovementViewModel mModel;
     private List<ProductMovement> allProductMovements;
     private List<ProductMovement> enterProductMovements;
     private List<ProductMovement> exitProductMovements;
+    private MovementRepository mMovementRepository;
+    private CompositeDisposable mDisposable = new CompositeDisposable();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,6 +48,8 @@ public class DocumentsActivity extends AppCompatActivity implements NavigationVi
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Documents");
+
+        mMovementRepository = new MovementRepository(this);
 
         TabLayout tabLayout =(TabLayout) findViewById(R.id.tablayout);
         tabLayout.addTab(tabLayout.newTab().setText(R.string.Tous_activity));
@@ -91,22 +97,48 @@ public class DocumentsActivity extends AppCompatActivity implements NavigationVi
                 findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        mModel= ViewModelProviders.of(this).get(MovementViewModel.class);
-        mModel.getAllProductMovements().observe(this, productMovement -> {
-            allProductMovements = productMovement;
-        });
-        mModel.getEnterProductMovements().observe(this, productEnterMovements ->  {
-            enterProductMovements = productEnterMovements;
-        });
-        mModel.getExitProductMovements().observe(this, productExitMovements ->  {
-            exitProductMovements = productExitMovements;
-        });
+        mDisposable.add(
+            mMovementRepository.getProductMovements()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(this::loadAllProducts));
+
+        mDisposable.add(
+            mMovementRepository.getEnterProductMovements()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(this::loadEnterProducts));
+
+        mDisposable.add(
+            mMovementRepository.getExitProductMovements()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(this::loadExitProducts));
+
+//        mModel= ViewModelProviders.of(this).get(MovementViewModel.class);
+//        mModel.getAllProductMovements().observe(this, productMovement -> {
+//            allProductMovements = productMovement;
+//        });
+//        mModel.getEnterProductMovements().observe(this, productEnterMovements ->  {
+//            enterProductMovements = productEnterMovements;
+//        });
+//        mModel.getExitProductMovements().observe(this, productExitMovements ->  {
+//            exitProductMovements = productExitMovements;
+//        });
 
 
 
 
     }
-
+    public void loadAllProducts(List<ProductMovement> productMovements) {
+        allProductMovements = productMovements;
+    }
+    public void loadEnterProducts(List<ProductMovement> productEnterMovements) {
+        enterProductMovements = productEnterMovements;
+    }
+    public void loadExitProducts(List<ProductMovement> productExitMovements) {
+        exitProductMovements = productExitMovements;
+    }
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout)

@@ -28,6 +28,9 @@ import org.threeten.bp.ZonedDateTime;
 
 import java.util.UUID;
 
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
+
 public class SellArticleFragment extends BottomSheetDialogFragment {
     private  static  final String DBG_TAG = SellArticleFragment.class.getSimpleName();
 
@@ -116,8 +119,14 @@ public class SellArticleFragment extends BottomSheetDialogFragment {
                         RequestStatus.Exit
                 );
 
-                mProductRepository.update(mProduct);
-                mMovementRepository.insert(movement);
+                mProductRepository.update(mProduct)
+                    .subscribeOn(Schedulers.io())
+                    .subscribeOn(AndroidSchedulers.mainThread())
+                    .subscribe();
+                mMovementRepository.insert(movement)
+                    .subscribeOn(Schedulers.io())
+                    .subscribeOn(AndroidSchedulers.mainThread())
+                    .subscribe();
             }
 
 

@@ -19,14 +19,12 @@ import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.curuza.R;
 import com.curuza.data.credit.Credit;
 import com.curuza.data.credit.CreditRepository;
-import com.curuza.data.credit.CreditViewModel;
 import com.curuza.utils.ExcelExporter;
 import com.github.clans.fab.FloatingActionMenu;
 import com.google.android.material.navigation.NavigationView;
@@ -35,15 +33,19 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.schedulers.Schedulers;
+
 public class CreditActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private RecyclerView rcvCredit;
     private CreditAdapter creditAdapter;
     private View mShadowView;
-    private CreditViewModel mModel;
     private FloatingActionMenu creditFab;
     private CreditRepository mCreditRepository;
     private List<Credit> creditList;
+    private CompositeDisposable mDisposable = new CompositeDisposable();
 
 
     @Override
@@ -53,7 +55,7 @@ public class CreditActivity extends AppCompatActivity implements NavigationView.
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+        mCreditRepository = new CreditRepository(this);
 
 
         DrawerLayout drawer =  findViewById(R.id.drawer_layout);
@@ -79,11 +81,11 @@ public class CreditActivity extends AppCompatActivity implements NavigationView.
         creditAdapter.setData(getListCredit());
 
         rcvCredit.setAdapter(creditAdapter);
-        mModel= ViewModelProviders.of(this).get(CreditViewModel.class);
-        mModel.getCredits().observe(this, credits ->  {
-            creditList = credits;
-            creditAdapter.setData(credits);
-        });
+        mDisposable.add(
+            mCreditRepository.getCredits()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(this::loadCredits));
         rcvCredit.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
@@ -98,6 +100,11 @@ public class CreditActivity extends AppCompatActivity implements NavigationView.
 
 
 
+    }
+
+    public void loadCredits(List<Credit> credits) {
+        creditList = credits;
+        creditAdapter.setData(credits);
     }
 
     public void updateSearchResults(String searchQuery) {

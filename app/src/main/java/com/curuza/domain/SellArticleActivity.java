@@ -8,27 +8,30 @@ import android.view.inputmethod.EditorInfo;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
-
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-
 import com.curuza.R;
+import com.curuza.data.movements.MovementRepository;
 import com.curuza.data.stock.Product;
-import com.curuza.data.stock.ProductViewModel;
+import com.curuza.data.stock.ProductRepository;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.schedulers.Schedulers;
+
 public class SellArticleActivity extends AppCompatActivity {
 
     private RecyclerView rcvSellArticle;
     private SellArticleAdapter sellArticleAdapter;
-    private ProductViewModel mModel;
     private List<Product> productList;
+    ProductRepository mProductRepository;
+    MovementRepository mMovementRepository;
+    private CompositeDisposable mDisposable = new CompositeDisposable();
     private SellArticleAdapter.OnItemListener OnitemListener;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +43,7 @@ public class SellArticleActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-
+        mProductRepository = new ProductRepository(this);
 
         rcvSellArticle = findViewById(R.id.rcv_sell_article);
         sellArticleAdapter = new SellArticleAdapter(getListProduct(),this,OnitemListener);
@@ -50,18 +53,17 @@ public class SellArticleActivity extends AppCompatActivity {
 
         sellArticleAdapter.setData(getListProduct());
         rcvSellArticle.setAdapter(sellArticleAdapter);
-        mModel= ViewModelProviders.of(this).get(ProductViewModel.class);
-        mModel.getAllProducts().observe(this, new Observer<List<Product>>() {
-            @Override
-            public void onChanged(List<Product> products) {
-                productList = products;
-                sellArticleAdapter.setData(products);
-            }
-        });
-
+        mDisposable.add(
+            mProductRepository.getProducts()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(this::loadProducts));
 
     }
-
+    public void loadProducts(List<Product> products) {
+        productList = products;
+        sellArticleAdapter.setData(products);
+    }
 
     public void updateSearchResults(String searchQuery) {
         if(productList != null) {

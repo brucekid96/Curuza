@@ -1,7 +1,6 @@
 package com.curuza.data.movements;
 
 import android.content.Context;
-import android.os.AsyncTask;
 
 import androidx.lifecycle.LiveData;
 
@@ -9,8 +8,10 @@ import com.curuza.data.MainDatabase;
 import com.curuza.data.view.ProductMovement;
 import com.curuza.data.view.Rapport;
 
-
 import java.util.List;
+
+import io.reactivex.Completable;
+import io.reactivex.Observable;
 
 public class MovementRepository {
 
@@ -26,17 +27,24 @@ public class MovementRepository {
 
     }
 
-    public LiveData<List<ProductMovement>> getProductMovements() {
+    public Observable<List<ProductMovement>> getProductMovements() {
         return db.movementDao().getProductMovements();
     }
-   public LiveData<List<Rapport>>getRapportList() {
+   public Observable<List<Rapport>>getRapportList() {
         return db.movementDao().getRapportList();
    }
-    public LiveData<List<ProductMovement>> getEnterProductMovements() {
+    public Observable<List<ProductMovement>> getEnterProductMovements() {
         return db.movementDao().getEnterProductMovements();
     }
-    public LiveData<List<ProductMovement>> getExitProductMovements() {
+    public Observable<List<ProductMovement>> getEnterProductMovementsByDate(String date) {
+        return db.movementDao().getEnterProductMovementsByDate(date);
+    }
+    public Observable<List<ProductMovement>> getExitProductMovements() {
         return db.movementDao().getExitProductMovements();
+    }
+
+    public Observable<List<ProductMovement>> getExitProductMovementsByDate(String date) {
+        return db.movementDao().getExitProductMovementsByDate(date);
     }
 
     public ProductMovement getProductMovement(String movementId) {
@@ -45,57 +53,16 @@ public class MovementRepository {
 
 
 
-    public void insert(Movement movement) {
-        new insertAsyncTask(db.movementDao()).execute(movement);
-    }
-    private static class insertAsyncTask extends AsyncTask<Movement, Void, Void> {
-
-        private MovementDao mAsyncTaskDao;
-
-        insertAsyncTask(MovementDao dao) {
-            mAsyncTaskDao = dao;
-        }
-
-        @Override
-        protected Void doInBackground(final Movement... params) {
-            mAsyncTaskDao.insert(params[0]);
-            return null;
-        }
+    public Completable insert(Movement movement) {
+        return db.movementDao().insert(movement);
     }
 
-    public void delete(Movement movement)  {
-        new insertAsyncTask(db.movementDao()).execute(movement);
-    }
-    private static class deleteAsyncTask extends AsyncTask<Movement, Void, Void> {
-        private MovementDao mAsyncTaskDao;
-
-        deleteAsyncTask(MovementDao dao) {
-            mAsyncTaskDao = dao;
-        }
-
-        @Override
-        protected Void doInBackground(final Movement... params) {
-            mAsyncTaskDao.delete(params[0]);
-            return null;
-        }
+    public Completable delete(Movement movement)  {
+      return db.movementDao().delete(movement);
     }
 
-    public void update(Movement movement)  {
-        new insertAsyncTask(db.movementDao()).execute(movement);
+    public Completable update(Movement movement)  {
+        return db.movementDao().update(movement);
     }
-    private static class updateAsyncTask extends AsyncTask<Movement, Void, Void> {
-        private MovementDao mAsyncTaskDao;
-
-        updateAsyncTask(MovementDao dao) {
-            mAsyncTaskDao = dao;
-        }
-
-        @Override
-        protected Void doInBackground(final Movement... params) {
-            mAsyncTaskDao.update(params[0]);
-            return null;
-        }
-    }
-
 
 }

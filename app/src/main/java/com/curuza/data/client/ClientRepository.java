@@ -1,14 +1,14 @@
 package com.curuza.data.client;
 
 import android.content.Context;
-import android.os.AsyncTask;
-
-import androidx.lifecycle.LiveData;
 
 import com.curuza.data.MainDatabase;
 
-
 import java.util.List;
+
+import io.reactivex.Completable;
+import io.reactivex.Maybe;
+import io.reactivex.Observable;
 
 public class ClientRepository {
 
@@ -22,68 +22,24 @@ public class ClientRepository {
     }
 
 
-    public LiveData<List<Client>> getClients() {
+    public Observable<List<Client>> getClients() {
         return db.clientDao().getClients();
     }
-    public LiveData<Client> getClient(String clientId) {
+    public Maybe<Client> getClient(String clientId) {
         return db.clientDao().getClient(clientId);
     }
 
 
-    public void insert(Client client) {
-        new ClientRepository.insertAsyncTask(db.clientDao()).execute(client);
-    }
-    private static class insertAsyncTask extends AsyncTask<Client, Void, Void> {
-
-        private ClientDao mAsyncTaskDao;
-
-        insertAsyncTask(ClientDao dao) {
-            mAsyncTaskDao = dao;
-        }
-
-        @Override
-        protected Void doInBackground(final Client... params) {
-            mAsyncTaskDao.insert(params[0]);
-            return null;
-        }
+    public Completable insert(Client client) {
+        return db.clientDao().insert(client);
     }
 
-    public void delete(Client client)  {
-        new ClientRepository.deleteAsyncTask(db.clientDao()).execute(client);
-    }
-    private static class deleteAsyncTask extends AsyncTask<Client, Void, Void> {
-        private ClientDao mAsyncTaskDao;
-
-        deleteAsyncTask(ClientDao dao) {
-            mAsyncTaskDao = dao;
-        }
-
-        @Override
-        protected Void doInBackground(final Client... params) {
-            mAsyncTaskDao.delete(params[0]);
-            return null;
-        }
+    public Completable delete(Client client)  {
+        return db.clientDao().delete(client);
     }
 
-    public void update(Client client)  {
-        new ClientRepository.updateAsyncTask(db.clientDao()).execute(client);
-    }
-    private static class updateAsyncTask extends AsyncTask<Client, Void, Void> {
-        private ClientDao mAsyncTaskDao;
-
-        updateAsyncTask(ClientDao dao) {
-            mAsyncTaskDao = dao;
-        }
-
-        @Override
-        protected Void doInBackground(final Client... params) {
-            mAsyncTaskDao.update(params[0]);
-            return null;
-        }
+    public Completable update(Client client)  {
+        return db.clientDao().update(client);
     }
 
-
-
-
-    ;
 }

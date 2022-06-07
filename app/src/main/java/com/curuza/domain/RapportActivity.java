@@ -1,10 +1,8 @@
 package com.curuza.domain;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -13,27 +11,29 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.viewpager.widget.ViewPager;
 
 import com.curuza.R;
-import com.curuza.data.movements.MovementViewModel;
+import com.curuza.data.movements.MovementRepository;
 import com.curuza.data.view.Rapport;
 import com.google.android.material.navigation.NavigationView;
-import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.schedulers.Schedulers;
+
 public class RapportActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener , SelledFragment.OnFragmentInteractionListener,
         CreditFragment.OnFragmentInteractionListener, DepenseFragment.OnFragmentInteractionListener {
     private RapportAdapter rapportAdapter;
     private RecyclerView rcvRapport;
-    private MovementViewModel mModel;
+    private MovementRepository mMovementRepository;
+    private CompositeDisposable mDisposable = new CompositeDisposable();
+
 
 
 
@@ -47,22 +47,19 @@ public class RapportActivity extends AppCompatActivity implements NavigationView
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        mMovementRepository = new MovementRepository(this);
+
 
         rcvRapport = findViewById(R.id.rcv_rapport);
         rapportAdapter = new RapportAdapter(this);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         rcvRapport.setLayoutManager(linearLayoutManager);
         rcvRapport.setAdapter(rapportAdapter);
-        mModel= ViewModelProviders.of(this).get(MovementViewModel.class);
-        mModel.getRapportList().observe(this, new Observer<List<Rapport>>() {
-            @Override
-            public void onChanged(List<Rapport> rapports) {
-                rapportAdapter.setData(rapports);
-            }
-        });
-
-
-
+        mDisposable.add(
+            mMovementRepository.getRapportList()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(this::loadRapports));
 
         DrawerLayout drawer =  findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -75,6 +72,9 @@ public class RapportActivity extends AppCompatActivity implements NavigationView
         navigationView.setNavigationItemSelectedListener(this);
 
 
+    }
+    public void loadRapports(List<Rapport> rapports) {
+        rapportAdapter.setData(rapports);
     }
 
     private List<Rapport> getListRapport() {

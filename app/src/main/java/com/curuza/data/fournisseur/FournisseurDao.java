@@ -1,29 +1,30 @@
 package com.curuza.data.fournisseur;
 
-import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
 
-
-
 import java.util.List;
+
+import io.reactivex.Completable;
+import io.reactivex.Maybe;
+import io.reactivex.Observable;
 
 @Dao
 public interface FournisseurDao {
     @Insert
-    void insert(Fournisseur fournisseur);
+    Completable insert(Fournisseur fournisseur);
 
     @Delete
-    int delete(Fournisseur fournisseur);
+    Completable delete(Fournisseur fournisseur);
     @Update
-    int update(Fournisseur fournisseur);
+    Completable update(Fournisseur fournisseur);
 
     @Query("SELECT * from fournisseur order by date desc ")
-    LiveData<List<Fournisseur>> getFournisseurs();
+    Observable<List<Fournisseur>> getFournisseurs();
 
     @Query("SELECT * from  fournisseur where id = :fournisseurId ")
-    LiveData<Fournisseur> getFournisseur(String fournisseurId);
+    Maybe<Fournisseur> getFournisseur(String fournisseurId);
 }

@@ -13,13 +13,14 @@ import androidx.appcompat.widget.Toolbar;
 import com.curuza.R;
 import com.curuza.data.client.Client;
 import com.curuza.data.client.ClientRepository;
-import com.curuza.data.credit.Credit;
-import com.curuza.data.credit.CreditRepository;
 import com.google.android.material.textfield.TextInputLayout;
 
 import org.threeten.bp.ZonedDateTime;
 
 import java.util.UUID;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 public class AddClientActivity extends AppCompatActivity {
 
@@ -71,7 +72,10 @@ public class AddClientActivity extends AppCompatActivity {
                             mDate,
                             mPhoneNumber.getEditText().getText().toString()
                     );
-                    mClientRepository.insert(client);
+                    mClientRepository.insert(client)
+                            .subscribeOn(Schedulers.io())
+                            .subscribeOn(AndroidSchedulers.mainThread())
+                            .subscribe();
                     Log.d(AddClientActivity.class.getSimpleName(), "Added client: " + client.toString());
 
                     Intent intent1 = new Intent(AddClientActivity.this, ClientActivity.class);

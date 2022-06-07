@@ -1,30 +1,31 @@
 package com.curuza.data.client;
 
-import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
 
-
-
 import java.util.List;
+
+import io.reactivex.Completable;
+import io.reactivex.Maybe;
+import io.reactivex.Observable;
 
 @Dao
 public interface ClientDao {
 
     @Insert
-    void insert(Client client);
+    Completable insert(Client client);
 
     @Delete
-    int delete(Client client);
+    Completable delete(Client client);
     @Update
-    int update(Client client);
+    Completable update(Client client);
 
     @Query("SELECT * from client order by date desc ")
-    LiveData<List<Client>> getClients();
+    Observable<List<Client>> getClients();
 
     @Query("SELECT * from  client where id = :clientId ")
-    LiveData<Client> getClient(String clientId);
+    Maybe<Client> getClient(String clientId);
 }

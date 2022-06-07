@@ -24,6 +24,9 @@ import org.threeten.bp.ZonedDateTime;
 
 import java.util.UUID;
 
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
+
 public class AddArticle extends AppCompatActivity {
     private int GALLERY_REQUEST_CODE = 1;
     private int CAMERA_REQUEST_CODE = 2;
@@ -113,10 +116,10 @@ public class AddArticle extends AppCompatActivity {
                             Integer.parseInt(mQuantityView.getEditText().getText().toString()),
                             Integer.parseInt(mPrixAchatView.getEditText().getText().toString()),
                             Integer.parseInt(mPrixVenteView.getEditText().getText().toString()),
-                            mDate
-
-                    )
-                );
+                            mDate))
+                    .subscribeOn(Schedulers.io())
+                    .subscribeOn(AndroidSchedulers.mainThread())
+                    .subscribe();
                 mMovementRepository = new MovementRepository(getApplication());
                 mMovementRepository.insert(
                         new Movement(
@@ -129,7 +132,9 @@ public class AddArticle extends AppCompatActivity {
                                 RequestStatus.Enter
                         )
 
-                );
+                ).subscribeOn(Schedulers.io())
+                    .subscribeOn(AndroidSchedulers.mainThread())
+                    .subscribe();
                 Intent intent = new Intent(AddArticle.this, ProductsActivity.class);
                 intent.putExtra(Product.PRODUCT_EXTRA, mProduct);
                 startActivity(intent);

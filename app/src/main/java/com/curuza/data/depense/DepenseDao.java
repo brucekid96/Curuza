@@ -1,29 +1,33 @@
 package com.curuza.data.depense;
 
-import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
 
-
-
 import java.util.List;
+
+import io.reactivex.Completable;
+import io.reactivex.Maybe;
+import io.reactivex.Observable;
 
 @Dao
 public interface DepenseDao {
     @Insert
-    void insert(Depense depense);
+    Completable insert(Depense depense);
 
     @Delete
-    int delete(Depense depense);
+    Completable delete(Depense depense);
     @Update
-    int update(Depense depense);
+    Completable update(Depense depense);
 
     @Query("SELECT * from depense order by date desc ")
-    LiveData<List<Depense>> getDepenses();
+    Observable<List<Depense>> getDepenses();
+
+    @Query("SELECT * from depense where substr(date,1,10) = :date order by date desc")
+    Observable<List<Depense>> getDepensesByDate(String date);
 
     @Query("SELECT * from  credit where id = :depenseId ")
-    LiveData<Depense> getDepense(String depenseId);
+    Maybe<Depense> getDepense(String depenseId);
 }

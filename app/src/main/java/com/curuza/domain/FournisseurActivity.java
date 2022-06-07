@@ -19,15 +19,12 @@ import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.curuza.R;
 import com.curuza.data.fournisseur.Fournisseur;
 import com.curuza.data.fournisseur.FournisseurRepository;
-import com.curuza.data.fournisseur.FournisseurViewModel;
 import com.curuza.utils.ExcelExporter;
 import com.github.clans.fab.FloatingActionMenu;
 import com.google.android.material.navigation.NavigationView;
@@ -36,17 +33,20 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.schedulers.Schedulers;
+
 public class FournisseurActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private RecyclerView rcvFournisseur;
     private FournisseurAdapter fournisseurAdapter;
     private View mShadowView;
-    private FournisseurViewModel mModel;
     private FournisseurRepository mFournisseurRepository;
     private FloatingActionMenu fournisseurFab;
     private Context context;
     private List<Fournisseur> fournisseurList;
-
+    private CompositeDisposable mDisposable = new CompositeDisposable();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,7 +56,7 @@ public class FournisseurActivity extends AppCompatActivity implements Navigation
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-
+        mFournisseurRepository = new FournisseurRepository(this);
 
         DrawerLayout drawer =  findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -82,15 +82,16 @@ public class FournisseurActivity extends AppCompatActivity implements Navigation
         fournisseurAdapter.setData(getListFournisseur());
 
         rcvFournisseur.setAdapter(fournisseurAdapter);
-        mModel= ViewModelProviders.of(this).get(FournisseurViewModel.class);
-        mModel.getFournisseurs().observe(this, new Observer<List<Fournisseur>>() {
-            @Override
-            public void onChanged(List<Fournisseur> fournisseurs) {
-                fournisseurList = fournisseurs;
-                fournisseurAdapter.setData(fournisseurs);
-            }
-        });
+        mDisposable.add(
+         mFournisseurRepository.getFournisseurs()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(this::loadFournisseurs));
+    }
 
+    public void loadFournisseurs(List<Fournisseur>fournisseurs) {
+        fournisseurList = fournisseurs;
+        fournisseurAdapter.setData(fournisseurs);
     }
 
     public void updateSearchResults(String searchQuery) {
@@ -227,4 +228,9 @@ public class FournisseurActivity extends AppCompatActivity implements Navigation
         return true;
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mDisposable.dispose();
+    }
 }

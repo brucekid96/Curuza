@@ -1,0 +1,46 @@
+# this is an auto generated file. This will be overwritten
+subscription OnCreateProduct($owner: String!) {
+  onCreateProduct(owner: $owner) {
+    id
+    photoId
+    name
+    description
+    quantity
+    pAchat
+    pVente
+    addedAt
+    createdAt
+    updatedAt
+    owner
+  }
+}
+subscription OnUpdateProduct($owner: String!) {
+  onUpdateProduct(owner: $owner) {
+    id
+    photoId
+    name
+    description
+    quantity
+    pAchat
+    pVente
+    addedAt
+    createdAt
+    updatedAt
+    owner
+  }
+}
+subscription OnDeleteProduct($owner: String!) {
+  onDeleteProduct(owner: $owner) {
+    id
+    photoId
+    name
+    description
+    quantity
+    pAchat
+    pVente
+    addedAt
+    createdAt
+    updatedAt
+    owner
+  }
+}

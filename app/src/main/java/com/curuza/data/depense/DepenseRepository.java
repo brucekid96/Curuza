@@ -1,17 +1,14 @@
 package com.curuza.data.depense;
 
 import android.content.Context;
-import android.os.AsyncTask;
-
-import androidx.lifecycle.LiveData;
-import androidx.room.Dao;
 
 import com.curuza.data.MainDatabase;
-import com.curuza.data.credit.Credit;
-import com.curuza.data.credit.CreditDao;
-import com.curuza.data.credit.CreditRepository;
 
 import java.util.List;
+
+import io.reactivex.Completable;
+import io.reactivex.Maybe;
+import io.reactivex.Observable;
 
 public class DepenseRepository {
 
@@ -25,67 +22,27 @@ public class DepenseRepository {
     }
 
 
-    public LiveData<List<Depense>> getDepenses() {
+    public Observable<List<Depense>> getDepenses() {
         return db.depenseDao().getDepenses();
     }
-    public LiveData<Depense> getDepense(String depenseId) {
+    public Observable<List<Depense>> getDepensesByDate(String date) {
+        return db.depenseDao().getDepensesByDate(date);
+    }
+    public Maybe<Depense> getDepense(String depenseId) {
         return db.depenseDao().getDepense(depenseId);
     }
 
 
-    public void insert(Depense depense) {
-        new DepenseRepository.insertAsyncTask(db.depenseDao()).execute(depense);
-    }
-    private static class insertAsyncTask extends AsyncTask<Depense, Void, Void> {
-
-        private DepenseDao mAsyncTaskDao;
-
-        insertAsyncTask(DepenseDao dao) {
-            mAsyncTaskDao = dao;
-        }
-
-        @Override
-        protected Void doInBackground(final Depense... params) {
-            mAsyncTaskDao.insert(params[0]);
-            return null;
-        }
+    public Completable insert(Depense depense) {
+        return db.depenseDao().insert(depense);
     }
 
-    public void delete(Depense depense)  {
-        new DepenseRepository.deleteAsyncTask(db.depenseDao()).execute(depense);
-    }
-    private static class deleteAsyncTask extends AsyncTask<Depense, Void, Void> {
-        private DepenseDao mAsyncTaskDao;
-
-        deleteAsyncTask(DepenseDao dao) {
-            mAsyncTaskDao = dao;
-        }
-
-        @Override
-        protected Void doInBackground(final Depense... params) {
-            mAsyncTaskDao.delete(params[0]);
-            return null;
-        }
+    public Completable delete(Depense depense)  {
+        return db.depenseDao().delete(depense);
     }
 
-    public void update(Depense depense)  {
-        new DepenseRepository.updateAsyncTask(db.depenseDao()).execute(depense);
+    public Completable update(Depense depense)  {
+       return db.depenseDao().update(depense);
     }
-    private static class updateAsyncTask extends AsyncTask<Depense, Void, Void> {
-        private DepenseDao mAsyncTaskDao;
-
-        updateAsyncTask(DepenseDao dao) {
-            mAsyncTaskDao = dao;
-        }
-
-        @Override
-        protected Void doInBackground(final Depense... params) {
-            mAsyncTaskDao.update(params[0]);
-            return null;
-        }
-    }
-
-
-
 
 }

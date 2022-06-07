@@ -1,10 +1,12 @@
   package com.curuza.domain;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,13 +20,14 @@ import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.amplifyframework.api.graphql.model.ModelQuery;
+import com.amplifyframework.core.Amplify;
 import com.curuza.R;
 import com.curuza.data.stock.Product;
-import com.curuza.data.stock.ProductViewModel;
+import com.curuza.data.stock.ProductRepository;
 import com.curuza.utils.ExcelExporter;
 import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
@@ -34,7 +37,11 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
- public  class ProductsActivity extends AppCompatActivity  implements NavigationView.OnNavigationItemSelectedListener {
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.schedulers.Schedulers;
+
+  public  class ProductsActivity extends AppCompatActivity  implements NavigationView.OnNavigationItemSelectedListener {
 
     private RecyclerView rcvProduct;
     private FloatingActionMenu fab;
@@ -42,9 +49,11 @@ import java.util.List;
     private FloatingActionButton fab2;
     private View mShadowView;
     private ProductsAdapter productsAdapter;
-     private ProductViewModel mModel;
+    private CompositeDisposable mDisposable = new CompositeDisposable();
+    private Context mContext;
     private ProductsAdapter.OnItemListener OnitemListener;
      private List<Product> productList;
+     private ProductRepository mProductRepository;
 
 
     @Override
@@ -55,6 +64,28 @@ import java.util.List;
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+//        com.amplifyframework.datastore.generated.model.Product product = com.amplifyframework.datastore.generated.model.Product.builder()
+//                .name("energy")
+//                .id("1291091")
+//                .photoId("19329837")
+//                .description("boisson")
+//                .quantity(15)
+//                .pAchat(800)
+//                .pVente(1000)
+//                .addedAt("2022")
+//                .build();
+//
+//        Log.d("product_logging","product: "+ product.toString());
+//
+//        Amplify.API.mutate(ModelMutation.create(product),
+//                response-> Log.i("CuruzaAmplifyApp","Added Product with id:"+response),
+//                error-> Log.e("CuruzaAmplifyApp", "Create failed"));
+
+      mProductRepository = new ProductRepository(this);
+        Amplify.API.query(
+                ModelQuery.list(com.amplifyframework.datastore.generated.model.Product.class),
+                response -> Log.i("ProductActivity","my data is "+ response.getData()),
+                error -> Log.d("ProductActivity","product fetching failed "+ error));
 
         DrawerLayout drawer =  findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -85,11 +116,11 @@ import java.util.List;
 
         productsAdapter.setData(getListProduct());
         rcvProduct.setAdapter(productsAdapter);
-        mModel= ViewModelProviders.of(this).get(ProductViewModel.class);
-        mModel.getAllProducts().observe(this, products -> {
-            productList = products;
-            productsAdapter.setData(products);
-        });
+      mDisposable.add(
+          mProductRepository.getProducts()
+              .subscribeOn(Schedulers.io())
+              .observeOn(AndroidSchedulers.mainThread())
+              .subscribe(this::loadProducts));
         rcvProduct.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
@@ -103,7 +134,10 @@ import java.util.List;
         });
 
     }
-
+    public void loadProducts(List<Product> products) {
+      productList = products;
+      productsAdapter.setData(products);
+    }
      public void updateSearchResults(String searchQuery) {
          if(productList != null) {
              List<Product> searchResults = new ArrayList<>();

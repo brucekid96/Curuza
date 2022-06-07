@@ -18,15 +18,12 @@ import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.curuza.R;
 import com.curuza.data.depense.Depense;
 import com.curuza.data.depense.DepenseRepository;
-import com.curuza.data.depense.DepenseViewModel;
 import com.curuza.utils.ExcelExporter;
 import com.github.clans.fab.FloatingActionMenu;
 import com.google.android.material.navigation.NavigationView;
@@ -35,15 +32,19 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.schedulers.Schedulers;
+
 public class DepenseActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private RecyclerView rcvDepense;
     private DepenseAdapter depenseAdapter;
     private View mShadowView;
-    private DepenseViewModel mModel;
     private FloatingActionMenu depenseFab;
     private DepenseRepository mDepenseRepository;
     private List<Depense> depenseList;
+    private CompositeDisposable mDisposable = new CompositeDisposable();
 
 
     @Override
@@ -54,7 +55,7 @@ public class DepenseActivity extends AppCompatActivity implements NavigationView
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-
+        mDepenseRepository = new DepenseRepository(this);
 
         DrawerLayout drawer =  findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -79,17 +80,19 @@ public class DepenseActivity extends AppCompatActivity implements NavigationView
         depenseAdapter.setData(getDepenses());
 
         rcvDepense.setAdapter(depenseAdapter);
-        mModel= ViewModelProviders.of(this).get(DepenseViewModel.class);
-        mModel.getDepenses().observe(this, new Observer<List<Depense>>() {
-            @Override
-            public void onChanged(List<Depense> depenses) {
-                depenseList = depenses;
-                depenseAdapter.setData(depenses);
-            }
-        });
+        mDisposable.add(
+            mDepenseRepository.getDepenses()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(this::loadDepenses));
+
 
     }
 
+    public void loadDepenses(List<Depense> depenses) {
+        depenseList = depenses;
+        depenseAdapter.setData(depenses);
+    }
     public void updateSearchResults(String searchQuery) {
         if(depenseList != null) {
             List<Depense> searchResults = new ArrayList<>();

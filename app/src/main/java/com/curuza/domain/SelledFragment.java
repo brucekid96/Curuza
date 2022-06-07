@@ -8,12 +8,11 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.curuza.R;
-import com.curuza.data.movements.MovementViewModel;
+import com.curuza.data.movements.MovementRepository;
 import com.curuza.data.view.ProductMovement;
 
 import java.text.DateFormat;
@@ -21,17 +20,23 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.schedulers.Schedulers;
+
 public class SelledFragment extends Fragment {
 
 
     private RecyclerView mRecyclerView;
     private ProductMovementsAdapter mAdapter;
-
-    MovementViewModel mModel;
+    private MovementRepository mMovementRepository;
+    private String mDate;
+    private CompositeDisposable mDisposable = new CompositeDisposable();
+    private Context mContext;
     private SelledFragment.OnFragmentInteractionListener mListener;
 
-    public SelledFragment() {
-
+    public SelledFragment(String date) {
+     mDate = date;
     }
 
     public static ExitProductsFragment newInstance(String param1, String param2) {
@@ -48,8 +53,7 @@ public class SelledFragment extends Fragment {
         if (getArguments() != null) {
 
         }
-
-
+       mMovementRepository = new MovementRepository(mContext);
 
     }
 
@@ -63,12 +67,11 @@ public class SelledFragment extends Fragment {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mAdapter = new ProductMovementsAdapter(getListProduct(),getContext(),null);
         mRecyclerView.setAdapter(mAdapter);
-        mModel= ViewModelProviders.of(this).get(MovementViewModel.class);
-        mModel.getExitProductMovements().observe(this, productMovements ->  {
-
-            mAdapter.setData(productMovements);
-
-        });
+        mDisposable.add(
+            mMovementRepository.getExitProductMovements()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(this::loadExitProducts));
 
 
 
@@ -76,7 +79,9 @@ public class SelledFragment extends Fragment {
 
 
     }
-
+    public void loadExitProducts(List<ProductMovement> productMovements) {
+        mAdapter.setData(productMovements);
+    }
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);

@@ -1,6 +1,5 @@
 package com.curuza.data.movements;
 
-import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
@@ -12,16 +11,20 @@ import com.curuza.data.view.Rapport;
 
 import java.util.List;
 
+import io.reactivex.Completable;
+import io.reactivex.Maybe;
+import io.reactivex.Observable;
+
 @Dao
 public interface MovementDao {
 
     @Insert
-    void insert(Movement movement);
+    Completable insert(Movement movement);
 
     @Delete
-    int delete(Movement movement);
+    Completable delete(Movement movement);
     @Update
-    int update(Movement movement);
+    Completable update(Movement movement);
     @Query("select p.id,p.resourceId,p.name,p.description," +
             "p.quantity,p.p_vente,p.p_achat " +
             ", m.movement_id,m.product_id,m.movement_quantity," +
@@ -30,18 +33,24 @@ public interface MovementDao {
             "inner join movement m " +
             "on p.id = m.product_id " +
             "order by m.movement_date desc    ")
-    LiveData <List<ProductMovement>> getProductMovements();
+    Observable<List<ProductMovement>> getProductMovements();
 
     @Query("SELECT * from  movement where movement_id = :MovementId ")
-    LiveData<Movement> getMovement(String MovementId);
+    Maybe<Movement> getMovement(String MovementId);
     @Query("select * from rapport ")
-    LiveData<List<Rapport>>getRapportList();
+    Observable<List<Rapport>>getRapportList();
 
     @Query("SELECT * from  product_movement where movement_status= 'Enter'")
-    LiveData<List<ProductMovement>>getEnterProductMovements();
+    Observable<List<ProductMovement>>getEnterProductMovements();
+
+    @Query("SELECT * from  product_movement where movement_status= 'Enter' and substr(movement_date,1,10) = :date")
+    Observable<List<ProductMovement>>getEnterProductMovementsByDate(String date);
 
     @Query("SELECT * from  product_movement where movement_status= 'Exit'")
-    LiveData<List<ProductMovement>>getExitProductMovements();
+    Observable<List<ProductMovement>>getExitProductMovements();
+
+    @Query("SELECT *, substr(movement_date, 1, 10) as movement_date_only from  product_movement where movement_status= 'Exit' and movement_date_only = :date")
+    Observable<List<ProductMovement>>getExitProductMovementsByDate(String date);
 
     @Query("select p.id,p.resourceId,p.name,p.description," +
             "p.quantity,p.p_vente,p.p_achat " +

@@ -10,17 +10,11 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.curuza.R;
-import com.curuza.data.fournisseur.Fournisseur;
-import com.curuza.data.fournisseur.FournisseurRepository;
-import com.curuza.data.movements.MovementRepository;
-import com.curuza.data.stock.Product;
 import com.curuza.data.view.Rapport;
-import com.curuza.data.view.ProductMovement;
 import com.curuza.utils.FormatUtils;
 
 import java.util.ArrayList;
@@ -62,7 +56,7 @@ public class RapportAdapter extends RecyclerView.Adapter<RapportAdapter.MyViewHo
 
         holder.container.setOnClickListener(v -> {
             Intent intent = new Intent(mContext, RapportOverviewActivity.class);
-            intent.putExtra(Rapport.RAPPORT_EXTRA,rapport);
+            intent.putExtra(Rapport.DATE_EXTRA,rapport.getDate());
             mContext.startActivity(intent);
         });
 

@@ -11,8 +11,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.curuza.R;
-
-import com.curuza.data.client.Client;
 import com.curuza.data.depense.Depense;
 import com.curuza.data.depense.DepenseRepository;
 import com.google.android.material.textfield.TextInputLayout;
@@ -20,6 +18,9 @@ import com.google.android.material.textfield.TextInputLayout;
 import org.threeten.bp.ZonedDateTime;
 
 import java.util.UUID;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 public class AddDepenseActivity extends AppCompatActivity {
 
@@ -73,7 +74,12 @@ public class AddDepenseActivity extends AppCompatActivity {
                         Integer.parseInt(mAmount.getEditText().getText().toString()),
                         mDate
                 );
-                mDepenseRepository.insert(depense);
+                mDepenseRepository.insert(depense)
+                    .subscribeOn(Schedulers.io())
+                    .subscribeOn(AndroidSchedulers.mainThread())
+                    .subscribe();
+
+
                 Log.d(AddDepenseActivity.class.getSimpleName(), "Added depense: " + depense.toString());
 
                 Intent intent1 = new Intent(AddDepenseActivity.this, DepenseActivity.class);

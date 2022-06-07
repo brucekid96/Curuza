@@ -1,11 +1,13 @@
 package com.curuza.domain;
 
-import android.app.Application;
+import static com.curuza.utils.LocaleUtils.APP_LOCALES;
+
 import android.util.Log;
 
 import androidx.multidex.MultiDexApplication;
 
 import com.amplifyframework.AmplifyException;
+import com.amplifyframework.api.aws.AWSApiPlugin;
 import com.amplifyframework.auth.cognito.AWSCognitoAuthPlugin;
 import com.amplifyframework.core.Amplify;
 import com.amplifyframework.core.AmplifyConfiguration;
@@ -14,8 +16,6 @@ import com.curuza.R;
 import com.facebook.stetho.Stetho;
 import com.franmontiel.localechanger.LocaleChanger;
 import com.jakewharton.threetenabp.AndroidThreeTen;
-
-import static com.curuza.utils.LocaleUtils.APP_LOCALES;
 
 public class CuruzaApplication extends MultiDexApplication {
 
@@ -28,6 +28,7 @@ public class CuruzaApplication extends MultiDexApplication {
 
 
         try {
+            Amplify.addPlugin(new AWSApiPlugin());
             Amplify.addPlugin(new AWSCognitoAuthPlugin());
             Amplify.addPlugin(new AWSS3StoragePlugin());
             Amplify.configure(

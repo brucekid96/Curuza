@@ -1,6 +1,5 @@
 package com.curuza.data.credit;
 
-import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
@@ -8,23 +7,29 @@ import androidx.room.Query;
 import androidx.room.Update;
 
 import java.util.List;
-import java.util.UUID;
+
+import io.reactivex.Completable;
+import io.reactivex.Maybe;
+import io.reactivex.Observable;
 
 @Dao
 public interface CreditDao {
 
     @Insert
-    void insert(Credit credit);
+    Completable insert(Credit credit);
 
     @Delete
-    int delete(Credit credit);
+    Completable delete(Credit credit);
     @Update
-    int update(Credit credit);
+    Completable update(Credit credit);
 
     @Query("SELECT * from credit order by date desc ")
-    LiveData<List<Credit>> getCredits();
+    Observable<List<Credit>> getCredits();
+
+    @Query("SELECT * from credit where substr(date,1,10) = :date order by date desc")
+    Observable<List<Credit>> getCreditsByDate(String date);
 
     @Query("SELECT * from  credit where id = :creditId ")
-    LiveData<Credit> getCredit(String creditId);
+    Maybe<Credit> getCredit(String creditId);
 
 }

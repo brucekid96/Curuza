@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -14,27 +13,19 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
 import com.curuza.R;
-import com.curuza.data.movements.MovementViewModel;
 import com.curuza.data.view.Rapport;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
-
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 
 public class RapportOverviewActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener , SelledFragment.OnFragmentInteractionListener,
         CreditFragment.OnFragmentInteractionListener, DepenseFragment.OnFragmentInteractionListener {
     private RapportAdapter rapportAdapter;
     private RecyclerView rcvRapport;
-    private MovementViewModel mModel;
+    private String mDate;
 
 
 
@@ -47,6 +38,7 @@ public class RapportOverviewActivity extends AppCompatActivity implements Naviga
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        mDate = getIntent().getStringExtra(Rapport.DATE_EXTRA);
 
         TabLayout tabLayout =findViewById(R.id.tablayout);
         tabLayout.addTab(tabLayout.newTab().setText("Selled"));
@@ -60,7 +52,7 @@ public class RapportOverviewActivity extends AppCompatActivity implements Naviga
 
         final ViewPager viewPager = findViewById(R.id.pager);
         final RapportPageAdapter adapter = new RapportPageAdapter
-                (getSupportFragmentManager(), tabLayout.getTabCount());
+                (getSupportFragmentManager(), tabLayout.getTabCount(),mDate);
         viewPager.setAdapter(adapter);
         viewPager.setOnPageChangeListener
                 (new TabLayout.TabLayoutOnPageChangeListener(tabLayout));

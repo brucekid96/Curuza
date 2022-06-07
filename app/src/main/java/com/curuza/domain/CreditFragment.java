@@ -8,39 +8,36 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.curuza.R;
 import com.curuza.data.credit.Credit;
-import com.curuza.data.credit.CreditViewModel;
-import com.curuza.data.movements.MovementViewModel;
-import com.curuza.data.view.ProductMovement;
+import com.curuza.data.credit.CreditRepository;
 
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.schedulers.Schedulers;
+
 public class CreditFragment extends Fragment {
 
     private RecyclerView mRecyclerView;
     private CreditAdapter mAdapter;
-
-    CreditViewModel mModel;
+    private String mDate;
     private CreditFragment.OnFragmentInteractionListener mListener;
+    private Context mContext;
+    private CompositeDisposable mDisposable = new CompositeDisposable();
+    private CreditRepository mCreditRepository;
 
-    public CreditFragment() {
-
+    public CreditFragment(String date) {
+     mDate = date;
     }
 
-   public static CreditFragment newInstance(String param1, String param2) {
-        CreditFragment fragment = new CreditFragment();
-        Bundle args = new Bundle();
-        fragment.setArguments(args);
-        return fragment;
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -50,7 +47,7 @@ public class CreditFragment extends Fragment {
 
         }
 
-
+     mCreditRepository = new CreditRepository(mContext);
 
     }
 
@@ -64,18 +61,19 @@ public class CreditFragment extends Fragment {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mAdapter = new CreditAdapter(getListCredit(),getContext());
         mRecyclerView.setAdapter(mAdapter);
-        mModel= ViewModelProviders.of(this).get(CreditViewModel.class);
-        mModel.getCredits().observe(this, credits ->  {
-
-            mAdapter.setData(credits);
-
-        });
-
+        mDisposable.add(
+            mCreditRepository.getCreditsByDate(mDate)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(this::loadCredits));
 
 
         return view;
 
+    }
 
+    public void loadCredits(List<Credit> credits) {
+        mAdapter.setData(credits);
     }
 
     public void onButtonPressed(Uri uri) {

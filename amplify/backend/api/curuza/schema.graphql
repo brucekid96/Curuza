@@ -1,0 +1,10 @@
+type Product @model @auth(rules: [{allow: owner,operations:[create,delete,update,read]}]) {
+    id: ID!
+    photoId: ID
+    name: String!
+    description: String
+    quantity: Int
+    pAchat: Int
+    pVente: Int
+    addedAt: String
+}

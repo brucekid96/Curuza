@@ -3,26 +3,15 @@ package com.curuza.data.view;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.DatabaseView;
-import androidx.room.Embedded;
-import androidx.room.Entity;
-import androidx.room.Ignore;
-import androidx.room.PrimaryKey;
-
-import com.curuza.data.credit.Credit;
-import com.curuza.data.movements.Movement;
-import com.curuza.data.stock.Product;
-
-import java.util.UUID;
 
 @DatabaseView(
         viewName = "rapport",
         value = "select date_only as date, sum(movement_p_vente) as total_vente " +
                 "from (select *, substr(movement_date, 1, 10)  as date_only  from movement) group by date_only ")
 public class Rapport implements Parcelable {
-    public static final String RAPPORT_EXTRA = "rapport_code";
+    public static final String DATE_EXTRA = "date_code";
 
     private String date;
     @ColumnInfo(name = "total_vente")

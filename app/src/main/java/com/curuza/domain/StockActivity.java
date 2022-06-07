@@ -18,14 +18,12 @@ import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.curuza.R;
 import com.curuza.data.stock.Product;
 import com.curuza.data.stock.ProductRepository;
-import com.curuza.data.stock.ProductViewModel;
 import com.curuza.utils.ExcelExporter;
 import com.google.android.material.navigation.NavigationView;
 
@@ -33,14 +31,18 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.schedulers.Schedulers;
+
 public class StockActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private RecyclerView rcvProduct;
     private StockAdapter stockAdapter;
     private View mShadowView;
-    private ProductViewModel mModel;
     private ProductRepository mProductRepository;
     private List<Product> productList;
+    private CompositeDisposable mDisposable = new CompositeDisposable();
 
 
 
@@ -52,7 +54,7 @@ public class StockActivity extends AppCompatActivity implements NavigationView.O
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-
+        mProductRepository = new ProductRepository(this);
 
         DrawerLayout drawer =  findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -76,14 +78,20 @@ public class StockActivity extends AppCompatActivity implements NavigationView.O
 
 
         rcvProduct.setAdapter(stockAdapter);
-        mModel= ViewModelProviders.of(this).get(ProductViewModel.class);
-        mModel.getAllProducts().observe(this, products -> {
-            productList = products;
-            stockAdapter.setData(products);
-        });
+        mDisposable.add(
+            mProductRepository.getProducts()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(this::loadProducts));
+
 
     }
 
+
+    public void loadProducts(List<Product>products) {
+        productList = products;
+        stockAdapter.setData(products);
+    }
     public void updateSearchResults(String searchQuery) {
         if(productList != null) {
             List<Product> searchResults = new ArrayList<>();

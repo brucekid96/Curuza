@@ -19,7 +19,10 @@ import org.threeten.bp.ZonedDateTime;
 
 import java.util.UUID;
 
-public class AddCreditActivity extends AppCompatActivity {
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
+
+  public class AddCreditActivity extends AppCompatActivity {
 
 
     private Credit mCredit;
@@ -78,7 +81,10 @@ public class AddCreditActivity extends AppCompatActivity {
                             mDate,
                             mPhoneNumber.getEditText().getText().toString()
                     );
-                    mCreditRepository.insert(credit);
+                    mCreditRepository.insert(credit)
+                        .subscribeOn(Schedulers.io())
+                        .subscribeOn(AndroidSchedulers.mainThread())
+                        .subscribe();
                     Log.d(AddCreditActivity.class.getSimpleName(), "Added credit: " + credit.toString());
 
                     Intent intent1 = new Intent(AddCreditActivity.this, CreditActivity.class);

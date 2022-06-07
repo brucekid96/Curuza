@@ -11,7 +11,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.curuza.R;
-
 import com.curuza.data.fournisseur.Fournisseur;
 import com.curuza.data.fournisseur.FournisseurRepository;
 import com.google.android.material.textfield.TextInputLayout;
@@ -19,6 +18,9 @@ import com.google.android.material.textfield.TextInputLayout;
 import org.threeten.bp.ZonedDateTime;
 
 import java.util.UUID;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 public class AddFournisseurActivity extends AppCompatActivity {
     private Fournisseur mFournisseur;
@@ -70,7 +72,11 @@ public class AddFournisseurActivity extends AppCompatActivity {
                         mDate,
                         mPhoneNumber.getEditText().getText().toString()
                 );
-                mFournisseurRepository.insert(fournisseur);
+                mFournisseurRepository.insert(fournisseur)
+                .subscribeOn(Schedulers.io())
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .subscribe();
+
                 Log.d(AddFournisseurActivity.class.getSimpleName(), "Added fournisseur: " + fournisseur.toString());
 
                 Intent intent1 = new Intent(AddFournisseurActivity.this, FournisseurActivity.class);

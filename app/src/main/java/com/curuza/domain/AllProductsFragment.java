@@ -8,21 +8,25 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.curuza.R;
 import com.curuza.data.movements.Movement;
 import com.curuza.data.movements.MovementRepository;
-import com.curuza.data.movements.MovementViewModel;
 import com.curuza.data.view.ProductMovement;
 
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.schedulers.Schedulers;
 
 public class AllProductsFragment extends Fragment implements ProductMovementsAdapter.OnDeleteClickListener{
 
@@ -31,9 +35,10 @@ public class AllProductsFragment extends Fragment implements ProductMovementsAda
 
     private RecyclerView mRecyclerView;
     private ProductMovementsAdapter mProductAdapter;
-    MovementViewModel mModel;
     private MovementRepository mMovementRepository;
     private List<ProductMovement> productMovementList;
+    private CompositeDisposable mDisposable = new CompositeDisposable();
+    private Context mContext;
 
     private OnFragmentInteractionListener mListener;
 
@@ -55,6 +60,8 @@ public class AllProductsFragment extends Fragment implements ProductMovementsAda
         if (getArguments() != null) {
 
         }
+
+        mMovementRepository = new MovementRepository(mContext);
     }
 
     @Override
@@ -69,19 +76,24 @@ public class AllProductsFragment extends Fragment implements ProductMovementsAda
         mProductAdapter = new ProductMovementsAdapter(getProductMovementList(),getContext(),this::OnDeleteClickListener);
         mProductAdapter.setData(getProductMovementList());
         mRecyclerView.setAdapter(mProductAdapter);
-        mModel= ViewModelProviders.of(this).get(MovementViewModel.class);
-        mModel.getAllProductMovements().observe(getViewLifecycleOwner(), productMovements -> {
-                Log.d(AllProductsFragment.class.getSimpleName(), "mModel.getProductMovements()");
-                Log.d(AllProductsFragment.class.getSimpleName(), "Product movement list: " + productMovements.toString());
-            productMovementList = productMovements;
-                mProductAdapter.setData(productMovements);
-        });
-
         return view;
-
-
     }
 
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        mDisposable.add(
+            mMovementRepository.getProductMovements()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(this::loadAllProducts));
+    }
+
+    public void loadAllProducts(List<ProductMovement> productMovements) {
+        Log.d(AllProductsFragment.class.getSimpleName(), "mModel.getProductMovements()");
+        Log.d(AllProductsFragment.class.getSimpleName(), "Product movement list: " + productMovements.toString());
+        productMovementList = productMovements;
+        mProductAdapter.setData(productMovements);
+    }
     public void updateSearchResults(String searchQuery) {
         if(productMovementList != null) {
             List<ProductMovement> searchResults = new ArrayList<>();

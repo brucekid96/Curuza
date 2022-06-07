@@ -8,40 +8,38 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.curuza.R;
 import com.curuza.data.depense.Depense;
-import com.curuza.data.depense.DepenseViewModel;
-import com.curuza.data.movements.MovementViewModel;
-import com.curuza.data.view.ProductMovement;
+import com.curuza.data.depense.DepenseRepository;
 
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.schedulers.Schedulers;
+
 public class DepenseFragment extends Fragment {
 
 
     private RecyclerView mRecyclerView;
     private DepenseAdapter mAdapter;
+  private DepenseRepository mDepenseRepository;
+    private String mDate;
+    private Context mContext;
+  private CompositeDisposable mDisposable = new CompositeDisposable();
 
-    DepenseViewModel mModel;
     private DepenseFragment.OnFragmentInteractionListener mListener;
 
-    public DepenseFragment() {
-
+    public DepenseFragment(String date) {
+   mDate = date;
     }
 
-    public static DepenseFragment newInstance(String param1, String param2) {
-        DepenseFragment fragment = new DepenseFragment();
-        Bundle args = new Bundle();
-
-        return fragment;
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -51,7 +49,7 @@ public class DepenseFragment extends Fragment {
 
         }
 
-
+        mDepenseRepository = new DepenseRepository(mContext);
 
     }
 
@@ -65,19 +63,19 @@ public class DepenseFragment extends Fragment {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mAdapter = new DepenseAdapter(getListDepenses(),getActivity());
         mRecyclerView.setAdapter(mAdapter);
-        mModel= ViewModelProviders.of(this).get(DepenseViewModel.class);
-        mModel.getDepenses().observe(this, depenses ->  {
-
-            mAdapter.setData(depenses);
-
-        });
-
-
+        mDisposable.add(
+            mDepenseRepository.getDepensesByDate(mDate)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(this::loadDepenses));
 
         return view;
 
-
     }
+
+  public void loadDepenses(List<Depense> depenses) {
+    mAdapter.setData(depenses);
+  }
 
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {

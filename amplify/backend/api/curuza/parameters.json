@@ -1,0 +1,11 @@
+{
+  "AppSyncApiName": "curuza",
+  "DynamoDBBillingMode": "PAY_PER_REQUEST",
+  "DynamoDBEnableServerSideEncryption": false,
+  "AuthCognitoUserPoolId": {
+    "Fn::GetAtt": [
+      "authcuruza92aa13fd92aa13fd",
+      "Outputs.UserPoolId"
+    ]
+  }
+}
