@@ -3,6 +3,7 @@ package com.curuza.data.stock;
 import android.content.Context;
 
 import com.curuza.data.MainDatabase;
+import com.curuza.data.remote.AmplifyAPI;
 
 import java.util.List;
 
@@ -31,7 +32,8 @@ public  class ProductRepository {
     }
 
     public Completable insert(Product product) {
-        return db.productDao().insert(product);
+        return db.productDao().insert(product)
+            .andThen(AmplifyAPI.addProduct(product));
     }
 
     public Completable delete(Product product)  {
@@ -41,6 +43,11 @@ public  class ProductRepository {
     public Completable update(Product product)  {
        return db.productDao().update(product);
     }
+
+  public Completable syncProducts() {
+    return AmplifyAPI.getProducts()
+        .flatMapCompletable(db.productDao()::bulkInsert);
+  }
 
 
 }

@@ -41,13 +41,13 @@ public class Converters {
     }
 
     @TypeConverter
-    public static String fromTransactionStatus(RequestStatus transactionStatus) {
+    public static String fromTransactionStatus(MovementStatus transactionStatus) {
         return transactionStatus == null ? null : transactionStatus.name();
     }
 
     @TypeConverter
-    public static RequestStatus toTransactionStatus(String transactionStatusStr) {
-        return transactionStatusStr == null ? null : RequestStatus.valueOf(transactionStatusStr);
+    public static MovementStatus toTransactionStatus(String transactionStatusStr) {
+        return transactionStatusStr == null ? null : MovementStatus.valueOf(transactionStatusStr);
     }
 
 

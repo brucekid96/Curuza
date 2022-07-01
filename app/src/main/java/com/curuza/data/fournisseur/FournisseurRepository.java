@@ -3,6 +3,7 @@ package com.curuza.data.fournisseur;
 import android.content.Context;
 
 import com.curuza.data.MainDatabase;
+import com.curuza.data.remote.AmplifyAPI;
 
 import java.util.List;
 
@@ -25,7 +26,8 @@ public class FournisseurRepository {
     }
 
     public Completable insert(Fournisseur fournisseur) {
-       return db.fournisseurDao().insert(fournisseur);
+       return db.fournisseurDao().insert(fournisseur)
+           .andThen(AmplifyAPI.addFournisseur(fournisseur));
     }
 
     public Completable delete(Fournisseur fournisseur)  {
@@ -34,5 +36,10 @@ public class FournisseurRepository {
 
     public Completable update(Fournisseur fournisseur)  {
         return db.fournisseurDao().update(fournisseur);
+    }
+
+    public Completable syncFournisseurs() {
+        return AmplifyAPI.getFournisseurs()
+            .flatMapCompletable(db.fournisseurDao()::bulkInsert);
     }
 }

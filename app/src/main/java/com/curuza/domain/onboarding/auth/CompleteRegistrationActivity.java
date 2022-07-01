@@ -11,7 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.amplifyframework.auth.result.AuthSignUpResult;
 import com.curuza.R;
-import com.curuza.data.photos.StandardPhotoRepository;
+import com.curuza.data.photos.PhotoRepository;
 import com.curuza.domain.ErrorClearingTextWatcher;
 import com.curuza.domain.MainActivity;
 import com.curuza.domain.common.ProgressDialog;
@@ -32,7 +32,7 @@ public class CompleteRegistrationActivity  extends AppCompatActivity {
     private TextInputEditText mLastNameEditText;
     private Button mContinueButton;
     private com.curuza.domain.common.ProgressDialog mProgressDialog;
-    private StandardPhotoRepository mUserRepository;
+    private PhotoRepository mUserRepository;
 
     private SignupSession mSignupSession;
 

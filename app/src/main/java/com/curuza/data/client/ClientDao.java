@@ -3,6 +3,7 @@ package com.curuza.data.client;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
+import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Update;
 
@@ -17,6 +18,9 @@ public interface ClientDao {
 
     @Insert
     Completable insert(Client client);
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    Completable bulkInsert(List<Client> clients);
 
     @Delete
     Completable delete(Client client);

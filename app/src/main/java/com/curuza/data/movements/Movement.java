@@ -6,14 +6,10 @@ import android.os.Parcelable;
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
-import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 
-import com.curuza.data.stock.Product;
-import com.curuza.domain.RequestStatus;
+import com.curuza.domain.MovementStatus;
 
-
-import java.util.UUID;
 @Entity(tableName = "movement")
 public class Movement implements Parcelable {
 
@@ -40,13 +36,13 @@ public class Movement implements Parcelable {
     private String mDate;
     @NonNull
     @ColumnInfo(name = "movement_status")
-    private RequestStatus mStatus;
+    private MovementStatus mStatus;
 
 
 
 
 
-    public Movement(String id,String product_id, int mQuantity, int mPAchat, int mPVente, String mDate, RequestStatus mStatus) {
+    public Movement(String id,String product_id, int mQuantity, int mPAchat, int mPVente, String mDate, MovementStatus mStatus) {
 
         this.mId = id ;
         this.product_id  = product_id;
@@ -108,11 +104,11 @@ public class Movement implements Parcelable {
     }
 
 
-    public RequestStatus getStatus() {
+    public MovementStatus getStatus() {
         return mStatus;
     }
 
-    public void setStatus(RequestStatus mStatus) {
+    public void setStatus(MovementStatus mStatus) {
         this.mStatus = mStatus;
     }
 

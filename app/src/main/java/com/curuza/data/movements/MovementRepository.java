@@ -5,6 +5,7 @@ import android.content.Context;
 import androidx.lifecycle.LiveData;
 
 import com.curuza.data.MainDatabase;
+import com.curuza.data.remote.AmplifyAPI;
 import com.curuza.data.view.ProductMovement;
 import com.curuza.data.view.Rapport;
 
@@ -54,7 +55,8 @@ public class MovementRepository {
 
 
     public Completable insert(Movement movement) {
-        return db.movementDao().insert(movement);
+        return db.movementDao().insert(movement)
+            .andThen(AmplifyAPI.addMovement(movement));
     }
 
     public Completable delete(Movement movement)  {
@@ -64,5 +66,10 @@ public class MovementRepository {
     public Completable update(Movement movement)  {
         return db.movementDao().update(movement);
     }
+
+  public Completable syncMovements() {
+    return AmplifyAPI.getMovements()
+        .flatMapCompletable(db.movementDao()::bulkInsert);
+  }
 
 }

@@ -3,6 +3,7 @@ package com.curuza.domain;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,6 +29,8 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
 
 public class EnterProductsFragment extends Fragment implements ProductMovementsAdapter.OnDeleteClickListener {
+
+  private static final String DBG_TAG = EnterProductsFragment.class.getSimpleName();
   private RecyclerView mRecyclerView;
   private ProductMovementsAdapter mAdapter;
   private MovementRepository mMovementRepository;
@@ -82,6 +85,7 @@ public class EnterProductsFragment extends Fragment implements ProductMovementsA
   }
 
   public void loadEnterProducts(List<ProductMovement> productMovements) {
+      Log.d(DBG_TAG, "logged data is : "+productMovements);
     mAdapter.setData(productMovements);
   }
 

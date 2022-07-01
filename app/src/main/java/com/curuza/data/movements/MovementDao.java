@@ -3,6 +3,7 @@ package com.curuza.data.movements;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
+import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Update;
 
@@ -20,6 +21,9 @@ public interface MovementDao {
 
     @Insert
     Completable insert(Movement movement);
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    Completable bulkInsert(List<Movement> movements);
 
     @Delete
     Completable delete(Movement movement);

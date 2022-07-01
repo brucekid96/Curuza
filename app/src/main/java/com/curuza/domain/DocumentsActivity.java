@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.inputmethod.EditorInfo;
@@ -34,6 +35,7 @@ import io.reactivex.schedulers.Schedulers;
 
 public class DocumentsActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, AllProductsFragment.OnFragmentInteractionListener,
         EnterProductsFragment.OnFragmentInteractionListener, ExitProductsFragment.OnFragmentInteractionListener {
+    private static final String DBG_TAG = DocumentsActivity.class.getSimpleName();
 
     private List<ProductMovement> allProductMovements;
     private List<ProductMovement> enterProductMovements;
@@ -132,12 +134,15 @@ public class DocumentsActivity extends AppCompatActivity implements NavigationVi
     }
     public void loadAllProducts(List<ProductMovement> productMovements) {
         allProductMovements = productMovements;
+        Log.d(DBG_TAG,"all product data is " + productMovements);
     }
     public void loadEnterProducts(List<ProductMovement> productEnterMovements) {
         enterProductMovements = productEnterMovements;
+        Log.d(DBG_TAG,"enter product data is " + productEnterMovements);
     }
     public void loadExitProducts(List<ProductMovement> productExitMovements) {
         exitProductMovements = productExitMovements;
+        Log.d(DBG_TAG,"exit product data is " + productExitMovements);
     }
     @Override
     public void onBackPressed() {

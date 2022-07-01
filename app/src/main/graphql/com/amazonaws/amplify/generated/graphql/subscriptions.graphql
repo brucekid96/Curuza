@@ -44,3 +44,189 @@ subscription OnDeleteProduct($owner: String!) {
     owner
   }
 }
+subscription OnCreateFournisseur($owner: String!) {
+  onCreateFournisseur(owner: $owner) {
+    id
+    name
+    description
+    addedAt
+    telephone
+    createdAt
+    updatedAt
+    owner
+  }
+}
+subscription OnUpdateFournisseur($owner: String!) {
+  onUpdateFournisseur(owner: $owner) {
+    id
+    name
+    description
+    addedAt
+    telephone
+    createdAt
+    updatedAt
+    owner
+  }
+}
+subscription OnDeleteFournisseur($owner: String!) {
+  onDeleteFournisseur(owner: $owner) {
+    id
+    name
+    description
+    addedAt
+    telephone
+    createdAt
+    updatedAt
+    owner
+  }
+}
+subscription OnCreateClient($owner: String!) {
+  onCreateClient(owner: $owner) {
+    id
+    name
+    description
+    addedAt
+    telephone
+    createdAt
+    updatedAt
+    owner
+  }
+}
+subscription OnUpdateClient($owner: String!) {
+  onUpdateClient(owner: $owner) {
+    id
+    name
+    description
+    addedAt
+    telephone
+    createdAt
+    updatedAt
+    owner
+  }
+}
+subscription OnDeleteClient($owner: String!) {
+  onDeleteClient(owner: $owner) {
+    id
+    name
+    description
+    addedAt
+    telephone
+    createdAt
+    updatedAt
+    owner
+  }
+}
+subscription OnCreateCredit($owner: String!) {
+  onCreateCredit(owner: $owner) {
+    id
+    name
+    description
+    amount
+    addedAt
+    telephone
+    createdAt
+    updatedAt
+    owner
+  }
+}
+subscription OnUpdateCredit($owner: String!) {
+  onUpdateCredit(owner: $owner) {
+    id
+    name
+    description
+    amount
+    addedAt
+    telephone
+    createdAt
+    updatedAt
+    owner
+  }
+}
+subscription OnDeleteCredit($owner: String!) {
+  onDeleteCredit(owner: $owner) {
+    id
+    name
+    description
+    amount
+    addedAt
+    telephone
+    createdAt
+    updatedAt
+    owner
+  }
+}
+subscription OnCreateDepense($owner: String!) {
+  onCreateDepense(owner: $owner) {
+    id
+    description
+    amount
+    addedAt
+    createdAt
+    updatedAt
+    owner
+  }
+}
+subscription OnUpdateDepense($owner: String!) {
+  onUpdateDepense(owner: $owner) {
+    id
+    description
+    amount
+    addedAt
+    createdAt
+    updatedAt
+    owner
+  }
+}
+subscription OnDeleteDepense($owner: String!) {
+  onDeleteDepense(owner: $owner) {
+    id
+    description
+    amount
+    addedAt
+    createdAt
+    updatedAt
+    owner
+  }
+}
+subscription OnCreateMovement($owner: String!) {
+  onCreateMovement(owner: $owner) {
+    id
+    productId
+    quantity
+    pAchat
+    pVente
+    addedAt
+    status
+    createdAt
+    updatedAt
+    owner
+  }
+}
+subscription OnUpdateMovement($owner: String!) {
+  onUpdateMovement(owner: $owner) {
+    id
+    productId
+    quantity
+    pAchat
+    pVente
+    addedAt
+    status
+    createdAt
+    updatedAt
+    owner
+  }
+}
+subscription OnDeleteMovement($owner: String!) {
+  onDeleteMovement(owner: $owner) {
+    id
+    productId
+    quantity
+    pAchat
+    pVente
+    addedAt
+    status
+    createdAt
+    updatedAt
+    owner
+  }
+}

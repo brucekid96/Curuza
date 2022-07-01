@@ -116,7 +116,7 @@ public class SellArticleFragment extends BottomSheetDialogFragment {
                         mProduct.getPAchat(),
                         mProduct.getPVente(),
                         ZonedDateTime.now().toInstant().toString(),
-                        RequestStatus.Exit
+                        MovementStatus.Exit
                 );
 
                 mProductRepository.update(mProduct)

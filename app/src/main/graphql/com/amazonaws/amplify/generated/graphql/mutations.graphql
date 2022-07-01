@@ -53,3 +53,234 @@ mutation DeleteProduct(
     owner
   }
 }
+mutation CreateFournisseur(
+  $input: CreateFournisseurInput!
+  $condition: ModelFournisseurConditionInput
+) {
+  createFournisseur(input: $input, condition: $condition) {
+    id
+    name
+    description
+    addedAt
+    telephone
+    createdAt
+    updatedAt
+    owner
+  }
+}
+mutation UpdateFournisseur(
+  $input: UpdateFournisseurInput!
+  $condition: ModelFournisseurConditionInput
+) {
+  updateFournisseur(input: $input, condition: $condition) {
+    id
+    name
+    description
+    addedAt
+    telephone
+    createdAt
+    updatedAt
+    owner
+  }
+}
+mutation DeleteFournisseur(
+  $input: DeleteFournisseurInput!
+  $condition: ModelFournisseurConditionInput
+) {
+  deleteFournisseur(input: $input, condition: $condition) {
+    id
+    name
+    description
+    addedAt
+    telephone
+    createdAt
+    updatedAt
+    owner
+  }
+}
+mutation CreateClient(
+  $input: CreateClientInput!
+  $condition: ModelClientConditionInput
+) {
+  createClient(input: $input, condition: $condition) {
+    id
+    name
+    description
+    addedAt
+    telephone
+    createdAt
+    updatedAt
+    owner
+  }
+}
+mutation UpdateClient(
+  $input: UpdateClientInput!
+  $condition: ModelClientConditionInput
+) {
+  updateClient(input: $input, condition: $condition) {
+    id
+    name
+    description
+    addedAt
+    telephone
+    createdAt
+    updatedAt
+    owner
+  }
+}
+mutation DeleteClient(
+  $input: DeleteClientInput!
+  $condition: ModelClientConditionInput
+) {
+  deleteClient(input: $input, condition: $condition) {
+    id
+    name
+    description
+    addedAt
+    telephone
+    createdAt
+    updatedAt
+    owner
+  }
+}
+mutation CreateCredit(
+  $input: CreateCreditInput!
+  $condition: ModelCreditConditionInput
+) {
+  createCredit(input: $input, condition: $condition) {
+    id
+    name
+    description
+    amount
+    addedAt
+    telephone
+    createdAt
+    updatedAt
+    owner
+  }
+}
+mutation UpdateCredit(
+  $input: UpdateCreditInput!
+  $condition: ModelCreditConditionInput
+) {
+  updateCredit(input: $input, condition: $condition) {
+    id
+    name
+    description
+    amount
+    addedAt
+    telephone
+    createdAt
+    updatedAt
+    owner
+  }
+}
+mutation DeleteCredit(
+  $input: DeleteCreditInput!
+  $condition: ModelCreditConditionInput
+) {
+  deleteCredit(input: $input, condition: $condition) {
+    id
+    name
+    description
+    amount
+    addedAt
+    telephone
+    createdAt
+    updatedAt
+    owner
+  }
+}
+mutation CreateDepense(
+  $input: CreateDepenseInput!
+  $condition: ModelDepenseConditionInput
+) {
+  createDepense(input: $input, condition: $condition) {
+    id
+    description
+    amount
+    addedAt
+    createdAt
+    updatedAt
+    owner
+  }
+}
+mutation UpdateDepense(
+  $input: UpdateDepenseInput!
+  $condition: ModelDepenseConditionInput
+) {
+  updateDepense(input: $input, condition: $condition) {
+    id
+    description
+    amount
+    addedAt
+    createdAt
+    updatedAt
+    owner
+  }
+}
+mutation DeleteDepense(
+  $input: DeleteDepenseInput!
+  $condition: ModelDepenseConditionInput
+) {
+  deleteDepense(input: $input, condition: $condition) {
+    id
+    description
+    amount
+    addedAt
+    createdAt
+    updatedAt
+    owner
+  }
+}
+mutation CreateMovement(
+  $input: CreateMovementInput!
+  $condition: ModelMovementConditionInput
+) {
+  createMovement(input: $input, condition: $condition) {
+    id
+    productId
+    quantity
+    pAchat
+    pVente
+    addedAt
+    status
+    createdAt
+    updatedAt
+    owner
+  }
+}
+mutation UpdateMovement(
+  $input: UpdateMovementInput!
+  $condition: ModelMovementConditionInput
+) {
+  updateMovement(input: $input, condition: $condition) {
+    id
+    productId
+    quantity
+    pAchat
+    pVente
+    addedAt
+    status
+    createdAt
+    updatedAt
+    owner
+  }
+}
+mutation DeleteMovement(
+  $input: DeleteMovementInput!
+  $condition: ModelMovementConditionInput
+) {
+  deleteMovement(input: $input, condition: $condition) {
+    id
+    productId
+    quantity
+    pAchat
+    pVente
+    addedAt
+    status
+    createdAt
+    updatedAt
+    owner
+  }
+}

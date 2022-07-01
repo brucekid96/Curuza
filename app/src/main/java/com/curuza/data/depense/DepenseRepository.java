@@ -3,6 +3,7 @@ package com.curuza.data.depense;
 import android.content.Context;
 
 import com.curuza.data.MainDatabase;
+import com.curuza.data.remote.AmplifyAPI;
 
 import java.util.List;
 
@@ -34,7 +35,8 @@ public class DepenseRepository {
 
 
     public Completable insert(Depense depense) {
-        return db.depenseDao().insert(depense);
+        return db.depenseDao().insert(depense)
+            .andThen(AmplifyAPI.addDepense(depense));
     }
 
     public Completable delete(Depense depense)  {
@@ -43,6 +45,11 @@ public class DepenseRepository {
 
     public Completable update(Depense depense)  {
        return db.depenseDao().update(depense);
+    }
+
+    public Completable syncDepenses() {
+        return AmplifyAPI.getDepenses()
+            .flatMapCompletable(db.depenseDao()::bulkInsert);
     }
 
 }

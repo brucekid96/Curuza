@@ -19,36 +19,28 @@ import com.amplifyframework.core.model.query.predicate.QueryField;
 
 import static com.amplifyframework.core.model.query.predicate.QueryField.field;
 
-/** This is an auto generated class representing the Product type in your schema. */
+/** This is an auto generated class representing the Credit type in your schema. */
 @SuppressWarnings("all")
-@ModelConfig(pluralName = "Products", authRules = {
+@ModelConfig(pluralName = "Credits", authRules = {
   @AuthRule(allow = AuthStrategy.OWNER, ownerField = "owner", identityClaim = "cognito:username", provider = "userPools", operations = { ModelOperation.CREATE, ModelOperation.DELETE, ModelOperation.UPDATE, ModelOperation.READ })
 })
-public final class Product implements Model {
-  public static final QueryField ID = field("Product", "id");
-  public static final QueryField PHOTO_ID = field("Product", "photoId");
-  public static final QueryField NAME = field("Product", "name");
-  public static final QueryField DESCRIPTION = field("Product", "description");
-  public static final QueryField QUANTITY = field("Product", "quantity");
-  public static final QueryField P_ACHAT = field("Product", "pAchat");
-  public static final QueryField P_VENTE = field("Product", "pVente");
-  public static final QueryField ADDED_AT = field("Product", "addedAt");
+public final class Credit implements Model {
+  public static final QueryField ID = field("Credit", "id");
+  public static final QueryField NAME = field("Credit", "name");
+  public static final QueryField DESCRIPTION = field("Credit", "description");
+  public static final QueryField AMOUNT = field("Credit", "amount");
+  public static final QueryField ADDED_AT = field("Credit", "addedAt");
+  public static final QueryField TELEPHONE = field("Credit", "telephone");
   private final @ModelField(targetType="ID", isRequired = true) String id;
-  private final @ModelField(targetType="ID") String photoId;
   private final @ModelField(targetType="String", isRequired = true) String name;
   private final @ModelField(targetType="String") String description;
-  private final @ModelField(targetType="Int", isRequired = true) Integer quantity;
-  private final @ModelField(targetType="Int") Integer pAchat;
-  private final @ModelField(targetType="Int") Integer pVente;
+  private final @ModelField(targetType="Int", isRequired = true) Integer amount;
   private final @ModelField(targetType="String") String addedAt;
+  private final @ModelField(targetType="String") String telephone;
   private @ModelField(targetType="AWSDateTime", isReadOnly = true) Temporal.DateTime createdAt;
   private @ModelField(targetType="AWSDateTime", isReadOnly = true) Temporal.DateTime updatedAt;
   public String getId() {
       return id;
-  }
-  
-  public String getPhotoId() {
-      return photoId;
   }
   
   public String getName() {
@@ -59,20 +51,16 @@ public final class Product implements Model {
       return description;
   }
   
-  public Integer getQuantity() {
-      return quantity;
-  }
-  
-  public Integer getPAchat() {
-      return pAchat;
-  }
-  
-  public Integer getPVente() {
-      return pVente;
+  public Integer getAmount() {
+      return amount;
   }
   
   public String getAddedAt() {
       return addedAt;
+  }
+  
+  public String getTelephone() {
+      return telephone;
   }
   
   public Temporal.DateTime getCreatedAt() {
@@ -83,15 +71,13 @@ public final class Product implements Model {
       return updatedAt;
   }
   
-  private Product(String id, String photoId, String name, String description, Integer quantity, Integer pAchat, Integer pVente, String addedAt) {
+  private Credit(String id, String name, String description, Integer amount, String addedAt, String telephone) {
     this.id = id;
-    this.photoId = photoId;
     this.name = name;
     this.description = description;
-    this.quantity = quantity;
-    this.pAchat = pAchat;
-    this.pVente = pVente;
+    this.amount = amount;
     this.addedAt = addedAt;
+    this.telephone = telephone;
   }
   
   @Override
@@ -101,17 +87,15 @@ public final class Product implements Model {
       } else if(obj == null || getClass() != obj.getClass()) {
         return false;
       } else {
-      Product product = (Product) obj;
-      return ObjectsCompat.equals(getId(), product.getId()) &&
-              ObjectsCompat.equals(getPhotoId(), product.getPhotoId()) &&
-              ObjectsCompat.equals(getName(), product.getName()) &&
-              ObjectsCompat.equals(getDescription(), product.getDescription()) &&
-              ObjectsCompat.equals(getQuantity(), product.getQuantity()) &&
-              ObjectsCompat.equals(getPAchat(), product.getPAchat()) &&
-              ObjectsCompat.equals(getPVente(), product.getPVente()) &&
-              ObjectsCompat.equals(getAddedAt(), product.getAddedAt()) &&
-              ObjectsCompat.equals(getCreatedAt(), product.getCreatedAt()) &&
-              ObjectsCompat.equals(getUpdatedAt(), product.getUpdatedAt());
+      Credit credit = (Credit) obj;
+      return ObjectsCompat.equals(getId(), credit.getId()) &&
+              ObjectsCompat.equals(getName(), credit.getName()) &&
+              ObjectsCompat.equals(getDescription(), credit.getDescription()) &&
+              ObjectsCompat.equals(getAmount(), credit.getAmount()) &&
+              ObjectsCompat.equals(getAddedAt(), credit.getAddedAt()) &&
+              ObjectsCompat.equals(getTelephone(), credit.getTelephone()) &&
+              ObjectsCompat.equals(getCreatedAt(), credit.getCreatedAt()) &&
+              ObjectsCompat.equals(getUpdatedAt(), credit.getUpdatedAt());
       }
   }
   
@@ -119,13 +103,11 @@ public final class Product implements Model {
    public int hashCode() {
     return new StringBuilder()
       .append(getId())
-      .append(getPhotoId())
       .append(getName())
       .append(getDescription())
-      .append(getQuantity())
-      .append(getPAchat())
-      .append(getPVente())
+      .append(getAmount())
       .append(getAddedAt())
+      .append(getTelephone())
       .append(getCreatedAt())
       .append(getUpdatedAt())
       .toString()
@@ -135,15 +117,13 @@ public final class Product implements Model {
   @Override
    public String toString() {
     return new StringBuilder()
-      .append("Product {")
+      .append("Credit {")
       .append("id=" + String.valueOf(getId()) + ", ")
-      .append("photoId=" + String.valueOf(getPhotoId()) + ", ")
       .append("name=" + String.valueOf(getName()) + ", ")
       .append("description=" + String.valueOf(getDescription()) + ", ")
-      .append("quantity=" + String.valueOf(getQuantity()) + ", ")
-      .append("pAchat=" + String.valueOf(getPAchat()) + ", ")
-      .append("pVente=" + String.valueOf(getPVente()) + ", ")
+      .append("amount=" + String.valueOf(getAmount()) + ", ")
       .append("addedAt=" + String.valueOf(getAddedAt()) + ", ")
+      .append("telephone=" + String.valueOf(getTelephone()) + ", ")
       .append("createdAt=" + String.valueOf(getCreatedAt()) + ", ")
       .append("updatedAt=" + String.valueOf(getUpdatedAt()))
       .append("}")
@@ -162,11 +142,9 @@ public final class Product implements Model {
    * @param id the id of the existing item this instance will represent
    * @return an instance of this model with only ID populated
    */
-  public static Product justId(String id) {
-    return new Product(
+  public static Credit justId(String id) {
+    return new Credit(
       id,
-      null,
-      null,
       null,
       null,
       null,
@@ -177,76 +155,62 @@ public final class Product implements Model {
   
   public CopyOfBuilder copyOfBuilder() {
     return new CopyOfBuilder(id,
-      photoId,
       name,
       description,
-      quantity,
-      pAchat,
-      pVente,
-      addedAt);
+      amount,
+      addedAt,
+      telephone);
   }
   public interface NameStep {
-    QuantityStep name(String name);
+    AmountStep name(String name);
   }
   
 
-  public interface QuantityStep {
-    BuildStep quantity(Integer quantity);
+  public interface AmountStep {
+    BuildStep amount(Integer amount);
   }
   
 
   public interface BuildStep {
-    Product build();
+    Credit build();
     BuildStep id(String id);
-    BuildStep photoId(String photoId);
     BuildStep description(String description);
-    BuildStep pAchat(Integer pAchat);
-    BuildStep pVente(Integer pVente);
     BuildStep addedAt(String addedAt);
+    BuildStep telephone(String telephone);
   }
   
 
-  public static class Builder implements NameStep, QuantityStep, BuildStep {
+  public static class Builder implements NameStep, AmountStep, BuildStep {
     private String id;
     private String name;
-    private Integer quantity;
-    private String photoId;
+    private Integer amount;
     private String description;
-    private Integer pAchat;
-    private Integer pVente;
     private String addedAt;
+    private String telephone;
     @Override
-     public Product build() {
+     public Credit build() {
         String id = this.id != null ? this.id : UUID.randomUUID().toString();
         
-        return new Product(
+        return new Credit(
           id,
-          photoId,
           name,
           description,
-          quantity,
-          pAchat,
-          pVente,
-          addedAt);
+          amount,
+          addedAt,
+          telephone);
     }
     
     @Override
-     public QuantityStep name(String name) {
+     public AmountStep name(String name) {
         Objects.requireNonNull(name);
         this.name = name;
         return this;
     }
     
     @Override
-     public BuildStep quantity(Integer quantity) {
-        Objects.requireNonNull(quantity);
-        this.quantity = quantity;
-        return this;
-    }
-    
-    @Override
-     public BuildStep photoId(String photoId) {
-        this.photoId = photoId;
+     public BuildStep amount(Integer amount) {
+        Objects.requireNonNull(amount);
+        this.amount = amount;
         return this;
     }
     
@@ -257,20 +221,14 @@ public final class Product implements Model {
     }
     
     @Override
-     public BuildStep pAchat(Integer pAchat) {
-        this.pAchat = pAchat;
-        return this;
-    }
-    
-    @Override
-     public BuildStep pVente(Integer pVente) {
-        this.pVente = pVente;
-        return this;
-    }
-    
-    @Override
      public BuildStep addedAt(String addedAt) {
         this.addedAt = addedAt;
+        return this;
+    }
+    
+    @Override
+     public BuildStep telephone(String telephone) {
+        this.telephone = telephone;
         return this;
     }
     
@@ -286,15 +244,13 @@ public final class Product implements Model {
   
 
   public final class CopyOfBuilder extends Builder {
-    private CopyOfBuilder(String id, String photoId, String name, String description, Integer quantity, Integer pAchat, Integer pVente, String addedAt) {
+    private CopyOfBuilder(String id, String name, String description, Integer amount, String addedAt, String telephone) {
       super.id(id);
       super.name(name)
-        .quantity(quantity)
-        .photoId(photoId)
+        .amount(amount)
         .description(description)
-        .pAchat(pAchat)
-        .pVente(pVente)
-        .addedAt(addedAt);
+        .addedAt(addedAt)
+        .telephone(telephone);
     }
     
     @Override
@@ -303,13 +259,8 @@ public final class Product implements Model {
     }
     
     @Override
-     public CopyOfBuilder quantity(Integer quantity) {
-      return (CopyOfBuilder) super.quantity(quantity);
-    }
-    
-    @Override
-     public CopyOfBuilder photoId(String photoId) {
-      return (CopyOfBuilder) super.photoId(photoId);
+     public CopyOfBuilder amount(Integer amount) {
+      return (CopyOfBuilder) super.amount(amount);
     }
     
     @Override
@@ -318,18 +269,13 @@ public final class Product implements Model {
     }
     
     @Override
-     public CopyOfBuilder pAchat(Integer pAchat) {
-      return (CopyOfBuilder) super.pAchat(pAchat);
-    }
-    
-    @Override
-     public CopyOfBuilder pVente(Integer pVente) {
-      return (CopyOfBuilder) super.pVente(pVente);
-    }
-    
-    @Override
      public CopyOfBuilder addedAt(String addedAt) {
       return (CopyOfBuilder) super.addedAt(addedAt);
+    }
+    
+    @Override
+     public CopyOfBuilder telephone(String telephone) {
+      return (CopyOfBuilder) super.telephone(telephone);
     }
   }
   

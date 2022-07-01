@@ -36,3 +36,162 @@ query ListProducts(
     nextToken
   }
 }
+query GetFournisseur($id: ID!) {
+  getFournisseur(id: $id) {
+    id
+    name
+    description
+    addedAt
+    telephone
+    createdAt
+    updatedAt
+    owner
+  }
+}
+query ListFournisseurs(
+  $filter: ModelFournisseurFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listFournisseurs(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      name
+      description
+      addedAt
+      telephone
+      createdAt
+      updatedAt
+      owner
+    }
+    nextToken
+  }
+}
+query GetClient($id: ID!) {
+  getClient(id: $id) {
+    id
+    name
+    description
+    addedAt
+    telephone
+    createdAt
+    updatedAt
+    owner
+  }
+}
+query ListClients(
+  $filter: ModelClientFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listClients(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      name
+      description
+      addedAt
+      telephone
+      createdAt
+      updatedAt
+      owner
+    }
+    nextToken
+  }
+}
+query GetCredit($id: ID!) {
+  getCredit(id: $id) {
+    id
+    name
+    description
+    amount
+    addedAt
+    telephone
+    createdAt
+    updatedAt
+    owner
+  }
+}
+query ListCredits(
+  $filter: ModelCreditFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listCredits(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      name
+      description
+      amount
+      addedAt
+      telephone
+      createdAt
+      updatedAt
+      owner
+    }
+    nextToken
+  }
+}
+query GetDepense($id: ID!) {
+  getDepense(id: $id) {
+    id
+    description
+    amount
+    addedAt
+    createdAt
+    updatedAt
+    owner
+  }
+}
+query ListDepenses(
+  $filter: ModelDepenseFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listDepenses(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      description
+      amount
+      addedAt
+      createdAt
+      updatedAt
+      owner
+    }
+    nextToken
+  }
+}
+query GetMovement($id: ID!) {
+  getMovement(id: $id) {
+    id
+    productId
+    quantity
+    pAchat
+    pVente
+    addedAt
+    status
+    createdAt
+    updatedAt
+    owner
+  }
+}
+query ListMovements(
+  $filter: ModelMovementFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listMovements(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      productId
+      quantity
+      pAchat
+      pVente
+      addedAt
+      status
+      createdAt
+      updatedAt
+      owner
+    }
+    nextToken
+  }
+}

@@ -15,8 +15,11 @@ import com.bumptech.glide.Glide;
 import com.curuza.R;
 import com.curuza.data.movements.Movement;
 import com.curuza.data.movements.MovementRepository;
+import com.curuza.data.photos.PhotoRepository;
+import com.curuza.data.photos.PhotoType;
 import com.curuza.data.stock.Product;
 import com.curuza.data.stock.ProductRepository;
+import com.github.dhaval2404.imagepicker.ImagePicker;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputLayout;
 
@@ -24,6 +27,7 @@ import org.threeten.bp.ZonedDateTime;
 
 import java.util.UUID;
 
+import io.reactivex.Completable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
@@ -45,7 +49,7 @@ public class AddArticle extends AppCompatActivity {
     private TextView mQuantityErrorTextView;
     private TextView mPAchatErrorTextview;
     private TextView mPVenteErrorTextview;
-    private FloatingActionButton mFab;
+    private FloatingActionButton mAdd;
     private  String mDate;
 
     private Uri mProductImageURI;
@@ -53,6 +57,7 @@ public class AddArticle extends AppCompatActivity {
     Movement mMovement;
     ProductRepository mProductRepository;
     MovementRepository mMovementRepository;
+    PhotoRepository mPhotoRepository;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,68 +87,69 @@ public class AddArticle extends AppCompatActivity {
         mUploadImageButton.setOnClickListener(v -> choosePhotoFromGallery());
 
 
-        mFab = findViewById(R.id.floatingActionButton);
-        mFab.setOnClickListener(view -> {
+        mAdd = findViewById(R.id.floatingActionButton);
+        mAdd.setOnClickListener(view -> {
             mDate = ZonedDateTime.now().toInstant().toString();
 
-            if (mNameView.getEditText().length()==0) {
+            if (mNameView.getEditText().length() == 0) {
                 mTitleErrorTextview.setVisibility(View.VISIBLE);
-            }
-            else
-
-            if( mQuantityView.getEditText().length()==0  ) {
+            } else if (mQuantityView.getEditText().length() == 0) {
                 mQuantityErrorTextView.setVisibility(View.VISIBLE);
             }
-            if( mPrixAchatView.getEditText().length()==0  ) {
+            if (mPrixAchatView.getEditText().length() == 0) {
                 mPAchatErrorTextview.setVisibility(View.VISIBLE);
             }
-            if( mPrixVenteView.getEditText().length()==0  ) {
+            if (mPrixVenteView.getEditText().length() == 0) {
                 mPVenteErrorTextview.setVisibility(View.VISIBLE);
-            }
-            else if(  mNameView.getEditText().length()!=0  && mQuantityView.getEditText().length()!=0 && mPrixAchatView.getEditText().length()!=0 && mPrixVenteView.getEditText().length()!=0)
-            {
+            } else if (mNameView.getEditText().length() != 0 && mQuantityView.getEditText().length() != 0 && mPrixAchatView.getEditText().length() != 0 && mPrixVenteView.getEditText().length() != 0) {
 
                 String productId = UUID.randomUUID().toString();
-                String movementId = UUID.randomUUID().toString();
 
-                mProductRepository = new ProductRepository(getApplication());
-                mProductRepository.insert(
-                    new Product(
-                            productId,
-                            mProductImageURI,
-                            mNameView.getEditText().getText().toString(),
-                            mDescriptionView.getEditText().getText().toString(),
-                            Integer.parseInt(mQuantityView.getEditText().getText().toString()),
-                            Integer.parseInt(mPrixAchatView.getEditText().getText().toString()),
-                            Integer.parseInt(mPrixVenteView.getEditText().getText().toString()),
-                            mDate))
+                mProductRepository = new ProductRepository(this);
+                mMovementRepository = new MovementRepository(this);
+                mPhotoRepository = new PhotoRepository(this);
+
+
+                Completable.concatArray(
+                    mProductRepository.insert(generateProduct(productId)),
+                    mMovementRepository.insert(generateMovement(productId)),
+                    mProductImageURI != null
+                        ? mPhotoRepository.saveProductPhoto(productId, mProductImageURI)
+                        : Completable.complete())
                     .subscribeOn(Schedulers.io())
-                    .subscribeOn(AndroidSchedulers.mainThread())
-                    .subscribe();
-                mMovementRepository = new MovementRepository(getApplication());
-                mMovementRepository.insert(
-                        new Movement(
-                                movementId,
-                            productId,
-                                Integer.parseInt(mQuantityView.getEditText().getText().toString()),
-                                Integer.parseInt(mPrixAchatView.getEditText().getText().toString()),
-                                Integer.parseInt(mPrixVenteView.getEditText().getText().toString()),
-                                mDate,
-                                RequestStatus.Enter
-                        )
-
-                ).subscribeOn(Schedulers.io())
-                    .subscribeOn(AndroidSchedulers.mainThread())
+                    .observeOn(AndroidSchedulers.mainThread())
                     .subscribe();
                 Intent intent = new Intent(AddArticle.this, ProductsActivity.class);
                 intent.putExtra(Product.PRODUCT_EXTRA, mProduct);
                 startActivity(intent);
-            }
 
+
+            }
         });
     }
 
+    private Product generateProduct(String productId) {
+        return new Product(
+            productId,
+            mProductImageURI,
+            mNameView.getEditText().getText().toString(),
+            mDescriptionView.getEditText().getText().toString(),
+            Integer.parseInt(mQuantityView.getEditText().getText().toString()),
+            Integer.parseInt(mPrixAchatView.getEditText().getText().toString()),
+            Integer.parseInt(mPrixVenteView.getEditText().getText().toString()),
+            mDate);
+    }
 
+    private Movement generateMovement(String productId) {
+            return   new Movement(
+                UUID.randomUUID().toString(),
+                productId,
+                Integer.parseInt(mQuantityView.getEditText().getText().toString()),
+                Integer.parseInt(mPrixAchatView.getEditText().getText().toString()),
+                Integer.parseInt(mPrixVenteView.getEditText().getText().toString()),
+                mDate,
+                MovementStatus.Enter);
+    }
 
     public interface OnItemListener{
 
@@ -178,11 +184,12 @@ public class AddArticle extends AppCompatActivity {
 
 
     public void choosePhotoFromGallery() {
-        Intent galleryIntent = new Intent(Intent.ACTION_PICK,
-                android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        galleryIntent.setType("image/*");
-
-        startActivityForResult(galleryIntent, GALLERY_REQUEST_CODE);
+        ImagePicker.with(this)
+            .cropSquare()
+            .maxResultSize(
+                PhotoType.PRODUCT_THUMBNAIL.getWidth(),
+                PhotoType.PRODUCT_THUMBNAIL.getHeight())
+            .start();
     }
 
     @Override
@@ -193,7 +200,7 @@ public class AddArticle extends AppCompatActivity {
             return;
         }
 
-        if (requestCode == GALLERY_REQUEST_CODE && data != null) {
+        if (requestCode == ImagePicker.REQUEST_CODE && data != null) {
 
             mProductImageURI = data.getData();
 

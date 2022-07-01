@@ -3,6 +3,7 @@ package com.curuza.data.depense;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
+import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Update;
 
@@ -16,6 +17,9 @@ import io.reactivex.Observable;
 public interface DepenseDao {
     @Insert
     Completable insert(Depense depense);
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    Completable bulkInsert(List<Depense> depenses);
 
     @Delete
     Completable delete(Depense depense);

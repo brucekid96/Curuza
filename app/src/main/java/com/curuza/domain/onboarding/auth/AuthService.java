@@ -13,12 +13,10 @@ import com.amplifyframework.auth.result.AuthSignInResult;
 import com.amplifyframework.auth.result.AuthSignUpResult;
 import com.amplifyframework.core.Amplify;
 import com.curuza.data.MainDatabase;
-import com.curuza.data.photos.StandardPhotoRepository;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
-import java.util.UUID;
 
 import io.reactivex.Completable;
 import io.reactivex.Maybe;

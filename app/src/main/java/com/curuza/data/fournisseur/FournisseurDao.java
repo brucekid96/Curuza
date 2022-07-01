@@ -3,6 +3,7 @@ package com.curuza.data.fournisseur;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
+import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Update;
 
@@ -16,6 +17,9 @@ import io.reactivex.Observable;
 public interface FournisseurDao {
     @Insert
     Completable insert(Fournisseur fournisseur);
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    Completable bulkInsert(List<Fournisseur> fournisseurs);
 
     @Delete
     Completable delete(Fournisseur fournisseur);

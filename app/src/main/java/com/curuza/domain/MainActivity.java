@@ -1,13 +1,5 @@
 package com.curuza.domain;
 
-import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.cardview.widget.CardView;
-import androidx.core.app.ActivityCompat;
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
-
 import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
@@ -22,7 +14,21 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.cardview.widget.CardView;
+import androidx.core.app.ActivityCompat;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+
 import com.curuza.R;
+import com.curuza.data.client.ClientRepository;
+import com.curuza.data.credit.CreditRepository;
+import com.curuza.data.depense.DepenseRepository;
+import com.curuza.data.fournisseur.FournisseurRepository;
+import com.curuza.data.movements.MovementRepository;
+import com.curuza.data.stock.ProductRepository;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 
@@ -33,7 +39,11 @@ import org.threeten.bp.ZonedDateTime;
 import org.threeten.bp.format.DateTimeFormatter;
 import org.threeten.bp.format.FormatStyle;
 
+import io.reactivex.Completable;
+import io.reactivex.Single;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.schedulers.Schedulers;
 
 public class MainActivity extends AppCompatActivity  implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -220,6 +230,61 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
 
         String instant = ZonedDateTime.now().toInstant().toString();
         Log.d("AddArticle", "Article added at: " + instant);
+
+        syncProducts().subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe();
+
+        syncFournisseurs().subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe();
+
+        syncClients().subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe();
+        syncCredits().subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe();
+
+        syncDepenses().subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe();
+
+        syncMovements().subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe();
+
+
+    }
+
+    private Completable syncProducts() {
+        return Single.fromCallable(() -> new ProductRepository(this))
+            .flatMapCompletable(ProductRepository::syncProducts);
+    }
+
+    private Completable syncFournisseurs() {
+        return Single.fromCallable(() -> new FournisseurRepository(this))
+            .flatMapCompletable(FournisseurRepository::syncFournisseurs);
+    }
+
+    private Completable syncClients() {
+        return Single.fromCallable(() -> new ClientRepository(this))
+            .flatMapCompletable(ClientRepository::syncClients);
+    }
+
+    private Completable syncCredits() {
+        return Single.fromCallable(() -> new CreditRepository(this))
+            .flatMapCompletable(CreditRepository::syncCredits);
+    }
+
+    private Completable syncDepenses() {
+        return Single.fromCallable(() -> new DepenseRepository(this))
+            .flatMapCompletable(DepenseRepository::syncDepenses);
+    }
+
+    private Completable syncMovements() {
+        return Single.fromCallable(() -> new MovementRepository(this))
+            .flatMapCompletable(MovementRepository::syncMovements);
     }
 
     @Override

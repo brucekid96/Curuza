@@ -1,9 +1,7 @@
 package com.curuza.domain;
 
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -11,15 +9,20 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.PopupMenu;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.curuza.R;
+import com.curuza.data.photos.PhotoRepository;
+import com.curuza.data.photos.PhotoType;
 import com.curuza.data.stock.Product;
 
+import java.io.File;
 import java.util.List;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ProductViewHolder> {
 
@@ -27,7 +30,7 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.Produc
     private List<Product> mListProduct;
     private Context mContext;
     private OnItemListener mOnitemListener;
-    ConstraintLayout mConstraint;
+    private PhotoRepository mPhotoRepository;
     private AddArticleFragemt mArticleFragment;
 
 
@@ -38,6 +41,7 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.Produc
         this.mListProduct = mListProduct;
         this.mContext = mContext;
         this.mOnitemListener = OnitemListener;
+        mPhotoRepository = new PhotoRepository(mContext);
 
     }
 
@@ -61,20 +65,7 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.Produc
         if(product ==null) {
             return;
         }
-
-        holder.tvName.setText(product.getName());
-        holder.tvQuantity.setText(String.valueOf(product.getQuantity()));
-
-        if (product.getProductImageUri()!=null){
-
-            Glide.with(mContext)
-                    .load(product.getProductImageUri())
-                    .circleCrop()
-                    .into(holder.imgProducts);
-        }
-
-
-
+        holder.bind(product);
         holder.container.setOnClickListener(v -> {
             mArticleFragment = new AddArticleFragemt();
             mArticleFragment.setData(product);
@@ -94,21 +85,45 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.Produc
 
     public class ProductViewHolder extends RecyclerView.ViewHolder {
 
-        private ImageView imgProducts;
+        private ImageView imgProduct;
         private TextView tvName;
         private TextView tvQuantity;
         public ConstraintLayout container;
         OnItemListener mOnItemListener;
 
+        public void bind(Product product) {
+          tvName.setText(product.getName());
+          tvQuantity.setText(String.valueOf(product.getQuantity()));
+          displayCoverThumbnail(product.getId());
+          mPhotoRepository.fetchPhotoUpstream(product.getId(), PhotoType.PRODUCT_PHOTO)
+              .subscribeOn(Schedulers.io())
+              .observeOn(AndroidSchedulers.mainThread())
+              .subscribe(() -> displayCoverThumbnail(product.getId()));
+        }
+
+        private void displayCoverThumbnail(String productId) {
+            File thumbnailFile =
+                new File(mPhotoRepository.getProductPhotoUri(productId).getPath());
+
+            if(thumbnailFile.exists()) {
+                Glide.with(mContext)
+                    .load(thumbnailFile)
+                    .into(imgProduct);
+            } else {
+                imgProduct.setImageResource(R.drawable.ic_baseline_shopping_basket_green);
+            }
+        }
 
         public ProductViewHolder(@NonNull View itemView,OnItemListener onitemListener) {
             super(itemView);
 
-            imgProducts = itemView.findViewById(R.id.img_product);
+            imgProduct = itemView.findViewById(R.id.img_product);
             tvName = itemView.findViewById(R.id.name);
             tvQuantity = itemView.findViewById(R.id.quantity);
             container= itemView.findViewById(R.id.container);
             mOnItemListener =  onitemListener;
         }
     }
+
+
 }

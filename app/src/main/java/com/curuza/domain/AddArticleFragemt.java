@@ -26,6 +26,9 @@ import org.threeten.bp.ZonedDateTime;
 
 import java.util.UUID;
 
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
+
 public class AddArticleFragemt extends BottomSheetDialogFragment  {
     private  static  final String DBG_TAG = AddArticleFragemt.class.getSimpleName();
 
@@ -86,11 +89,17 @@ public class AddArticleFragemt extends BottomSheetDialogFragment  {
                     mProduct.getPAchat(),
                     mProduct.getPVente(),
                     ZonedDateTime.now().toInstant().toString(),
-                    RequestStatus.Enter
+                    MovementStatus.Enter
             );
 
-            mProductRepository.update(mProduct);
-            mMovementRepository.insert(movement);
+            mProductRepository.update(mProduct)
+                .subscribeOn(Schedulers.io())
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .subscribe();;
+            mMovementRepository.insert(movement)
+                .subscribeOn(Schedulers.io())
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .subscribe();;
 
             dismiss();
         }

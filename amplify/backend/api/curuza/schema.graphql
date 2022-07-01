@@ -3,8 +3,55 @@ type Product @model @auth(rules: [{allow: owner,operations:[create,delete,update
     photoId: ID
     name: String!
     description: String
-    quantity: Int
+    quantity: Int!
     pAchat: Int
     pVente: Int
     addedAt: String
+}
+
+type Fournisseur @model @auth(rules: [{allow: owner,operations:[create,delete,update,read]}]) {
+    id: ID!
+    name: String!
+    description: String
+    addedAt: String
+    telephone: String
+}
+
+type Client @model @auth(rules: [{allow: owner,operations:[create,delete,update,read]}]) {
+    id: ID!
+    name: String!
+    description: String
+    addedAt: String
+    telephone: String
+}
+
+type Credit @model @auth(rules: [{allow: owner,operations:[create,delete,update,read]}]) {
+    id: ID!
+    name: String!
+    description: String
+    amount: Int!
+    addedAt: String
+    telephone: String
+}
+
+type Depense @model @auth(rules: [{allow: owner,operations:[create,delete,update,read]}]) {
+    id: ID!
+    description: String
+    amount: Int!
+    addedAt: String
+}
+
+type Movement @model @auth(rules: [{allow: owner,operations:[create,delete,update,read]}]) {
+    id: ID!
+    productId: ID!
+    quantity: Int!
+    pAchat: Int
+    pVente: Int
+    addedAt: String
+    status: MovementStatus
+}
+
+enum MovementStatus {
+    Enter
+    Exit
 }

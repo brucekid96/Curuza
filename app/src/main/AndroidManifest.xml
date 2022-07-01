@@ -22,6 +22,7 @@
         <activity android:name=".domain.onboarding.auth.VerificationNumberActivity"></activity>
         <activity
             android:name=".domain.onboarding.auth.SplashScreen"
+            android:exported="true"
             android:noHistory="true"
             android:screenOrientation="portrait"
             android:theme="@style/SplashTheme">

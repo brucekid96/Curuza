@@ -19,44 +19,34 @@ import com.amplifyframework.core.model.query.predicate.QueryField;
 
 import static com.amplifyframework.core.model.query.predicate.QueryField.field;
 
-/** This is an auto generated class representing the Product type in your schema. */
+/** This is an auto generated class representing the Movement type in your schema. */
 @SuppressWarnings("all")
-@ModelConfig(pluralName = "Products", authRules = {
+@ModelConfig(pluralName = "Movements", authRules = {
   @AuthRule(allow = AuthStrategy.OWNER, ownerField = "owner", identityClaim = "cognito:username", provider = "userPools", operations = { ModelOperation.CREATE, ModelOperation.DELETE, ModelOperation.UPDATE, ModelOperation.READ })
 })
-public final class Product implements Model {
-  public static final QueryField ID = field("Product", "id");
-  public static final QueryField PHOTO_ID = field("Product", "photoId");
-  public static final QueryField NAME = field("Product", "name");
-  public static final QueryField DESCRIPTION = field("Product", "description");
-  public static final QueryField QUANTITY = field("Product", "quantity");
-  public static final QueryField P_ACHAT = field("Product", "pAchat");
-  public static final QueryField P_VENTE = field("Product", "pVente");
-  public static final QueryField ADDED_AT = field("Product", "addedAt");
+public final class Movement implements Model {
+  public static final QueryField ID = field("Movement", "id");
+  public static final QueryField PRODUCT_ID = field("Movement", "productId");
+  public static final QueryField QUANTITY = field("Movement", "quantity");
+  public static final QueryField P_ACHAT = field("Movement", "pAchat");
+  public static final QueryField P_VENTE = field("Movement", "pVente");
+  public static final QueryField ADDED_AT = field("Movement", "addedAt");
+  public static final QueryField STATUS = field("Movement", "status");
   private final @ModelField(targetType="ID", isRequired = true) String id;
-  private final @ModelField(targetType="ID") String photoId;
-  private final @ModelField(targetType="String", isRequired = true) String name;
-  private final @ModelField(targetType="String") String description;
+  private final @ModelField(targetType="ID", isRequired = true) String productId;
   private final @ModelField(targetType="Int", isRequired = true) Integer quantity;
   private final @ModelField(targetType="Int") Integer pAchat;
   private final @ModelField(targetType="Int") Integer pVente;
   private final @ModelField(targetType="String") String addedAt;
+  private final @ModelField(targetType="MovementStatus") MovementStatus status;
   private @ModelField(targetType="AWSDateTime", isReadOnly = true) Temporal.DateTime createdAt;
   private @ModelField(targetType="AWSDateTime", isReadOnly = true) Temporal.DateTime updatedAt;
   public String getId() {
       return id;
   }
   
-  public String getPhotoId() {
-      return photoId;
-  }
-  
-  public String getName() {
-      return name;
-  }
-  
-  public String getDescription() {
-      return description;
+  public String getProductId() {
+      return productId;
   }
   
   public Integer getQuantity() {
@@ -75,6 +65,10 @@ public final class Product implements Model {
       return addedAt;
   }
   
+  public MovementStatus getStatus() {
+      return status;
+  }
+  
   public Temporal.DateTime getCreatedAt() {
       return createdAt;
   }
@@ -83,15 +77,14 @@ public final class Product implements Model {
       return updatedAt;
   }
   
-  private Product(String id, String photoId, String name, String description, Integer quantity, Integer pAchat, Integer pVente, String addedAt) {
+  private Movement(String id, String productId, Integer quantity, Integer pAchat, Integer pVente, String addedAt, MovementStatus status) {
     this.id = id;
-    this.photoId = photoId;
-    this.name = name;
-    this.description = description;
+    this.productId = productId;
     this.quantity = quantity;
     this.pAchat = pAchat;
     this.pVente = pVente;
     this.addedAt = addedAt;
+    this.status = status;
   }
   
   @Override
@@ -101,17 +94,16 @@ public final class Product implements Model {
       } else if(obj == null || getClass() != obj.getClass()) {
         return false;
       } else {
-      Product product = (Product) obj;
-      return ObjectsCompat.equals(getId(), product.getId()) &&
-              ObjectsCompat.equals(getPhotoId(), product.getPhotoId()) &&
-              ObjectsCompat.equals(getName(), product.getName()) &&
-              ObjectsCompat.equals(getDescription(), product.getDescription()) &&
-              ObjectsCompat.equals(getQuantity(), product.getQuantity()) &&
-              ObjectsCompat.equals(getPAchat(), product.getPAchat()) &&
-              ObjectsCompat.equals(getPVente(), product.getPVente()) &&
-              ObjectsCompat.equals(getAddedAt(), product.getAddedAt()) &&
-              ObjectsCompat.equals(getCreatedAt(), product.getCreatedAt()) &&
-              ObjectsCompat.equals(getUpdatedAt(), product.getUpdatedAt());
+      Movement movement = (Movement) obj;
+      return ObjectsCompat.equals(getId(), movement.getId()) &&
+              ObjectsCompat.equals(getProductId(), movement.getProductId()) &&
+              ObjectsCompat.equals(getQuantity(), movement.getQuantity()) &&
+              ObjectsCompat.equals(getPAchat(), movement.getPAchat()) &&
+              ObjectsCompat.equals(getPVente(), movement.getPVente()) &&
+              ObjectsCompat.equals(getAddedAt(), movement.getAddedAt()) &&
+              ObjectsCompat.equals(getStatus(), movement.getStatus()) &&
+              ObjectsCompat.equals(getCreatedAt(), movement.getCreatedAt()) &&
+              ObjectsCompat.equals(getUpdatedAt(), movement.getUpdatedAt());
       }
   }
   
@@ -119,13 +111,12 @@ public final class Product implements Model {
    public int hashCode() {
     return new StringBuilder()
       .append(getId())
-      .append(getPhotoId())
-      .append(getName())
-      .append(getDescription())
+      .append(getProductId())
       .append(getQuantity())
       .append(getPAchat())
       .append(getPVente())
       .append(getAddedAt())
+      .append(getStatus())
       .append(getCreatedAt())
       .append(getUpdatedAt())
       .toString()
@@ -135,22 +126,21 @@ public final class Product implements Model {
   @Override
    public String toString() {
     return new StringBuilder()
-      .append("Product {")
+      .append("Movement {")
       .append("id=" + String.valueOf(getId()) + ", ")
-      .append("photoId=" + String.valueOf(getPhotoId()) + ", ")
-      .append("name=" + String.valueOf(getName()) + ", ")
-      .append("description=" + String.valueOf(getDescription()) + ", ")
+      .append("productId=" + String.valueOf(getProductId()) + ", ")
       .append("quantity=" + String.valueOf(getQuantity()) + ", ")
       .append("pAchat=" + String.valueOf(getPAchat()) + ", ")
       .append("pVente=" + String.valueOf(getPVente()) + ", ")
       .append("addedAt=" + String.valueOf(getAddedAt()) + ", ")
+      .append("status=" + String.valueOf(getStatus()) + ", ")
       .append("createdAt=" + String.valueOf(getCreatedAt()) + ", ")
       .append("updatedAt=" + String.valueOf(getUpdatedAt()))
       .append("}")
       .toString();
   }
   
-  public static NameStep builder() {
+  public static ProductIdStep builder() {
       return new Builder();
   }
   
@@ -162,10 +152,9 @@ public final class Product implements Model {
    * @param id the id of the existing item this instance will represent
    * @return an instance of this model with only ID populated
    */
-  public static Product justId(String id) {
-    return new Product(
+  public static Movement justId(String id) {
+    return new Movement(
       id,
-      null,
       null,
       null,
       null,
@@ -177,16 +166,15 @@ public final class Product implements Model {
   
   public CopyOfBuilder copyOfBuilder() {
     return new CopyOfBuilder(id,
-      photoId,
-      name,
-      description,
+      productId,
       quantity,
       pAchat,
       pVente,
-      addedAt);
+      addedAt,
+      status);
   }
-  public interface NameStep {
-    QuantityStep name(String name);
+  public interface ProductIdStep {
+    QuantityStep productId(String productId);
   }
   
 
@@ -196,44 +184,41 @@ public final class Product implements Model {
   
 
   public interface BuildStep {
-    Product build();
+    Movement build();
     BuildStep id(String id);
-    BuildStep photoId(String photoId);
-    BuildStep description(String description);
     BuildStep pAchat(Integer pAchat);
     BuildStep pVente(Integer pVente);
     BuildStep addedAt(String addedAt);
+    BuildStep status(MovementStatus status);
   }
   
 
-  public static class Builder implements NameStep, QuantityStep, BuildStep {
+  public static class Builder implements ProductIdStep, QuantityStep, BuildStep {
     private String id;
-    private String name;
+    private String productId;
     private Integer quantity;
-    private String photoId;
-    private String description;
     private Integer pAchat;
     private Integer pVente;
     private String addedAt;
+    private MovementStatus status;
     @Override
-     public Product build() {
+     public Movement build() {
         String id = this.id != null ? this.id : UUID.randomUUID().toString();
         
-        return new Product(
+        return new Movement(
           id,
-          photoId,
-          name,
-          description,
+          productId,
           quantity,
           pAchat,
           pVente,
-          addedAt);
+          addedAt,
+          status);
     }
     
     @Override
-     public QuantityStep name(String name) {
-        Objects.requireNonNull(name);
-        this.name = name;
+     public QuantityStep productId(String productId) {
+        Objects.requireNonNull(productId);
+        this.productId = productId;
         return this;
     }
     
@@ -241,18 +226,6 @@ public final class Product implements Model {
      public BuildStep quantity(Integer quantity) {
         Objects.requireNonNull(quantity);
         this.quantity = quantity;
-        return this;
-    }
-    
-    @Override
-     public BuildStep photoId(String photoId) {
-        this.photoId = photoId;
-        return this;
-    }
-    
-    @Override
-     public BuildStep description(String description) {
-        this.description = description;
         return this;
     }
     
@@ -274,6 +247,12 @@ public final class Product implements Model {
         return this;
     }
     
+    @Override
+     public BuildStep status(MovementStatus status) {
+        this.status = status;
+        return this;
+    }
+    
     /** 
      * @param id id
      * @return Current Builder instance, for fluent method chaining
@@ -286,35 +265,24 @@ public final class Product implements Model {
   
 
   public final class CopyOfBuilder extends Builder {
-    private CopyOfBuilder(String id, String photoId, String name, String description, Integer quantity, Integer pAchat, Integer pVente, String addedAt) {
+    private CopyOfBuilder(String id, String productId, Integer quantity, Integer pAchat, Integer pVente, String addedAt, MovementStatus status) {
       super.id(id);
-      super.name(name)
+      super.productId(productId)
         .quantity(quantity)
-        .photoId(photoId)
-        .description(description)
         .pAchat(pAchat)
         .pVente(pVente)
-        .addedAt(addedAt);
+        .addedAt(addedAt)
+        .status(status);
     }
     
     @Override
-     public CopyOfBuilder name(String name) {
-      return (CopyOfBuilder) super.name(name);
+     public CopyOfBuilder productId(String productId) {
+      return (CopyOfBuilder) super.productId(productId);
     }
     
     @Override
      public CopyOfBuilder quantity(Integer quantity) {
       return (CopyOfBuilder) super.quantity(quantity);
-    }
-    
-    @Override
-     public CopyOfBuilder photoId(String photoId) {
-      return (CopyOfBuilder) super.photoId(photoId);
-    }
-    
-    @Override
-     public CopyOfBuilder description(String description) {
-      return (CopyOfBuilder) super.description(description);
     }
     
     @Override
@@ -330,6 +298,11 @@ public final class Product implements Model {
     @Override
      public CopyOfBuilder addedAt(String addedAt) {
       return (CopyOfBuilder) super.addedAt(addedAt);
+    }
+    
+    @Override
+     public CopyOfBuilder status(MovementStatus status) {
+      return (CopyOfBuilder) super.status(status);
     }
   }
   

@@ -16,20 +16,27 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.curuza.R;
 import com.curuza.data.movements.Movement;
+import com.curuza.data.photos.PhotoRepository;
+import com.curuza.data.photos.PhotoType;
 import com.curuza.data.view.ProductMovement;
 import com.curuza.utils.FormatUtils;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProductMovementsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
+public class ProductMovementsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
+    private static final String DBG_TAG = ProductMovementsAdapter.class.getSimpleName();
 
     private static final int VIEW_TYPE_Enter = 1;
     private static final int VIEW_TYPE_Exit = 2;
     private Context mContext;
     private List<ProductMovement> mProductMovements;
     private OnDeleteClickListener onDeleteClickListener;
+    private PhotoRepository mPhotoRepository;
     public ConstraintLayout container;
 
 
@@ -41,6 +48,7 @@ public class ProductMovementsAdapter extends RecyclerView.Adapter<RecyclerView.V
         this.mContext = mContext;
         mProductMovements = new ArrayList<>();
         this.onDeleteClickListener = listener;
+        mPhotoRepository = new PhotoRepository(mContext);
 
     }
 
@@ -80,16 +88,10 @@ public class ProductMovementsAdapter extends RecyclerView.Adapter<RecyclerView.V
             tvDate.setText(DateTimeUtils.getDateString(productMovement.getMovement().getDate()));
             tvTotalAmount.setText(FormatUtils.getLocalizedMonetaryAmountString(productMovement.getMovement().getPAchat()*productMovement.getMovement().getQuantity()));
             tvAmount.setText(FormatUtils.getLocalizedMonetaryAmountString(productMovement.getProduct().getPAchat()));
-
-              if(productMovement.getProduct().getProductImageUri()!=null) {
-
-                  Glide.with(mContext)
-                          .load(productMovement.getProduct().getProductImageUri())
-                          .circleCrop()
-                          .into(imgProducts);
-
-              }
-
+            mPhotoRepository.fetchPhotoUpstream(productMovement.getProduct().getId(), PhotoType.PRODUCT_PHOTO)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(() -> displayCoverThumbnail(productMovement.getProduct().getId()));
 
             container.setOnClickListener(new View.OnClickListener() {
 
@@ -103,6 +105,19 @@ public class ProductMovementsAdapter extends RecyclerView.Adapter<RecyclerView.V
             });
 
 
+        }
+
+        private void displayCoverThumbnail(String productId) {
+            File thumbnailFile =
+                new File(mPhotoRepository.getProductPhotoUri(productId).getPath());
+
+            if(thumbnailFile.exists()) {
+                Glide.with(mContext)
+                    .load(thumbnailFile)
+                    .into(imgProducts);
+            } else {
+                imgProducts.setImageResource(R.drawable.ic_baseline_shopping_basket_green);
+            }
         }
     }
     private class ExitViewHolder extends RecyclerView.ViewHolder {
@@ -134,12 +149,10 @@ public class ProductMovementsAdapter extends RecyclerView.Adapter<RecyclerView.V
             tvTotalAmount.setText(FormatUtils.getLocalizedMonetaryAmountString(productMovement.getMovement().getPVente()*productMovement.getMovement().getQuantity()));
             tvAmount.setText(FormatUtils.getLocalizedMonetaryAmountString(productMovement.getProduct().getPVente()));
 
-             if(productMovement.getProduct().getProductImageUri()!=null) {
-                 Glide.with(mContext)
-                         .load(productMovement.getProduct().getProductImageUri())
-                         .circleCrop()
-                         .into(imgProducts);
-             }
+            mPhotoRepository.fetchPhotoUpstream(productMovement.getProduct().getId(), PhotoType.PRODUCT_PHOTO)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(() -> displayCoverThumbnail(productMovement.getProduct().getId()));
 
             container.setOnClickListener(new View.OnClickListener() {
 
@@ -152,6 +165,19 @@ public class ProductMovementsAdapter extends RecyclerView.Adapter<RecyclerView.V
                 }
             });
 
+        }
+
+        private void displayCoverThumbnail(String productId) {
+            File thumbnailFile =
+                new File(mPhotoRepository.getProductPhotoUri(productId).getPath());
+
+            if(thumbnailFile.exists()) {
+                Glide.with(mContext)
+                    .load(thumbnailFile)
+                    .into(imgProducts);
+            } else {
+                imgProducts.setImageResource(R.drawable.ic_baseline_shopping_basket_green);
+            }
         }
     }
 
@@ -172,6 +198,8 @@ public class ProductMovementsAdapter extends RecyclerView.Adapter<RecyclerView.V
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+
+        Log.d(DBG_TAG,"logged data is :" + mProductMovements.get(position));
         ProductMovement productMovement = mProductMovements.get(position);
         switch (getItemViewType(position)) {
             case VIEW_TYPE_Enter: {
@@ -202,7 +230,7 @@ public class ProductMovementsAdapter extends RecyclerView.Adapter<RecyclerView.V
     @Override
     public int getItemViewType(int position) {
      ProductMovement productMovement = mProductMovements.get(position);
-        return productMovement.getMovement().getStatus()== RequestStatus.Enter?VIEW_TYPE_Enter:VIEW_TYPE_Exit;
+        return productMovement.getMovement().getStatus()== MovementStatus.Enter?VIEW_TYPE_Enter:VIEW_TYPE_Exit;
     }
     }
 

@@ -3,6 +3,7 @@ package com.curuza.data.credit;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
+import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Update;
 
@@ -17,6 +18,9 @@ public interface CreditDao {
 
     @Insert
     Completable insert(Credit credit);
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    Completable bulkInsert(List<Credit> credits);
 
     @Delete
     Completable delete(Credit credit);

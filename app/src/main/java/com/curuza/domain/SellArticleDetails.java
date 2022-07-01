@@ -99,7 +99,7 @@ public class SellArticleDetails  extends AppCompatActivity {
                         produit.getPAchat(),
                         produit.getPVente(),
                         ZonedDateTime.now().toInstant().toString(),
-                        RequestStatus.Exit
+                        MovementStatus.Exit
                 );
 
                 mProductRepository.update(produit);

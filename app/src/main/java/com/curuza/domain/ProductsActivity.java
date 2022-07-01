@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -23,8 +22,6 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.amplifyframework.api.graphql.model.ModelQuery;
-import com.amplifyframework.core.Amplify;
 import com.curuza.R;
 import com.curuza.data.stock.Product;
 import com.curuza.data.stock.ProductRepository;
@@ -82,10 +79,7 @@ import io.reactivex.schedulers.Schedulers;
 //                error-> Log.e("CuruzaAmplifyApp", "Create failed"));
 
       mProductRepository = new ProductRepository(this);
-        Amplify.API.query(
-                ModelQuery.list(com.amplifyframework.datastore.generated.model.Product.class),
-                response -> Log.i("ProductActivity","my data is "+ response.getData()),
-                error -> Log.d("ProductActivity","product fetching failed "+ error));
+
 
         DrawerLayout drawer =  findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(

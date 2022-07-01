@@ -1,6 +1,6 @@
 package com.curuza.domain;
 
-public enum  RequestStatus {
+public enum MovementStatus {
     Enter,
     Exit
 }

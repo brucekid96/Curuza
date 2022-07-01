@@ -7,12 +7,8 @@ import android.os.Parcelable;
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
-import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
-import com.curuza.domain.RequestStatus;
-
-import java.util.UUID;
 @Entity(tableName = "products_table")
 public class Product implements Parcelable {
 
