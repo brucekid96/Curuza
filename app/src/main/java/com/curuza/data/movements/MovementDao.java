@@ -27,16 +27,12 @@ public interface MovementDao {
 
     @Delete
     Completable delete(Movement movement);
+
+    @Query("delete from movement where movement_id = :MovementId")
+    Completable delete(String MovementId);
     @Update
     Completable update(Movement movement);
-    @Query("select p.id,p.resourceId,p.name,p.description," +
-            "p.quantity,p.p_vente,p.p_achat " +
-            ", m.movement_id,m.product_id,m.movement_quantity," +
-            "m.movement_date,m.movement_status,m.movement_p_vente,m.movement_p_achat " +
-            "from products_table p " +
-            "inner join movement m " +
-            "on p.id = m.product_id " +
-            "order by m.movement_date desc    ")
+    @Query("select * from product_movement order by movement_date desc")
     Observable<List<ProductMovement>> getProductMovements();
 
     @Query("SELECT * from  movement where movement_id = :MovementId ")

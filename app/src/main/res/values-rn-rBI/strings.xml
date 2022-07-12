@@ -56,4 +56,6 @@
     <string name="extra_msg_link">Curuza ni apirikasiyo ifasha umudandaza gukurikirana business yiwe vyoroshe.</string>
     <string name="English">Icongereza</string>
     <string name="French">Igifaransa</string>
+    <string name="list_product" translatable="false">Urutonde rw\'ibicuruzwa</string>
+
 </resources>

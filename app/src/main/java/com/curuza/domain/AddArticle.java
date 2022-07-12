@@ -118,7 +118,9 @@ public class AddArticle extends AppCompatActivity {
                         : Completable.complete())
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe();
+                    .subscribe(() -> {
+                    }, e -> {
+                    });
                 Intent intent = new Intent(AddArticle.this, ProductsActivity.class);
                 intent.putExtra(Product.PRODUCT_EXTRA, mProduct);
                 startActivity(intent);
@@ -149,6 +151,7 @@ public class AddArticle extends AppCompatActivity {
                 Integer.parseInt(mPrixVenteView.getEditText().getText().toString()),
                 mDate,
                 MovementStatus.Enter);
+
     }
 
     public interface OnItemListener{

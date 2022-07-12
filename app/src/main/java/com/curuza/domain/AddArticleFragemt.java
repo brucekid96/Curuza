@@ -95,11 +95,15 @@ public class AddArticleFragemt extends BottomSheetDialogFragment  {
             mProductRepository.update(mProduct)
                 .subscribeOn(Schedulers.io())
                 .subscribeOn(AndroidSchedulers.mainThread())
-                .subscribe();;
+                .subscribe(() -> {
+                }, e -> {
+                });
             mMovementRepository.insert(movement)
                 .subscribeOn(Schedulers.io())
                 .subscribeOn(AndroidSchedulers.mainThread())
-                .subscribe();;
+                .subscribe(() -> {
+                }, e -> {
+                });
 
             dismiss();
         }

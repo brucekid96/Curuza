@@ -10,19 +10,20 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.curuza.R;
 import com.curuza.data.movements.Movement;
+import com.curuza.data.movements.MovementRepository;
 import com.curuza.data.photos.PhotoRepository;
 import com.curuza.data.photos.PhotoType;
 import com.curuza.data.view.ProductMovement;
 import com.curuza.utils.FormatUtils;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -40,13 +41,13 @@ public class ProductMovementsAdapter extends RecyclerView.Adapter<RecyclerView.V
     public ConstraintLayout container;
 
 
+
     public interface OnDeleteClickListener {
         void OnDeleteClickListener(Movement movement);
     }
 
-    public ProductMovementsAdapter(List<ProductMovement> mProductMovements,Context mContext, OnDeleteClickListener listener) {
+    public ProductMovementsAdapter(Context mContext, OnDeleteClickListener listener) {
         this.mContext = mContext;
-        mProductMovements = new ArrayList<>();
         this.onDeleteClickListener = listener;
         mPhotoRepository = new PhotoRepository(mContext);
 
@@ -56,6 +57,23 @@ public class ProductMovementsAdapter extends RecyclerView.Adapter<RecyclerView.V
     public void setData(List<ProductMovement> productMovement) {
         this.mProductMovements =productMovement;
         notifyDataSetChanged();
+    }
+
+    private void showCardDialog(String movementId) {
+        MovementRepository mMovementRepository = new MovementRepository(mContext.getApplicationContext());
+        AlertDialog.Builder cardDialog = new AlertDialog.Builder(mContext);
+        cardDialog.setTitle("Delete Product");
+        String[] cardDialogItems = {
+            "delete",
+        };
+
+        cardDialog.setItems(cardDialogItems,
+            (dialog, which) -> {
+                if (which == 0) {
+                    mMovementRepository.delete(movementId);
+                }
+            });;
+        cardDialog.show();
     }
 
     private class EnterViewHolder extends RecyclerView.ViewHolder {
@@ -103,6 +121,11 @@ public class ProductMovementsAdapter extends RecyclerView.Adapter<RecyclerView.V
                     mContext.startActivity(intent);
                 }
             });
+            container.setOnLongClickListener(v -> {
+                showCardDialog(productMovement.getMovement().getId());
+                return true;
+            });
+
 
 
         }

@@ -231,28 +231,20 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
         String instant = ZonedDateTime.now().toInstant().toString();
         Log.d("AddArticle", "Article added at: " + instant);
 
-        syncProducts().subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe();
+        mDisposable.add(
+            Completable.concatArray(
+            syncProducts(),
+            syncFournisseurs(),
+            syncClients(),
+            syncCredits(),
+            syncDepenses(),
+            syncMovements())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(() -> {
+                }, e -> {
+                }));
 
-        syncFournisseurs().subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe();
-
-        syncClients().subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe();
-        syncCredits().subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe();
-
-        syncDepenses().subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe();
-
-        syncMovements().subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe();
 
 
     }

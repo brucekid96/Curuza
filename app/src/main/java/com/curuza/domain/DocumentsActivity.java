@@ -49,7 +49,7 @@ public class DocumentsActivity extends AppCompatActivity implements NavigationVi
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("Documents");
+        getSupportActionBar().setTitle(R.string.documents_activity);
 
         mMovementRepository = new MovementRepository(this);
 

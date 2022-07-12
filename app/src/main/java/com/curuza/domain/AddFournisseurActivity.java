@@ -75,7 +75,9 @@ public class AddFournisseurActivity extends AppCompatActivity {
                 mFournisseurRepository.insert(fournisseur)
                 .subscribeOn(Schedulers.io())
                 .subscribeOn(AndroidSchedulers.mainThread())
-                .subscribe();
+                .subscribe(() -> {
+                }, e -> {
+                });
 
                 Log.d(AddFournisseurActivity.class.getSimpleName(), "Added fournisseur: " + fournisseur.toString());
 

@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="../../../layout/custom_preview.xml" value="0.221875" />
         <entry key="app/src/main/res/drawable-v24/add_profile_picture_bg.xml" value="0.168" />
         <entry key="app/src/main/res/drawable-v24/add_profile_picture_pressed_bg.xml" value="0.168" />
         <entry key="app/src/main/res/drawable/bottom_sheet_background.xml" value="0.168" />
@@ -17,6 +18,7 @@
         <entry key="app/src/main/res/layout/app_bar_credit.xml" value="0.19375" />
         <entry key="app/src/main/res/layout/app_bar_home.xml" value="0.1" />
         <entry key="app/src/main/res/layout/app_bar_rapport.xml" value="0.19375" />
+        <entry key="app/src/main/res/layout/app_bar_settings.xml" value="0.19375" />
         <entry key="app/src/main/res/layout/bottom_sheet_dialg.xml" value="0.19375" />
         <entry key="app/src/main/res/layout/content_home.xml" value="0.22" />
         <entry key="app/src/main/res/layout/content_rapport.xml" value="0.19375" />
@@ -30,6 +32,7 @@
         <entry key="app/src/main/res/layout/rapport_item.xml" value="0.19375" />
         <entry key="app/src/main/res/layout/rapports_cards.xml" value="0.19375" />
         <entry key="app/src/main/res/layout/sell_bottom_sheet_dialg.xml" value="0.19375" />
+        <entry key="app/src/main/res/layout/settings.xml" value="0.19375" />
         <entry key="app/src/main/res/layout/stock.xml" value="0.19375" />
         <entry key="app/src/main/res/layout/stock_detail.xml" value="0.19375" />
         <entry key="app/src/main/res/menu/client.xml" value="0.19375" />
@@ -39,6 +42,7 @@
         <entry key="app/src/main/res/menu/fournisseur.xml" value="0.19375" />
         <entry key="app/src/main/res/menu/product.xml" value="0.22" />
         <entry key="app/src/main/res/menu/stock.xml" value="0.19375" />
+        <entry key="app/src/main/res/xml/prefer.xml" value="0.19375" />
       </map>
     </option>
   </component>

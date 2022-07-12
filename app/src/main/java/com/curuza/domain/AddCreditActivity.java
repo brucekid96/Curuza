@@ -84,7 +84,9 @@ import io.reactivex.schedulers.Schedulers;
                     mCreditRepository.insert(credit)
                         .subscribeOn(Schedulers.io())
                         .subscribeOn(AndroidSchedulers.mainThread())
-                        .subscribe();
+                        .subscribe(() -> {
+                        }, e -> {
+                        });
                     Log.d(AddCreditActivity.class.getSimpleName(), "Added credit: " + credit.toString());
 
                     Intent intent1 = new Intent(AddCreditActivity.this, CreditActivity.class);

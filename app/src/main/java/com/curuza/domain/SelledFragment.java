@@ -65,7 +65,7 @@ public class SelledFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_selled, container, false);
         mRecyclerView =view.findViewById(R.id.selled_recyclerview);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        mAdapter = new ProductMovementsAdapter(getListProduct(),getContext(),null);
+        mAdapter = new ProductMovementsAdapter(getContext(),null);
         mRecyclerView.setAdapter(mAdapter);
         mDisposable.add(
             mMovementRepository.getExitProductMovements()

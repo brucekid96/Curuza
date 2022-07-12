@@ -19,9 +19,7 @@ import com.curuza.data.movements.Movement;
 import com.curuza.data.movements.MovementRepository;
 import com.curuza.data.view.ProductMovement;
 
-import java.text.DateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -73,8 +71,7 @@ public class AllProductsFragment extends Fragment implements ProductMovementsAda
 
         mRecyclerView =view.findViewById(R.id.all_products_recyclerview);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        mProductAdapter = new ProductMovementsAdapter(getProductMovementList(),getContext(),this::OnDeleteClickListener);
-        mProductAdapter.setData(getProductMovementList());
+        mProductAdapter = new ProductMovementsAdapter(getContext(),this::OnDeleteClickListener);
         mRecyclerView.setAdapter(mProductAdapter);
         return view;
     }
@@ -136,16 +133,7 @@ public class AllProductsFragment extends Fragment implements ProductMovementsAda
         void onFragmentInteraction(Uri uri);
     }
 
-    private List<ProductMovement> getProductMovementList() {
-        List<ProductMovement> list = new ArrayList<>();
-        Date date = new Date();
 
-        String stringDate = DateFormat.getDateTimeInstance().format(date);
-
-
-
-       return list;
-    }
 
     @Override
     public void OnDeleteClickListener(Movement movement) {

@@ -63,6 +63,10 @@ public class MovementRepository {
       return db.movementDao().delete(movement);
     }
 
+  public Completable delete(String movementId)  {
+    return db.movementDao().delete(movementId);
+  }
+
     public Completable update(Movement movement)  {
         return db.movementDao().update(movement);
     }

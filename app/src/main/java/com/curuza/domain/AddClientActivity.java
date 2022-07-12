@@ -75,7 +75,9 @@ public class AddClientActivity extends AppCompatActivity {
                     mClientRepository.insert(client)
                             .subscribeOn(Schedulers.io())
                             .subscribeOn(AndroidSchedulers.mainThread())
-                            .subscribe();
+                            .subscribe(() -> {
+                            }, e -> {
+                            });
                     Log.d(AddClientActivity.class.getSimpleName(), "Added client: " + client.toString());
 
                     Intent intent1 = new Intent(AddClientActivity.this, ClientActivity.class);

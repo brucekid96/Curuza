@@ -11,10 +11,10 @@ import androidx.appcompat.widget.Toolbar;
 import com.curuza.R;
 import com.curuza.data.client.Client;
 import com.curuza.data.client.ClientRepository;
-
-
-import com.curuza.data.fournisseur.Fournisseur;
 import com.google.android.material.textfield.TextInputLayout;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 public class ClientDetailActivity extends AppCompatActivity {
     private Client client;
@@ -56,7 +56,12 @@ public class ClientDetailActivity extends AppCompatActivity {
                     client.getId(),mName.getEditText().getText().toString(),mDescription.getEditText().getText().toString(),mTelephone.getEditText().getText().toString(),client.getDate()
 
             );
-            mClientRepository.update(updatedClient);
+            mClientRepository.update(updatedClient)
+                .subscribeOn(Schedulers.io())
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .subscribe(() -> {
+                }, e -> {
+                });
             Intent intent2 = new Intent(ClientDetailActivity.this, ClientActivity.class);
             startActivity(intent2);
 

@@ -17,8 +17,8 @@
     <string name="add_client">Add Customer</string>
     <string name="add_fournisseur">Add Supplier</string>
     <string name="fournisseur_detail">Supplier Detail</string>
-    <string name="entree_activity">Enter</string>
-    <string name="sortie_activity">Exit</string>
+    <string name="entree_activity">INCOMING</string>
+    <string name="sortie_activity">OUTGOING</string>
     <string name="quantity_dialog">Quantity</string>
     <string name="total_amount">Total Amount</string>
     <string name="submit">Validate</string>
@@ -93,7 +93,7 @@
     <string name="English">English</string>
     <string name="kirundi">kirundi</string>
     <string name="French">French</string>
-    <string name="list_product">Exporter vers Excel</string>
+    <string name="list_product" translatable="false">Exporter vers Excel</string>
     <string name="share_list_product">Share</string>
     <string name="export_vers_excel">export vers excel</string>
 </resources>

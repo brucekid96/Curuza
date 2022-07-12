@@ -23,6 +23,9 @@ import org.threeten.bp.ZonedDateTime;
 
 import java.util.UUID;
 
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
+
 public class SellArticleDetails  extends AppCompatActivity {
 
 
@@ -102,8 +105,18 @@ public class SellArticleDetails  extends AppCompatActivity {
                         MovementStatus.Exit
                 );
 
-                mProductRepository.update(produit);
-                mMovementRepository.insert(movement);
+                mProductRepository.update(produit)
+                    .subscribeOn(Schedulers.io())
+                    .subscribeOn(AndroidSchedulers.mainThread())
+                    .subscribe(() -> {
+                    }, e -> {
+                    });
+                mMovementRepository.insert(movement)
+                    .subscribeOn(Schedulers.io())
+                    .subscribeOn(AndroidSchedulers.mainThread())
+                    .subscribe(() -> {
+                    }, e -> {
+                    });
 
             }
 

@@ -13,14 +13,15 @@ import androidx.appcompat.widget.Toolbar;
 
 import com.bumptech.glide.Glide;
 import com.curuza.R;
-import com.curuza.data.movements.Movement;
-import com.curuza.data.movements.MovementRepository;
 import com.curuza.data.stock.Product;
 import com.curuza.data.stock.ProductRepository;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputLayout;
 
 import org.threeten.bp.ZonedDateTime;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 public class StockDetail extends AppCompatActivity {
     private int GALLERY_REQUEST_CODE = 1;
@@ -89,7 +90,12 @@ public class StockDetail extends AppCompatActivity {
                    Integer.parseInt(mPxAchat.getEditText().getText().toString()),
                    Integer.parseInt(mPxVente.getEditText().getText().toString()),
                    mDate);
-            mProductRepository.update(productUpdate);
+            mProductRepository.update(productUpdate)
+                .subscribeOn(Schedulers.io())
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .subscribe(() -> {
+                }, e -> {
+                });
             Intent intent2 = new Intent(StockDetail.this, StockActivity.class);
             startActivity(intent2);
 

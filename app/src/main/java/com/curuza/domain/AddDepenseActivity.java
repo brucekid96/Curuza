@@ -77,7 +77,9 @@ public class AddDepenseActivity extends AppCompatActivity {
                 mDepenseRepository.insert(depense)
                     .subscribeOn(Schedulers.io())
                     .subscribeOn(AndroidSchedulers.mainThread())
-                    .subscribe();
+                    .subscribe(() -> {
+                    }, e -> {
+                    });
 
 
                 Log.d(AddDepenseActivity.class.getSimpleName(), "Added depense: " + depense.toString());

@@ -30,8 +30,8 @@
     <string name="help_activity">Help</string>
     <string name="share_activity">Share</string>
     <string name="Tous_activity">All</string>
-    <string name="entree_activity">Enter</string>
-    <string name="sortie_activity">Exit</string>
+    <string name="entree_activity">INCOMING</string>
+    <string name="sortie_activity">OUTGOING</string>
     <string name="add_quantity">Add Quantity</string>
     <string name="quantity_dialog">Quantity</string>
     <string name="total_amount">Total Amount</string>
@@ -60,4 +60,6 @@
     <string name="extra_msg_link">Curuza is the App that  help you to manage your business.</string>
     <string name="English">English</string>
     <string name="French">French</string>
+    <string name="list_product" translatable="false">List of Products</string>
+
 </resources>
