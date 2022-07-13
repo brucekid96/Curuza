@@ -95,7 +95,7 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.Produc
           tvName.setText(product.getName());
           tvQuantity.setText(String.valueOf(product.getQuantity()));
           displayCoverThumbnail(product.getId());
-          mPhotoRepository.fetchPhotoUpstream(product.getId(), PhotoType.PRODUCT_PHOTO)
+          mPhotoRepository.fetchPhotoUpstream(product.getId(), PhotoType.PRODUCT_THUMBNAIL)
               .subscribeOn(Schedulers.io())
               .observeOn(AndroidSchedulers.mainThread())
               .subscribe(() -> displayCoverThumbnail(product.getId()));

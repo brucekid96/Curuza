@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    style="bold"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    android:visibility="visible">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar_sell_movement_detail"
@@ -62,7 +64,7 @@
                 app:layout_constraintEnd_toStartOf="@+id/guideline2"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="@+id/guideline"
-                app:layout_constraintTop_toBottomOf="@+id/image_content" />
+                app:layout_constraintTop_toBottomOf="@+id/sell_movement_detail_constraint" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/nom_sell"
@@ -127,28 +129,41 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
-
-            <ImageView
-                android:id="@+id/image_content"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/sell_movement_detail_constraint"
                 android:layout_width="match_parent"
-                android:layout_height="168dp"
-                android:adjustViewBounds="true"
-                android:background="#aaa"
-                android:scaleType="centerCrop"
+                android:layout_height="0dp"
+                app:layout_constraintDimensionRatio="1:1"
                 app:layout_constraintEnd_toStartOf="@+id/guideline2"
                 app:layout_constraintStart_toStartOf="@+id/guideline"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent">
+                <ImageView
+                    android:id="@+id/image_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:adjustViewBounds="true"
+                    android:background="#aaa"
+                    android:scaleType="centerCrop"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    />
+                <ImageView
+                    android:id="@+id/iconview"
+                    android:layout_width="0dp"
+                    android:layout_height="44dp"
+                    android:padding="5dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/image_content"
+                    app:layout_constraintEnd_toEndOf="@+id/image_content"
+                    app:layout_constraintStart_toStartOf="@+id/image_content"
+                    app:layout_constraintTop_toTopOf="@+id/image_content"
+                    android:src="@drawable/ic_baseline_camera_alt_24" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <ImageView
-                android:id="@+id/iconview"
-                android:layout_width="0dp"
-                android:layout_height="44dp"
-                android:padding="5dp"
-                app:layout_constraintBottom_toBottomOf="@+id/image_content"
-                app:layout_constraintEnd_toEndOf="@+id/image_content"
-                app:layout_constraintStart_toStartOf="@+id/image_content"
-                app:layout_constraintTop_toTopOf="@+id/image_content"
-                android:src="@drawable/ic_baseline_camera_alt_24" />
+
+
+
 
             <TextView
                 android:id="@+id/title_error_textView"

@@ -106,7 +106,7 @@ public class ProductMovementsAdapter extends RecyclerView.Adapter<RecyclerView.V
             tvDate.setText(DateTimeUtils.getDateString(productMovement.getMovement().getDate()));
             tvTotalAmount.setText(FormatUtils.getLocalizedMonetaryAmountString(productMovement.getMovement().getPAchat()*productMovement.getMovement().getQuantity()));
             tvAmount.setText(FormatUtils.getLocalizedMonetaryAmountString(productMovement.getProduct().getPAchat()));
-            mPhotoRepository.fetchPhotoUpstream(productMovement.getProduct().getId(), PhotoType.PRODUCT_PHOTO)
+            mPhotoRepository.fetchPhotoUpstream(productMovement.getProduct().getId(), PhotoType.PRODUCT_THUMBNAIL)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(() -> displayCoverThumbnail(productMovement.getProduct().getId()));

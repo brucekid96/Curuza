@@ -190,8 +190,8 @@ public class AddArticle extends AppCompatActivity {
         ImagePicker.with(this)
             .cropSquare()
             .maxResultSize(
-                PhotoType.PRODUCT_THUMBNAIL.getWidth(),
-                PhotoType.PRODUCT_THUMBNAIL.getHeight())
+                PhotoType.PRODUCT_PHOTO.getWidth(),
+                PhotoType.PRODUCT_PHOTO.getHeight())
             .start();
     }
 

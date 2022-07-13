@@ -140,30 +140,39 @@
                 app:drawableRightCompat="@drawable/upload_white"
                 app:layout_constraintEnd_toStartOf="@+id/guideline2"
                 app:layout_constraintStart_toStartOf="@+id/guideline"
-                app:layout_constraintTop_toBottomOf="@+id/image_content" />
+                app:layout_constraintTop_toBottomOf="@+id/image_stock_constraint" />
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:id="@+id/image_stock_constraint"
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    app:layout_constraintDimensionRatio="1:1"
+    app:layout_constraintEnd_toStartOf="@+id/guideline2"
+    app:layout_constraintStart_toStartOf="@+id/guideline"
+    app:layout_constraintTop_toTopOf="parent">
+    <ImageView
+        android:id="@+id/image_content"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:adjustViewBounds="true"
+        android:background="#aaa"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+         />
+
+    <ImageView
+        android:id="@+id/iconview"
+        android:layout_width="0dp"
+        android:layout_height="44dp"
+        android:padding="5dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/image_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/image_content"
+        android:src="@drawable/ic_baseline_camera_alt_24" />
+</androidx.constraintlayout.widget.ConstraintLayout>
 
 
-            <ImageView
-                android:id="@+id/image_content"
-                android:layout_width="match_parent"
-                android:layout_height="168dp"
-                android:adjustViewBounds="true"
-                android:background="#aaa"
-                android:scaleType="centerCrop"
-                app:layout_constraintEnd_toStartOf="@+id/guideline2"
-                app:layout_constraintStart_toStartOf="@+id/guideline"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <ImageView
-                android:id="@+id/iconview"
-                android:layout_width="0dp"
-                android:layout_height="44dp"
-                android:padding="5dp"
-                app:layout_constraintBottom_toBottomOf="@+id/image_content"
-                app:layout_constraintEnd_toEndOf="@+id/image_content"
-                app:layout_constraintStart_toStartOf="@+id/image_content"
-                app:layout_constraintTop_toTopOf="@+id/image_content"
-                android:src="@drawable/ic_baseline_camera_alt_24" />
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/floatingActionButton"
