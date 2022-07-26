@@ -68,7 +68,7 @@ public class SelledFragment extends Fragment {
         mAdapter = new ProductMovementsAdapter(getContext(),null);
         mRecyclerView.setAdapter(mAdapter);
         mDisposable.add(
-            mMovementRepository.getExitProductMovements()
+            mMovementRepository.getExitProductMovementsByDate(mDate)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::loadExitProducts));

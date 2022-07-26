@@ -129,7 +129,7 @@ public class AmplifyAPIConverters {
         movement.getPAchat(),
         movement.getPVente(),
         movement.getAddedAt(),
-        com.curuza.domain.MovementStatus.valueOf(movement.getStatus().name())
+        com.curuza.data.movements.MovementStatus.valueOf(movement.getStatus().name())
 
         );
   }

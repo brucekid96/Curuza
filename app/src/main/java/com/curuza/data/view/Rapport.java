@@ -8,8 +8,8 @@ import androidx.room.DatabaseView;
 
 @DatabaseView(
         viewName = "rapport",
-        value = "select date_only as date, sum(movement_p_vente) as total_vente " +
-                "from (select *, substr(movement_date, 1, 10)  as date_only  from movement) group by date_only ")
+        value = "select date_only as date, sum(movement_p_vente * movement_quantity ) as total_vente " +
+                "from (select *, substr(movement_date, 1, 10)  as date_only  from movement where movement_status = 'Exit') group by date_only ")
 public class Rapport implements Parcelable {
     public static final String DATE_EXTRA = "date_code";
 

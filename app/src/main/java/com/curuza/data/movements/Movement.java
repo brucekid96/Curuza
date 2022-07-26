@@ -8,8 +8,6 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-import com.curuza.domain.MovementStatus;
-
 @Entity(tableName = "movement")
 public class Movement implements Parcelable {
 

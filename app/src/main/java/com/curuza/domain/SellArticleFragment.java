@@ -19,6 +19,7 @@ import androidx.fragment.app.FragmentManager;
 import com.curuza.R;
 import com.curuza.data.movements.Movement;
 import com.curuza.data.movements.MovementRepository;
+import com.curuza.data.movements.MovementStatus;
 import com.curuza.data.stock.Product;
 import com.curuza.data.stock.ProductRepository;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;

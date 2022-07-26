@@ -4,6 +4,8 @@ import android.net.Uri;
 
 import androidx.room.TypeConverter;
 
+import com.curuza.data.movements.MovementStatus;
+
 import java.util.Date;
 import java.util.UUID;
 

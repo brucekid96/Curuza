@@ -1,4 +1,4 @@
-package com.curuza.domain;
+package com.curuza.data.movements;
 
 public enum MovementStatus {
     Enter,

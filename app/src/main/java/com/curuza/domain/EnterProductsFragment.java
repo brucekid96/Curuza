@@ -40,7 +40,7 @@ public class EnterProductsFragment extends Fragment implements ProductMovementsA
     private EnterProductsFragment.OnFragmentInteractionListener mListener;
 
     public EnterProductsFragment() {
-
+      mMovementRepository = new MovementRepository(mContext);
     }
 
     public static EnterProductsFragment newInstance(String param1, String param2) {
@@ -58,7 +58,7 @@ public class EnterProductsFragment extends Fragment implements ProductMovementsA
 
         }
 
-      mMovementRepository = new MovementRepository(mContext);
+
 
     }
 

@@ -15,6 +15,7 @@ import com.bumptech.glide.Glide;
 import com.curuza.R;
 import com.curuza.data.movements.Movement;
 import com.curuza.data.movements.MovementRepository;
+import com.curuza.data.movements.MovementStatus;
 import com.curuza.data.photos.PhotoRepository;
 import com.curuza.data.photos.PhotoType;
 import com.curuza.data.stock.Product;

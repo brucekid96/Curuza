@@ -37,7 +37,7 @@ public interface MovementDao {
 
     @Query("SELECT * from  movement where movement_id = :MovementId ")
     Maybe<Movement> getMovement(String MovementId);
-    @Query("select * from rapport ")
+    @Query("select * from rapport order by date desc ")
     Observable<List<Rapport>>getRapportList();
 
     @Query("SELECT * from  product_movement where movement_status= 'Enter'")

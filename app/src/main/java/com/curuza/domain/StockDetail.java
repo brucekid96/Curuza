@@ -13,8 +13,10 @@ import androidx.appcompat.widget.Toolbar;
 
 import com.bumptech.glide.Glide;
 import com.curuza.R;
+import com.curuza.data.photos.PhotoType;
 import com.curuza.data.stock.Product;
 import com.curuza.data.stock.ProductRepository;
+import com.github.dhaval2404.imagepicker.ImagePicker;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputLayout;
 
@@ -105,11 +107,12 @@ public class StockDetail extends AppCompatActivity {
 
 
     public void choosePhotoFromGallary() {
-        Intent galleryIntent = new Intent(Intent.ACTION_PICK,
-                android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        galleryIntent.setType("image/*");
-
-        startActivityForResult(galleryIntent, GALLERY_REQUEST_CODE);
+        ImagePicker.with(this)
+            .cropSquare()
+            .maxResultSize(
+                PhotoType.PRODUCT_PHOTO.getWidth(),
+                PhotoType.PRODUCT_PHOTO.getHeight())
+            .start();
     }
 
     @Override
