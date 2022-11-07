@@ -20,6 +20,9 @@ import com.curuza.data.client.ClientRepository;
 
 import java.util.List;
 
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
+
 public class ClientAdapter  extends RecyclerView.Adapter<ClientAdapter.ViewHolder>{
     private List<Client> mClients;
     private Context mContext;
@@ -50,7 +53,12 @@ public class ClientAdapter  extends RecyclerView.Adapter<ClientAdapter.ViewHolde
                 (dialog, which) -> {
                     switch (which) {
                         case 0:
-                            mClientRepository.delete(client);
+                            mClientRepository.delete(client)
+                                .subscribeOn(Schedulers.io())
+                                .subscribeOn(AndroidSchedulers.mainThread())
+                                .subscribe(() -> {
+                                }, e -> {
+                                });
 
                             break;
                     }

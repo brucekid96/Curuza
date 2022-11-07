@@ -19,6 +19,9 @@ import com.curuza.data.fournisseur.FournisseurRepository;
 
 import java.util.List;
 
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
+
 public class FournisseurAdapter extends RecyclerView.Adapter<FournisseurAdapter.ViewHolder> {
 
     private List<Fournisseur> mFournisseurs;
@@ -50,7 +53,12 @@ public class FournisseurAdapter extends RecyclerView.Adapter<FournisseurAdapter.
                 (dialog, which) -> {
                     switch (which) {
                         case 0:
-                            mFournisseurRepository.delete(fournisseur);
+                            mFournisseurRepository.delete(fournisseur)
+                                .subscribeOn(Schedulers.io())
+                                .subscribeOn(AndroidSchedulers.mainThread())
+                                .subscribe(() -> {
+                                }, e -> {
+                                });
 
                             break;
                     }

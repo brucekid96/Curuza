@@ -34,9 +34,7 @@ public class FournisseurRepository {
        return db.fournisseurDao().delete(fournisseur);
     }
 
-    public Completable update(Fournisseur fournisseur)  {
-        return db.fournisseurDao().update(fournisseur);
-    }
+    public Completable update(Fournisseur fournisseur)  { return db.fournisseurDao().update(fournisseur); }
 
     public Completable syncFournisseurs() {
         return AmplifyAPI.getFournisseurs()

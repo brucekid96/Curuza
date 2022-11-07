@@ -7,12 +7,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.curuza.R;
 import com.curuza.data.depense.Depense;
 import com.curuza.data.depense.DepenseRepository;
+import com.curuza.domain.common.BaseActivity;
 import com.google.android.material.textfield.TextInputLayout;
 
 import org.threeten.bp.ZonedDateTime;
@@ -22,7 +22,7 @@ import java.util.UUID;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
-public class AddDepenseActivity extends AppCompatActivity {
+public class AddDepenseActivity extends BaseActivity {
 
     private Depense mDepense;
     private TextView mDescriptionErrorTextview;

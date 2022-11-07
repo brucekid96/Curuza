@@ -9,7 +9,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.curuza.R;
@@ -18,6 +17,7 @@ import com.curuza.data.movements.MovementRepository;
 import com.curuza.data.movements.MovementStatus;
 import com.curuza.data.stock.Product;
 import com.curuza.data.stock.ProductRepository;
+import com.curuza.domain.common.BaseActivity;
 import com.google.android.material.textfield.TextInputLayout;
 
 import org.threeten.bp.ZonedDateTime;
@@ -27,7 +27,7 @@ import java.util.UUID;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
-public class SellArticleDetails  extends AppCompatActivity {
+public class SellArticleDetails  extends BaseActivity {
 
 
     private Product produit;

@@ -1,12 +1,10 @@
 package com.curuza.domain;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -15,14 +13,14 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.curuza.R;
-import com.curuza.data.client.ClientRepository;
-import com.curuza.data.credit.Credit;
 import com.curuza.data.depense.Depense;
 import com.curuza.data.depense.DepenseRepository;
 import com.curuza.utils.FormatUtils;
 
-import java.util.ArrayList;
 import java.util.List;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 public class DepenseAdapter extends RecyclerView.Adapter<DepenseAdapter.ViewHolder> {
 
@@ -57,7 +55,12 @@ public class DepenseAdapter extends RecyclerView.Adapter<DepenseAdapter.ViewHold
                 (dialog, which) -> {
                     switch (which) {
                         case 0:
-                            mDepenseRepository.delete(depense);
+                            mDepenseRepository.delete(depense)
+                                .subscribeOn(Schedulers.io())
+                                .subscribeOn(AndroidSchedulers.mainThread())
+                                .subscribe(() -> {
+                                }, e -> {
+                                });
 
                             break;
                     }

@@ -71,7 +71,12 @@ public class ProductMovementsAdapter extends RecyclerView.Adapter<RecyclerView.V
         cardDialog.setItems(cardDialogItems,
             (dialog, which) -> {
                 if (which == 0) {
-                    mMovementRepository.delete(movementId);
+                    mMovementRepository.delete(movementId)
+                        .subscribeOn(Schedulers.io())
+                        .subscribeOn(AndroidSchedulers.mainThread())
+                        .subscribe(() -> {
+                        }, e -> {
+                        });
                 }
             });;
         cardDialog.show();
@@ -187,6 +192,11 @@ public class ProductMovementsAdapter extends RecyclerView.Adapter<RecyclerView.V
                     intent.putExtra(ProductMovement.ProductMovement_EXTRA,productMovement);
                     mContext.startActivity(intent);
                 }
+            });
+
+            container.setOnLongClickListener(v -> {
+                showCardDialog(productMovement.getMovement().getId());
+                return true;
             });
 
         }

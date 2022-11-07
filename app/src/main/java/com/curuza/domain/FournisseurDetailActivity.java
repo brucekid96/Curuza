@@ -5,18 +5,18 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.curuza.R;
-import com.curuza.data.credit.Credit;
-import com.curuza.data.depense.Depense;
-import com.curuza.data.depense.DepenseRepository;
 import com.curuza.data.fournisseur.Fournisseur;
 import com.curuza.data.fournisseur.FournisseurRepository;
+import com.curuza.domain.common.BaseActivity;
 import com.google.android.material.textfield.TextInputLayout;
 
-public class FournisseurDetailActivity extends AppCompatActivity {
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
+
+public class FournisseurDetailActivity extends BaseActivity {
 
     private Fournisseur fournisseur;
     private Button mValidate;
@@ -58,7 +58,12 @@ public class FournisseurDetailActivity extends AppCompatActivity {
                     fournisseur.getId(),mName.getEditText().getText().toString(),mDescription.getEditText().getText().toString(),mTelephone.getEditText().getText().toString(),fournisseur.getDate()
 
             );
-            mFournisseurRepository.update(updatedFournisseur);
+            mFournisseurRepository.update(updatedFournisseur)
+                .subscribeOn(Schedulers.io())
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .subscribe(() -> {
+                }, e -> {
+                });
             Intent intent2 = new Intent(FournisseurDetailActivity.this, FournisseurActivity.class);
             startActivity(intent2);
 

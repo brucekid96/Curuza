@@ -11,7 +11,9 @@
     <string name="fournisseur_activity">Suppliers</string>
     <string name="client_activity">Customers</string>
     <string name="about_activity">About Us</string>
-    <string name="question_activity">Question or suggestion</string>
+    <string name="rate_us">Rate Us</string>
+    <string name="logout">Logout</string>
+    <string name="question_activity">Questions or suggestions</string>
     <string name="credit_detail">Credit Detail</string>
     <string name="article_detail">Article Detail</string>
     <string name="client_detail">Customer Detail</string>
@@ -25,10 +27,10 @@
     <string name="add_fournisseur">Add Supplier</string>
     <string name="add_depense">Add Expense</string>
     <string name="fournisseur_detail">Supplier Detail</string>
-    <string name="subscription_activity">Subscription</string>
+    <string name="subscription_activity">Subscriptions</string>
     <string name="settings_activity">Settings</string>
     <string name="help_activity">Help</string>
-    <string name="share_activity">Share</string>
+    <string name="share_activity">Share this app with friends</string>
     <string name="Tous_activity">All</string>
     <string name="entree_activity">INCOMING</string>
     <string name="sortie_activity">OUTGOING</string>
@@ -49,7 +51,8 @@
     <string name="action_help">Help</string>
     <string name="invalid_picture">invalidate picture</string>
     <string name="selectedlanguage">English</string>
-    <string name="language">Kirundi</string>
+    <string name="language">Languages</string>
+    <string name="choose_language">Choose Language</string>
     <string name="kirundi">Kirundi</string>
     <string name="BIF">BIF</string>
     <string name="prix_achat">Purchasing Price</string>
@@ -60,6 +63,7 @@
     <string name="extra_msg_link">Curuza is the App that  help you to manage your business.</string>
     <string name="English">English</string>
     <string name="French">French</string>
+    <string name="swahili">Swahili</string>
     <string name="list_product" translatable="false">List of Products</string>
 
 </resources>

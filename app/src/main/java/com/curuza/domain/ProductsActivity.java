@@ -1,44 +1,44 @@
   package com.curuza.domain;
 
-import android.Manifest;
-import android.content.Context;
-import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.os.Build;
-import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.inputmethod.EditorInfo;
-import android.widget.Toast;
+  import android.Manifest;
+  import android.content.Context;
+  import android.content.Intent;
+  import android.content.pm.PackageManager;
+  import android.os.Build;
+  import android.os.Bundle;
+  import android.view.Menu;
+  import android.view.MenuItem;
+  import android.view.View;
+  import android.view.inputmethod.EditorInfo;
+  import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.SearchView;
-import androidx.appcompat.widget.Toolbar;
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+  import androidx.annotation.NonNull;
+  import androidx.appcompat.app.ActionBarDrawerToggle;
+  import androidx.appcompat.widget.SearchView;
+  import androidx.appcompat.widget.Toolbar;
+  import androidx.core.view.GravityCompat;
+  import androidx.drawerlayout.widget.DrawerLayout;
+  import androidx.recyclerview.widget.LinearLayoutManager;
+  import androidx.recyclerview.widget.RecyclerView;
 
-import com.curuza.R;
-import com.curuza.data.stock.Product;
-import com.curuza.data.stock.ProductRepository;
-import com.curuza.utils.ExcelExporter;
-import com.github.clans.fab.FloatingActionButton;
-import com.github.clans.fab.FloatingActionMenu;
-import com.google.android.material.navigation.NavigationView;
+  import com.curuza.R;
+  import com.curuza.data.stock.Product;
+  import com.curuza.data.stock.ProductRepository;
+  import com.curuza.domain.common.BaseActivity;
+  import com.curuza.utils.ExcelExporter;
+  import com.github.clans.fab.FloatingActionButton;
+  import com.github.clans.fab.FloatingActionMenu;
+  import com.google.android.material.navigation.NavigationView;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+  import java.util.ArrayList;
+  import java.util.Date;
+  import java.util.List;
 
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.schedulers.Schedulers;
+  import io.reactivex.android.schedulers.AndroidSchedulers;
+  import io.reactivex.disposables.CompositeDisposable;
+  import io.reactivex.schedulers.Schedulers;
 
-  public  class ProductsActivity extends AppCompatActivity  implements NavigationView.OnNavigationItemSelectedListener {
+  public  class ProductsActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private RecyclerView rcvProduct;
     private FloatingActionMenu fab;
@@ -253,7 +253,7 @@ import io.reactivex.schedulers.Schedulers;
         else if (id == R.id.nav_rapport) {
             startActivity(new Intent( ProductsActivity.this,RapportActivity.class));
         }  else if (id == R.id.nav_settings) {
-            startActivity(new Intent( ProductsActivity.this,SettingsActivity.class));
+            startActivity(new Intent( ProductsActivity.this,AccountActivity.class));
         } else if (id == R.id.nav_question) {
             startActivity(new Intent( ProductsActivity.this,QuestionsActivity.class));
         } else if (id == R.id.nav_subscription) {

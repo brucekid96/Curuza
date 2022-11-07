@@ -16,7 +16,8 @@ public class LocaleUtils {
     public static final Locale ENGLISH = new Locale("en", "US");
     public static final Locale FRENCH = new Locale("fr", "FR");
     public static final Locale KIRUNDI = new Locale("rn", "BI");
-    public static final List<Locale> APP_LOCALES = Arrays.asList(ENGLISH, FRENCH, KIRUNDI);
+    public static final Locale SWAHILI = new Locale("sw", "TZ");
+    public static final List<Locale> APP_LOCALES = Arrays.asList(ENGLISH, FRENCH, KIRUNDI,SWAHILI);
 
 
     public static Locale getCurrentLocale(Context context) {
@@ -29,6 +30,8 @@ public class LocaleUtils {
             return context.getString(R.string.French);
         } else if (currentLocale.getISO3Language().equals(KIRUNDI.getISO3Language())) {
             return context.getString(R.string.kirundi);
+        }else if (currentLocale.getISO3Language().equals(SWAHILI.getISO3Language())) {
+            return context.getString(R.string.swahili);
         } else {
             return context.getString(R.string.English);
         }

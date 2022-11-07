@@ -9,7 +9,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -18,10 +17,11 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.curuza.R;
 import com.curuza.data.view.Rapport;
+import com.curuza.domain.common.BaseActivity;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
 
-public class RapportOverviewActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener , SelledFragment.OnFragmentInteractionListener,
+public class RapportOverviewActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener , SelledFragment.OnFragmentInteractionListener,
         CreditFragment.OnFragmentInteractionListener, DepenseFragment.OnFragmentInteractionListener {
     private RapportAdapter rapportAdapter;
     private RecyclerView rcvRapport;
@@ -157,7 +157,7 @@ public class RapportOverviewActivity extends AppCompatActivity implements Naviga
         }  else if (id == R.id.nav_client) {
             startActivity(new Intent( RapportOverviewActivity.this,ClientActivity.class));
         }   else if (id == R.id.nav_settings) {
-            startActivity(new Intent( RapportOverviewActivity.this,SettingsActivity.class));
+            startActivity(new Intent( RapportOverviewActivity.this,AccountActivity.class));
         } else if (id == R.id.nav_question) {
             String url = "https://api.whatsapp.com/send?phone=+25779841239";
             Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse(url));

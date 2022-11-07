@@ -15,7 +15,11 @@
     <string name="stock_activity">Ububiko</string>
     <string name="depense_activity">Amafaranga Yakoreshejwe</string>
     <string name="selectedlanguage">Icongereza</string>
-    <string name="language">Ikirundi</string>
+    <string name="language">Ururimi</string>
+    <string name="choose_language">Guhindura Ururimi</string>
+    <string name="about_activity">Ibitwerekeye</string>
+    <string name="rate_us">Dusuzume</string>
+    <string name="logout">Gusohoka</string>
     <string name="kirundi">Ikirundi</string>
     <string name="add_depense">Gukoresha Amafaranga</string>
     <string name="rapport_activity">Raporo</string>
@@ -32,7 +36,7 @@
     <string name="action_search">Higa</string>
     <string name="fournisseur_activity">Umuranguzi</string>
     <string name="add_article">Kwongeramwo Ikidandazwa Gishasha</string>
-    <string name="share_activity">Sangiza abandi iyi</string>
+    <string name="share_activity">yisangize abandi</string>
     <string name="add_credit">Kwongeramwo Ideni</string>
     <string name="telephone_number">nimero ya telefone</string>
     <string name="sell_article">Kugurisha Ikidandazwa</string>
@@ -56,6 +60,7 @@
     <string name="extra_msg_link">Curuza ni apirikasiyo ifasha umudandaza gukurikirana business yiwe vyoroshe.</string>
     <string name="English">Icongereza</string>
     <string name="French">Igifaransa</string>
+    <string name="swahili">Igiswahili</string>
     <string name="list_product" translatable="false">Urutonde rw\'ibicuruzwa</string>
 
 </resources>

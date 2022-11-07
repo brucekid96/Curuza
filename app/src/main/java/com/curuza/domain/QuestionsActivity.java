@@ -2,12 +2,12 @@ package com.curuza.domain;
 
 import android.os.Bundle;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.curuza.R;
+import com.curuza.domain.common.BaseActivity;
 
-public class QuestionsActivity  extends AppCompatActivity {
+public class QuestionsActivity  extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

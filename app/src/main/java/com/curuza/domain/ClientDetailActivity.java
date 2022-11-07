@@ -5,18 +5,18 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.curuza.R;
 import com.curuza.data.client.Client;
 import com.curuza.data.client.ClientRepository;
+import com.curuza.domain.common.BaseActivity;
 import com.google.android.material.textfield.TextInputLayout;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
-public class ClientDetailActivity extends AppCompatActivity {
+public class ClientDetailActivity extends BaseActivity {
     private Client client;
     private Button mValidate;
     private TextInputLayout mName;

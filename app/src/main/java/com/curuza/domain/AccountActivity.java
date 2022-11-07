@@ -1,29 +1,25 @@
 package com.curuza.domain;
 
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AlertDialog;
+
 import com.curuza.R;
-import com.curuza.databinding.ActivityProfileBinding;
+import com.curuza.domain.common.BaseActivity;
 import com.curuza.domain.onboarding.auth.AuthService;
 import com.curuza.domain.onboarding.auth.WelcomeActivity;
 import com.curuza.utils.LocaleUtils;
 import com.franmontiel.localechanger.LocaleChanger;
 import com.franmontiel.localechanger.utils.ActivityRecreationHelper;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
-public class AccountActivity extends AppCompatActivity {
+public class AccountActivity extends BaseActivity {
  private TextView Username;
  private TextView mLogout;
     private AlertDialog mChangeLanguageDialog;
@@ -87,6 +83,14 @@ public class AccountActivity extends AppCompatActivity {
             ActivityRecreationHelper.recreate(this, false);
             changeLanguageDialog.dismiss();
         });
+
+      TextView swahiliView = changeLanguageView.findViewById(R.id.swahili);
+      swahiliView.setOnClickListener(v -> {
+        mCurrentLanguageView.setText(R.string.swahili);
+        LocaleChanger.setLocale(LocaleUtils.SWAHILI);
+        ActivityRecreationHelper.recreate(this, false);
+        changeLanguageDialog.dismiss();
+      });
 
         TextView englishView = changeLanguageView.findViewById(R.id.english);
         englishView.setOnClickListener(v -> {

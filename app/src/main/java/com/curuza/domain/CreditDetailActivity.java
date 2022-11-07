@@ -2,20 +2,20 @@ package com.curuza.domain;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.curuza.R;
 import com.curuza.data.credit.Credit;
 import com.curuza.data.credit.CreditRepository;
-import com.curuza.data.stock.ProductRepository;
+import com.curuza.domain.common.BaseActivity;
 import com.google.android.material.textfield.TextInputLayout;
 
-public class CreditDetailActivity extends AppCompatActivity {
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
+
+public class CreditDetailActivity extends BaseActivity {
 
 
     private Credit credit;
@@ -56,10 +56,13 @@ public class CreditDetailActivity extends AppCompatActivity {
         mValidate = findViewById(R.id.credit_validate);
         mValidate.setOnClickListener(v -> {
            Credit updatedCredit = new Credit(
-                   credit.getId(),mName.getEditText().getText().toString(),mDescription.getEditText().getText().toString(),Integer.parseInt(mAmount.getEditText().getText().toString()),credit.getDate(),mTelephone.getEditText().getText().toString()
-
-           );
-            mCreditRepository.update(updatedCredit);
+               credit.getId(),mName.getEditText().getText().toString(),mDescription.getEditText().getText().toString(),Integer.parseInt(mAmount.getEditText().getText().toString()),credit.getDate(),mTelephone.getEditText().getText().toString());
+            mCreditRepository.update(updatedCredit)
+                .subscribeOn(Schedulers.io())
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .subscribe(() -> {
+                }, e -> {
+                });
                 Intent intent2 = new Intent(CreditDetailActivity.this, CreditActivity.class);
                 startActivity(intent2);
 

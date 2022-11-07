@@ -43,6 +43,8 @@
     <string name="check_evrything">check evrything</string>
     <string name="language">Kirundi</string>
     <string name="about_activity">About Us</string>
+    <string name="rate_us">Rate Us</string>
+    <string name="logout">Logout</string>
     <string name="action_more">more</string>
     <string name="add_credit">Add Credit</string>
     <string name="subscription_activity">Subscription</string>
@@ -93,6 +95,8 @@
     <string name="English">English</string>
     <string name="kirundi">kirundi</string>
     <string name="French">French</string>
+    <string name="swahili">Swahili</string>
+    <string name="choose_language">Choose Language</string>
     <string name="list_product" translatable="false">Exporter vers Excel</string>
     <string name="share_list_product">Share</string>
     <string name="export_vers_excel">export vers excel</string>

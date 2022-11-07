@@ -14,6 +14,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.curuza.R;
+import com.curuza.data.movements.MovementRepository;
 import com.curuza.data.view.Rapport;
 import com.curuza.utils.FormatUtils;
 
@@ -24,6 +25,8 @@ public class RapportAdapter extends RecyclerView.Adapter<RapportAdapter.MyViewHo
 
     private List<Rapport> mRapportList;
     private Context mContext;
+    private MovementRepository mMovementRepository;
+
 
 
     public RapportAdapter(Context mContext) {
@@ -38,7 +41,6 @@ public class RapportAdapter extends RecyclerView.Adapter<RapportAdapter.MyViewHo
         Log.d(RapportAdapter.class.getSimpleName(),"rapportList" + rapportList);
 
     }
-
 
 
     @NonNull
@@ -59,6 +61,7 @@ public class RapportAdapter extends RecyclerView.Adapter<RapportAdapter.MyViewHo
             intent.putExtra(Rapport.DATE_EXTRA,rapport.getDate());
             mContext.startActivity(intent);
         });
+
 
     }
 

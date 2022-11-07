@@ -6,14 +6,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.curuza.R;
 import com.curuza.data.view.ProductMovement;
+import com.curuza.domain.common.BaseActivity;
 import com.google.android.material.textfield.TextInputLayout;
 
-public class EnterMovementDetail extends AppCompatActivity {
+public class EnterMovementDetail extends BaseActivity {
 
 
     private ProductMovement produit;

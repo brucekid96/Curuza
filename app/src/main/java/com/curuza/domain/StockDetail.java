@@ -8,7 +8,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.bumptech.glide.Glide;
@@ -16,6 +15,7 @@ import com.curuza.R;
 import com.curuza.data.photos.PhotoType;
 import com.curuza.data.stock.Product;
 import com.curuza.data.stock.ProductRepository;
+import com.curuza.domain.common.BaseActivity;
 import com.github.dhaval2404.imagepicker.ImagePicker;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputLayout;
@@ -25,7 +25,7 @@ import org.threeten.bp.ZonedDateTime;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
-public class StockDetail extends AppCompatActivity {
+public class StockDetail extends BaseActivity {
     private int GALLERY_REQUEST_CODE = 1;
     private int CAMERA_REQUEST_CODE = 2;
 

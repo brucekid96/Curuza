@@ -19,7 +19,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Curuza"
         android:usesCleartextTraffic="true">
-        <activity android:name=".domain.onboarding.auth.VerificationNumberActivity"></activity>
         <activity
             android:name=".domain.onboarding.auth.SplashScreen"
             android:exported="true"
@@ -32,6 +31,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".domain.onboarding.auth.VerificationNumberActivity" />
         <activity android:name=".domain.onboarding.auth.WelcomeActivity" />
         <activity android:name=".domain.onboarding.auth.ChoosePasswordActivity" />
         <activity android:name=".domain.AccountActivity" />

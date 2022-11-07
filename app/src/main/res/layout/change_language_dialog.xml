@@ -11,7 +11,7 @@
         android:layout_marginTop="16dp"
         android:layout_marginBottom="24dp"
         android:layout_marginStart="24dp"
-        android:text="Change Language"
+        android:text="@string/choose_language"
         android:drawableLeft="@drawable/ic_baseline_language_24"
         android:drawableTint="@color/colorPrimary"
         android:drawablePadding="12dp"
@@ -35,6 +35,22 @@
         android:textColor="@color/black"
         android:paddingLeft="24dp" />
 
+    <View
+        android:background="#40000000"
+        android:layout_width="match_parent"
+        android:layout_height="1px" />
+    <TextView
+        android:id="@+id/swahili"
+        android:background="?android:attr/selectableItemBackground"
+        android:layout_width="match_parent"
+        android:padding="16dp"
+        android:paddingStart="24dp"
+        android:layout_height="wrap_content"
+        android:text="@string/swahili"
+        android:fontFamily="@font/montserrat_semi_bold"
+        android:textSize="14sp"
+        android:textColor="@color/black"
+        android:paddingLeft="24dp" />
     <View
         android:background="#40000000"
         android:layout_width="match_parent"

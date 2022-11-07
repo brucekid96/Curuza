@@ -15,7 +15,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
 import androidx.core.app.ActivityCompat;
@@ -29,6 +28,7 @@ import com.curuza.data.depense.DepenseRepository;
 import com.curuza.data.fournisseur.FournisseurRepository;
 import com.curuza.data.movements.MovementRepository;
 import com.curuza.data.stock.ProductRepository;
+import com.curuza.domain.common.BaseActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 
@@ -45,7 +45,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
 
-public class MainActivity extends AppCompatActivity  implements NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
 
 
     FloatingActionButton fab;
@@ -175,7 +175,7 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
         mSettings=findViewById(R.id.add_settings_card);
         mSettings.setOnClickListener(new View.OnClickListener() {
             @Override public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, SettingsActivity.class));
+                startActivity(new Intent(MainActivity.this, AccountActivity.class));
             }
         });
         mSettingIcon=findViewById(R.id.add_settings_icon);
@@ -208,9 +208,6 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
                 startActivity(new Intent(MainActivity.this, AccountActivity.class));
             }
         });
-
-
-
 
 
 
@@ -343,7 +340,7 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
         } else if (id == R.id.nav_rapport) {
             startActivity(new Intent( MainActivity.this,RapportActivity.class));
         }  else if (id == R.id.nav_settings) {
-            startActivity(new Intent( MainActivity.this,SettingsActivity.class));
+            startActivity(new Intent( MainActivity.this,AccountActivity.class));
         } else if (id == R.id.nav_question) {
             String url = "https://api.whatsapp.com/send?phone=+25779841239";
             Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse(url));

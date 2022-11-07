@@ -5,7 +5,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.inputmethod.EditorInfo;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -15,6 +14,7 @@ import com.curuza.R;
 import com.curuza.data.movements.MovementRepository;
 import com.curuza.data.stock.Product;
 import com.curuza.data.stock.ProductRepository;
+import com.curuza.domain.common.BaseActivity;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -24,7 +24,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
 
-public class SellArticleActivity extends AppCompatActivity {
+public class SellArticleActivity extends BaseActivity {
 
     private RecyclerView rcvSellArticle;
     private SellArticleAdapter sellArticleAdapter;

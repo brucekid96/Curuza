@@ -13,7 +13,6 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
@@ -24,6 +23,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.curuza.R;
 import com.curuza.data.depense.Depense;
 import com.curuza.data.depense.DepenseRepository;
+import com.curuza.domain.common.BaseActivity;
 import com.curuza.utils.ExcelExporter;
 import com.github.clans.fab.FloatingActionMenu;
 import com.google.android.material.navigation.NavigationView;
@@ -36,7 +36,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
 
-public class DepenseActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class DepenseActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private RecyclerView rcvDepense;
     private DepenseAdapter depenseAdapter;
@@ -213,7 +213,7 @@ public class DepenseActivity extends AppCompatActivity implements NavigationView
         else if (id == R.id.nav_rapport) {
             startActivity(new Intent( DepenseActivity.this,RapportActivity.class));
         }  else if (id == R.id.nav_settings) {
-            startActivity(new Intent( DepenseActivity.this,SettingsActivity.class));
+            startActivity(new Intent( DepenseActivity.this,AccountActivity.class));
         } else if (id == R.id.nav_question) {
             String url = "https://api.whatsapp.com/send?phone=+25779841239";
             Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse(url));

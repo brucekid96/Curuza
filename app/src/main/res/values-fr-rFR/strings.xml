@@ -8,9 +8,9 @@
     <string name="credit_activity">Crédits</string>
     <string name="depense_activity">Dépenses</string>
     <string name="rapport_activity">Rapports</string>
-    <string name="fournisseur_activity">Fournisseur</string>
+    <string name="fournisseur_activity">Fournisseurs</string>
     <string name="client_activity">Clients</string>
-    <string name="question_activity">Question ou Suggestion</string>
+    <string name="question_activity">Questions ou Suggestions</string>
     <string name="BIF">FBU</string>
     <string name="entree_activity">Entrée</string>
     <string name="article_detail">Détail de l \'Article</string>
@@ -34,7 +34,8 @@
     <string name="prix_vente">Prix de Vente</string>
     <string name="telephone_number">Numéro de Téléphone</string>
     <string name="invalid_picture">invalider l\'image</string>
-    <string name="language">Kirundi</string>
+    <string name="language">Langues</string>
+    <string name="choose_language">Choisissez la langue</string>
     <string name="kirundi">Kirundi</string>
     <string name="selectedlanguage">Anglais</string>
     <string name="amount">Montant</string>
@@ -44,13 +45,15 @@
     <string name="vendu_item">Vendu</string>
     <string name="action_search">Rechercher</string>
     <string name="add_article">Ajouter un Article</string>
-    <string name="share_activity">Partager</string>
+    <string name="share_activity">Partager cette application</string>
     <string name="help_activity">Aide</string>
     <string name="settings_activity">Paramètres</string>
     <string name="subscription_activity">Abonnement</string>
     <string name="add_credit">Ajouter un Crédit</string>
     <string name="action_more">suite</string>
     <string name="about_activity">À propos de nous</string>
+    <string name="rate_us">Evaluez Nous</string>
+    <string name="logout">Se Déconnecter</string>
     <string name="action_settings">Paramètres</string>
     <string name="action_help">Aide</string>
     <string name="stock_detail">Modifier un Article</string>
@@ -59,5 +62,6 @@
     <string name="extra_msg_link">Curuza est l\'application qui vous aide à gérer votre business facilement.</string>
     <string name="English">Anglais</string>
     <string name="French">Français</string>
+    <string name="swahili">Swahili</string>
     <string name="list_product" translatable="false">Liste des Produits</string>
 </resources>

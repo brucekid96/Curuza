@@ -22,6 +22,9 @@ import com.curuza.utils.FormatUtils;
 
 import java.util.List;
 
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
+
 public class CreditAdapter extends RecyclerView.Adapter<CreditAdapter.ViewHolder> {
 
 
@@ -52,7 +55,12 @@ public class CreditAdapter extends RecyclerView.Adapter<CreditAdapter.ViewHolder
         cardDialog.setItems(cardDialogItems,
                 (dialog, which) -> {
                     if (which == 0) {
-                        mCreditRepository.delete(credit);
+                        mCreditRepository.delete(credit)
+                            .subscribeOn(Schedulers.io())
+                            .subscribeOn(AndroidSchedulers.mainThread())
+                            .subscribe(() -> {
+                            }, e -> {
+                            });
                     }
                 });
         cardDialog.show();

@@ -1,28 +1,28 @@
   package com.curuza.domain;
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
+  import android.content.Intent;
+  import android.os.Bundle;
+  import android.util.Log;
+  import android.view.View;
+  import android.widget.Button;
+  import android.widget.TextView;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
+  import androidx.appcompat.widget.Toolbar;
 
-import com.curuza.R;
-import com.curuza.data.credit.Credit;
-import com.curuza.data.credit.CreditRepository;
-import com.google.android.material.textfield.TextInputLayout;
+  import com.curuza.R;
+  import com.curuza.data.credit.Credit;
+  import com.curuza.data.credit.CreditRepository;
+  import com.curuza.domain.common.BaseActivity;
+  import com.google.android.material.textfield.TextInputLayout;
 
-import org.threeten.bp.ZonedDateTime;
+  import org.threeten.bp.ZonedDateTime;
 
-import java.util.UUID;
+  import java.util.UUID;
 
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.schedulers.Schedulers;
+  import io.reactivex.android.schedulers.AndroidSchedulers;
+  import io.reactivex.schedulers.Schedulers;
 
-  public class AddCreditActivity extends AppCompatActivity {
+  public class AddCreditActivity extends BaseActivity {
 
 
     private Credit mCredit;

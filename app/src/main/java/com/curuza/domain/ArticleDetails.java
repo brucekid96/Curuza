@@ -6,14 +6,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.curuza.R;
 import com.curuza.data.stock.Product;
+import com.curuza.domain.common.BaseActivity;
 import com.google.android.material.textfield.TextInputLayout;
 
-public class ArticleDetails extends AppCompatActivity {
+public class ArticleDetails extends BaseActivity {
 
 
     private Product produit;

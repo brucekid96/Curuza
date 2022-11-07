@@ -13,7 +13,6 @@ import android.view.MenuItem;
 import android.view.inputmethod.EditorInfo;
 
 import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
@@ -23,6 +22,7 @@ import androidx.viewpager.widget.ViewPager;
 import com.curuza.R;
 import com.curuza.data.movements.MovementRepository;
 import com.curuza.data.view.ProductMovement;
+import com.curuza.domain.common.BaseActivity;
 import com.curuza.utils.ExcelExporter;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
@@ -33,7 +33,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
 
-public class DocumentsActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, AllProductsFragment.OnFragmentInteractionListener,
+public class DocumentsActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener, AllProductsFragment.OnFragmentInteractionListener,
         EnterProductsFragment.OnFragmentInteractionListener, ExitProductsFragment.OnFragmentInteractionListener {
     private static final String DBG_TAG = DocumentsActivity.class.getSimpleName();
 
@@ -258,7 +258,7 @@ public class DocumentsActivity extends AppCompatActivity implements NavigationVi
         else if (id == R.id.nav_rapport) {
             startActivity(new Intent( DocumentsActivity.this,RapportActivity.class));
         }  else if (id == R.id.nav_settings) {
-            startActivity(new Intent( DocumentsActivity.this,SettingsActivity.class));
+            startActivity(new Intent( DocumentsActivity.this,AccountActivity.class));
         } else if (id == R.id.nav_question) {
             String url = "https://api.whatsapp.com/send?phone=+25779841239";
             Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse(url));

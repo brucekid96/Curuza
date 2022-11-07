@@ -117,11 +117,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
             android:fontFamily="@font/montserrat_semi_bold"
-            android:text="About_us"
+            android:text="@string/about_activity"
             android:textColor="@color/black"
-            android:textSize="14sp"
-            android:layout_marginLeft="16dp" />
+            android:textSize="14sp" />
 
     </LinearLayout>
 
@@ -149,7 +149,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:fontFamily="@font/montserrat_semi_bold"
-            android:text="rate_us"
+            android:text="@string/rate_us"
             android:textColor="@color/black"
             android:textSize="14sp"
             android:layout_marginLeft="16dp" />
@@ -180,7 +180,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:fontFamily="@font/montserrat_semi_bold"
-            android:text="Logout"
+            android:text="@string/logout"
             android:textColor="@color/black"
             android:textSize="14sp"
             android:layout_marginLeft="16dp" />

@@ -5,18 +5,18 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.curuza.R;
-
-import com.curuza.data.credit.Credit;
-import com.curuza.data.credit.CreditRepository;
 import com.curuza.data.depense.Depense;
 import com.curuza.data.depense.DepenseRepository;
+import com.curuza.domain.common.BaseActivity;
 import com.google.android.material.textfield.TextInputLayout;
 
-public class DepenseDetailActivity  extends AppCompatActivity {
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
+
+public class DepenseDetailActivity  extends BaseActivity {
 
     private Depense depense;
     private Button mValidate;
@@ -55,7 +55,12 @@ public class DepenseDetailActivity  extends AppCompatActivity {
                     depense.getId(),mDescription.getEditText().getText().toString(),Integer.parseInt(mAmount.getEditText().getText().toString()),depense.getDate()
 
             );
-            mDepenseRepository.update(updatedDepense);
+            mDepenseRepository.update(updatedDepense)
+                .subscribeOn(Schedulers.io())
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .subscribe(() -> {
+                }, e -> {
+                });
             Intent intent2 = new Intent(DepenseDetailActivity.this, DepenseActivity.class);
             startActivity(intent2);
 

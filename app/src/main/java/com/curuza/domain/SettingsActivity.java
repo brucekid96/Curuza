@@ -8,15 +8,15 @@ import android.view.View;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
 
 import com.curuza.R;
+import com.curuza.domain.common.BaseActivity;
 
 import java.util.Locale;
 
-public class SettingsActivity extends AppCompatActivity {
+public class SettingsActivity extends BaseActivity {
     private CardView language_card;
     private TextView language;
 
@@ -44,9 +44,9 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
     private void showChangeLangageDialog() {
-        final String[] listItems = {"French","Kirundi","English"};
+        final String[] listItems = {"French","Kirundi","English","Swahili"};
         AlertDialog.Builder mBuilder = new AlertDialog.Builder(this);
-        mBuilder.setTitle("Choose Language");
+        mBuilder.setTitle(R.string.choose_language);
         mBuilder.setSingleChoiceItems(listItems, -1, (dialog, i) -> {
             if(i==0) {
                setLocale("fr");
@@ -57,13 +57,17 @@ public class SettingsActivity extends AppCompatActivity {
             if(i==1) {
                 setLocale("rn");
                 recreate();
-                language.setText("Kirundi");
+                language.setText(R.string.kirundi);
+            } if(i==2) {
+                setLocale("sw");
+                recreate();
+                language.setText(R.string.swahili);
             }
 
-            if(i==2) {
+            if(i==3) {
                 setLocale("en");
                 recreate();
-                language.setText("English");
+                language.setText(R.string.English);
             }
 
             dialog.dismiss();

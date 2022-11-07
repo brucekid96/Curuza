@@ -64,7 +64,12 @@ public class StockAdapter extends RecyclerView.Adapter<StockAdapter.ViewHolder> 
         cardDialog.setItems(cardDialogItems,
                 (dialog, which) -> {
                     if (which == 0) {
-                        mStockRepository.delete(product);
+                        mStockRepository.delete(product)
+                            .subscribeOn(Schedulers.io())
+                            .subscribeOn(AndroidSchedulers.mainThread())
+                            .subscribe(() -> {
+                            }, e -> {
+                            });
                     }
                 });;
         cardDialog.show();
