@@ -7,7 +7,7 @@ import org.threeten.bp.ZoneId;
 import org.threeten.bp.format.DateTimeFormatter;
 import org.threeten.bp.format.FormatStyle;
 
-public class DateTimeUtils {
+ public class DateTimeUtils {
 
     public static String getDateString(String timestamp){
         LocalDateTime dateTime = LocalDateTime.ofInstant(Instant.parse(timestamp), ZoneId.systemDefault());

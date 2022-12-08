@@ -223,6 +223,8 @@ public class StockActivity extends BaseActivity implements NavigationView.OnNavi
             startActivity(new Intent( StockActivity.this,SubscriptionsActivity.class));
         } else if (id == R.id.nav_help) {
             startActivity(new Intent( StockActivity.this,HelpActivity.class));
+        }  else if (id == R.id.nav_share) {
+            startActivity(new Intent( StockActivity.this,ShareApp.class));
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

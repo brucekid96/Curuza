@@ -4,6 +4,7 @@
   import android.content.Context;
   import android.content.Intent;
   import android.content.pm.PackageManager;
+  import android.net.Uri;
   import android.os.Build;
   import android.os.Bundle;
   import android.view.Menu;
@@ -255,11 +256,16 @@
         }  else if (id == R.id.nav_settings) {
             startActivity(new Intent( ProductsActivity.this,AccountActivity.class));
         } else if (id == R.id.nav_question) {
-            startActivity(new Intent( ProductsActivity.this,QuestionsActivity.class));
+          String url = "https://api.whatsapp.com/send?phone=+25779841239";
+          Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+          i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+          startActivity(i);
         } else if (id == R.id.nav_subscription) {
             startActivity(new Intent( ProductsActivity.this,SubscriptionsActivity.class));
         } else if (id == R.id.nav_help) {
             startActivity(new Intent( ProductsActivity.this,HelpActivity.class));
+        } else if (id == R.id.nav_share) {
+          startActivity(new Intent( ProductsActivity.this,ShareApp.class));
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

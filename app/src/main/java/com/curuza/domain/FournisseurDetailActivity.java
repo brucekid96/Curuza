@@ -55,7 +55,7 @@ public class FournisseurDetailActivity extends BaseActivity {
         mValidate = findViewById(R.id.fournisseur_validate);
         mValidate.setOnClickListener(v -> {
             Fournisseur updatedFournisseur = new Fournisseur(
-                    fournisseur.getId(),mName.getEditText().getText().toString(),mDescription.getEditText().getText().toString(),mTelephone.getEditText().getText().toString(),fournisseur.getDate()
+                    fournisseur.getId(),mName.getEditText().getText().toString(),mDescription.getEditText().getText().toString(),fournisseur.getDate(),mTelephone.getEditText().getText().toString()
 
             );
             mFournisseurRepository.update(updatedFournisseur)

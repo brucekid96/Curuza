@@ -40,7 +40,8 @@ public class DepenseRepository {
     }
 
     public Completable delete(Depense depense)  {
-        return db.depenseDao().delete(depense);
+        return db.depenseDao().delete(depense)
+            .andThen(AmplifyAPI.removeDepense(depense));
     }
 
     public Completable update(Depense depense)  {

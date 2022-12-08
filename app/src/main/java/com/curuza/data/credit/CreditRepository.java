@@ -38,7 +38,8 @@ public class CreditRepository {
     }
 
     public Completable delete(Credit credit)  {
-        return db.creditDao().delete(credit);
+        return db.creditDao().delete(credit)
+            .andThen(AmplifyAPI.removeCredit(credit));
     }
 
     public Completable update(Credit credit)  {

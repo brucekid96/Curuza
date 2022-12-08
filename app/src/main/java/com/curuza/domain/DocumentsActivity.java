@@ -190,8 +190,7 @@ public class DocumentsActivity extends BaseActivity implements NavigationView.On
         int id = item.getItemId();
 
         if (id == R.id.menu_item_search) {
-            return true;
-        }
+            return true; }
         if(id == R.id.all) {
             if (Build.VERSION.SDK_INT > Build.VERSION_CODES.M) {
                 if (getApplicationContext().checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED) {
@@ -268,6 +267,8 @@ public class DocumentsActivity extends BaseActivity implements NavigationView.On
             startActivity(new Intent( DocumentsActivity.this,SubscriptionsActivity.class));
         } else if (id == R.id.nav_help) {
             startActivity(new Intent( DocumentsActivity.this,HelpActivity.class));
+        }  else if (id == R.id.nav_share) {
+            startActivity(new Intent( DocumentsActivity.this,ShareApp.class));
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

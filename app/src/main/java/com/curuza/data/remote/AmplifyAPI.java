@@ -2,6 +2,7 @@ package com.curuza.data.remote;
 
 import com.amplifyframework.api.graphql.model.ModelMutation;
 import com.amplifyframework.api.graphql.model.ModelQuery;
+import com.amplifyframework.auth.AuthUserAttribute;
 import com.amplifyframework.core.Amplify;
 import com.amplifyframework.datastore.generated.model.Fournisseur;
 import com.amplifyframework.datastore.generated.model.Movement;
@@ -30,11 +31,26 @@ public class AmplifyAPI {
         },
         error -> source.onError(error)));
   }
+   //to get specific attribute like username
+  public static Single<List<AuthUserAttribute>> getUserAttributes() {
+    return Single.create(source ->
+        Amplify.Auth.fetchUserAttributes(
+          source::onSuccess,
+          source::onError));
+  }
 
   public static Completable addProduct(com.curuza.data.stock.Product product) {
     return Completable.create(source ->
         Amplify.API.mutate(
             ModelMutation.create(AmplifyAPIConverters.toProduct(product)),
+            response -> source.onComplete(),
+            source::onError));
+
+  }
+  public static Completable removeProduct(com.curuza.data.stock.Product product) {
+    return Completable.create(source ->
+        Amplify.API.mutate(
+            ModelMutation.delete(AmplifyAPIConverters.toProduct(product)),
             response -> source.onComplete(),
             source::onError));
 
@@ -62,6 +78,14 @@ public class AmplifyAPI {
             source::onError));
 
   }
+  public static Completable removeFournisseur(com.curuza.data.fournisseur.Fournisseur fournisseur) {
+    return Completable.create(source ->
+        Amplify.API.mutate(
+            ModelMutation.delete(AmplifyAPIConverters.toFournisseur(fournisseur)),
+            response -> source.onComplete(),
+            source::onError));
+
+  }
 
   public static Single<List<Client>> getClients() {
     return Single.create(source ->
@@ -81,6 +105,14 @@ public class AmplifyAPI {
     return Completable.create(source ->
         Amplify.API.mutate(
             ModelMutation.create(AmplifyAPIConverters.toClient(client)),
+            response -> source.onComplete(),
+            source::onError));
+
+  }
+  public static Completable removeClient(Client client) {
+    return Completable.create(source ->
+        Amplify.API.mutate(
+            ModelMutation.delete(AmplifyAPIConverters.toClient(client)),
             response -> source.onComplete(),
             source::onError));
 
@@ -109,6 +141,15 @@ public class AmplifyAPI {
 
   }
 
+  public static Completable removeCredit(Credit credit) {
+    return Completable.create(source ->
+        Amplify.API.mutate(
+            ModelMutation.delete(AmplifyAPIConverters.toCredit(credit)),
+            response -> source.onComplete(),
+            source::onError));
+
+  }
+
   public static Single<List<Depense>> getDepenses() {
     return Single.create(source ->
         Amplify.API.query(
@@ -127,6 +168,14 @@ public class AmplifyAPI {
     return Completable.create(source ->
         Amplify.API.mutate(
             ModelMutation.create(AmplifyAPIConverters.toDepense(depense)),
+            response -> source.onComplete(),
+            source::onError));
+
+  }
+  public static Completable removeDepense(Depense depense) {
+    return Completable.create(source ->
+        Amplify.API.mutate(
+            ModelMutation.delete(AmplifyAPIConverters.toDepense(depense)),
             response -> source.onComplete(),
             source::onError));
 
@@ -150,6 +199,15 @@ public class AmplifyAPI {
     return Completable.create(source ->
         Amplify.API.mutate(
             ModelMutation.create(AmplifyAPIConverters.toMovement(movement)),
+            response -> source.onComplete(),
+            source::onError));
+
+  }
+
+  public static Completable removeMovement(com.curuza.data.movements.Movement movement) {
+    return Completable.create(source ->
+        Amplify.API.mutate(
+            ModelMutation.delete(AmplifyAPIConverters.toMovement(movement)),
             response -> source.onComplete(),
             source::onError));
 

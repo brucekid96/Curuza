@@ -37,7 +37,8 @@ public class ClientRepository {
     }
 
     public Completable delete(Client client)  {
-        return db.clientDao().delete(client);
+        return db.clientDao().delete(client)
+            .andThen(AmplifyAPI.removeClient(client));
     }
 
     public Completable update(Client client)  {

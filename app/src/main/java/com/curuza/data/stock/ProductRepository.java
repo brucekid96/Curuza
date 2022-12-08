@@ -37,7 +37,8 @@ public  class ProductRepository {
     }
 
     public Completable delete(Product product)  {
-        return db.productDao().delete(product);
+        return db.productDao().delete(product)
+            .andThen(AmplifyAPI.removeProduct(product));
     }
 
     public Completable update(Product product)  {

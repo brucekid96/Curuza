@@ -53,7 +53,7 @@ public class ClientDetailActivity extends BaseActivity {
         mValidate = findViewById(R.id.client_validate);
         mValidate.setOnClickListener(v -> {
             Client updatedClient = new Client(
-                    client.getId(),mName.getEditText().getText().toString(),mDescription.getEditText().getText().toString(),mTelephone.getEditText().getText().toString(),client.getDate()
+                    client.getId(),mName.getEditText().getText().toString(),mDescription.getEditText().getText().toString(),client.getDate(),mTelephone.getEditText().getText().toString()
 
             );
             mClientRepository.update(updatedClient)

@@ -60,7 +60,8 @@ public class MovementRepository {
     }
 
     public Completable delete(Movement movement)  {
-      return db.movementDao().delete(movement);
+      return db.movementDao().delete(movement)
+          .andThen(AmplifyAPI.removeMovement(movement));
     }
 
   public Completable delete(String movementId)  {

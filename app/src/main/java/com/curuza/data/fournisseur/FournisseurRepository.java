@@ -31,7 +31,8 @@ public class FournisseurRepository {
     }
 
     public Completable delete(Fournisseur fournisseur)  {
-       return db.fournisseurDao().delete(fournisseur);
+       return db.fournisseurDao().delete(fournisseur)
+           .andThen(AmplifyAPI.removeFournisseur(fournisseur));
     }
 
     public Completable update(Fournisseur fournisseur)  { return db.fournisseurDao().update(fournisseur); }

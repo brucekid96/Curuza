@@ -60,7 +60,7 @@ public class ProductMovementsAdapter extends RecyclerView.Adapter<RecyclerView.V
         notifyDataSetChanged();
     }
 
-    private void showCardDialog(String movementId) {
+    private void showCardDialog(Movement movement) {
         MovementRepository mMovementRepository = new MovementRepository(mContext.getApplicationContext());
         AlertDialog.Builder cardDialog = new AlertDialog.Builder(mContext);
         cardDialog.setTitle("Delete Product");
@@ -71,7 +71,7 @@ public class ProductMovementsAdapter extends RecyclerView.Adapter<RecyclerView.V
         cardDialog.setItems(cardDialogItems,
             (dialog, which) -> {
                 if (which == 0) {
-                    mMovementRepository.delete(movementId)
+                    mMovementRepository.delete(movement)
                         .subscribeOn(Schedulers.io())
                         .subscribeOn(AndroidSchedulers.mainThread())
                         .subscribe(() -> {
@@ -128,7 +128,7 @@ public class ProductMovementsAdapter extends RecyclerView.Adapter<RecyclerView.V
                 }
             });
             container.setOnLongClickListener(v -> {
-                showCardDialog(productMovement.getMovement().getId());
+                showCardDialog(productMovement.getMovement());
                 return true;
             });
 
@@ -195,7 +195,7 @@ public class ProductMovementsAdapter extends RecyclerView.Adapter<RecyclerView.V
             });
 
             container.setOnLongClickListener(v -> {
-                showCardDialog(productMovement.getMovement().getId());
+                showCardDialog(productMovement.getMovement());
                 return true;
             });
 

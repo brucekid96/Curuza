@@ -124,6 +124,8 @@ public class HelpActivity extends BaseActivity implements NavigationView.OnNavig
             startActivity(new Intent( HelpActivity.this,SubscriptionsActivity.class));
         } else if (id == R.id.nav_help) {
             startActivity(new Intent( HelpActivity.this,HelpActivity.class));
+        } else if (id == R.id.nav_share) {
+            startActivity(new Intent( HelpActivity.this,ShareApp.class));
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

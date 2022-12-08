@@ -21,12 +21,14 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import com.amplifyframework.auth.AuthUserAttribute;
 import com.curuza.R;
 import com.curuza.data.client.ClientRepository;
 import com.curuza.data.credit.CreditRepository;
 import com.curuza.data.depense.DepenseRepository;
 import com.curuza.data.fournisseur.FournisseurRepository;
 import com.curuza.data.movements.MovementRepository;
+import com.curuza.data.remote.AmplifyAPI;
 import com.curuza.data.stock.ProductRepository;
 import com.curuza.domain.common.BaseActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -38,6 +40,8 @@ import org.threeten.bp.ZoneId;
 import org.threeten.bp.ZonedDateTime;
 import org.threeten.bp.format.DateTimeFormatter;
 import org.threeten.bp.format.FormatStyle;
+
+import java.util.List;
 
 import io.reactivex.Completable;
 import io.reactivex.Single;
@@ -56,6 +60,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     private ImageView documentIcon;
     private TextView ProductTitle;
     private TextView DocumentTitle;
+    private TextView mName;
     private CardView mAddProduct;
     private CardView mSellProduct;
     private ImageView sellProductIcon;
@@ -113,6 +118,14 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
 
         DrawerLayout drawer =  findViewById(R.id.drawer_layout);
+
+        mName = findViewById(R.id.name_textview);
+
+        AmplifyAPI.getUserAttributes()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(this::setGreeting);
+
         mProducts = findViewById(R.id.products_card);
         mProducts.setOnClickListener(new View.OnClickListener() {
             @Override public void onClick(View v) {
@@ -274,6 +287,20 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     private Completable syncMovements() {
         return Single.fromCallable(() -> new MovementRepository(this))
             .flatMapCompletable(MovementRepository::syncMovements);
+    }
+
+    private void setGreeting(List<AuthUserAttribute> attributes) {
+        String firstName = "";
+        String lastName = "";
+        for(AuthUserAttribute attribute : attributes) {
+            if(attribute.getKey().equals("given_name")){
+                firstName = attribute.getValue();
+                break;
+            }
+        }
+
+        mName.setText("Welcome "+ firstName+"!");
+
     }
 
     @Override
