@@ -3,8 +3,11 @@
     <color name="colorWhite">#FFFFFF</color>
     <color name="colorPrimary">#03B5AF</color>
     <color name="colorPrimaryDark">#008577</color>
+    <color name="colorPrimaryLight2">#009988</color>
+    <color name="colorPrimaryLightest">#1A006B5E</color>
     <color name="colorAccent">#008577</color>
     <color name="colorDarkGrey">#E91E63</color>
+    <color name="darkest_red">#9E0000</color>
     <color name="black">@android:color/black</color>
     <color name="blue">@android:color/holo_blue_light</color>
     <color name="yellow">#FF9800</color>

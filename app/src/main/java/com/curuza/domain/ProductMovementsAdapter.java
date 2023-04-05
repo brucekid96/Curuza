@@ -138,7 +138,7 @@ public class ProductMovementsAdapter extends RecyclerView.Adapter<RecyclerView.V
 
         private void displayCoverThumbnail(String productId) {
             File thumbnailFile =
-                new File(mPhotoRepository.getProductPhotoUri(productId).getPath());
+                new File(mPhotoRepository.getProductThumbnailUri(productId).getPath());
 
             if(thumbnailFile.exists()) {
                 Glide.with(mContext)
@@ -203,7 +203,7 @@ public class ProductMovementsAdapter extends RecyclerView.Adapter<RecyclerView.V
 
         private void displayCoverThumbnail(String productId) {
             File thumbnailFile =
-                new File(mPhotoRepository.getProductPhotoUri(productId).getPath());
+                new File(mPhotoRepository.getProductThumbnailUri(productId).getPath());
 
             if(thumbnailFile.exists()) {
                 Glide.with(mContext)

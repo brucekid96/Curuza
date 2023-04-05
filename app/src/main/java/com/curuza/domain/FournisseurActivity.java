@@ -218,11 +218,7 @@ public class FournisseurActivity extends BaseActivity implements NavigationView.
             Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
             i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(i);
-        } else if (id == R.id.nav_subscription) {
-            startActivity(new Intent( FournisseurActivity.this,SubscriptionsActivity.class));
-        } else if (id == R.id.nav_help) {
-            startActivity(new Intent( FournisseurActivity.this,HelpActivity.class));
-        }  else if (id == R.id.nav_share) {
+        } else if (id == R.id.nav_share) {
             startActivity(new Intent( FournisseurActivity.this,ShareApp.class));
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "224632ba1cab2d86f15a40f4a009e45e",
+    "identityHash": "549a55d6f31eb1c0dee043e836801011",
     "entities": [
       {
         "tableName": "products_table",
@@ -67,6 +67,71 @@
         "foreignKeys": []
       },
       {
+        "tableName": "photo_fetch_infos",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`photo_id` TEXT NOT NULL, `photo_type` TEXT NOT NULL, `latest_fetch_timestamp` TEXT, PRIMARY KEY(`photo_id`, `photo_type`))",
+        "fields": [
+          {
+            "fieldPath": "photoId",
+            "columnName": "photo_id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "photoType",
+            "columnName": "photo_type",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "latestFetchTimeStamp",
+            "columnName": "latest_fetch_timestamp",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "photo_id",
+            "photo_type"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "s3_transfer",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`photo_id` TEXT NOT NULL, `added_at` TEXT, `status` TEXT NOT NULL, PRIMARY KEY(`photo_id`))",
+        "fields": [
+          {
+            "fieldPath": "photoId",
+            "columnName": "photo_id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "addedAt",
+            "columnName": "added_at",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "status",
+            "columnName": "status",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "photo_id"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
         "tableName": "movement",
         "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`movement_id` TEXT NOT NULL, `product_id` TEXT NOT NULL, `movement_quantity` INTEGER NOT NULL, `movement_p_achat` INTEGER NOT NULL, `movement_p_vente` INTEGER NOT NULL, `movement_date` TEXT NOT NULL, `movement_status` TEXT NOT NULL, PRIMARY KEY(`movement_id`))",
         "fields": [
@@ -124,7 +189,7 @@
       },
       {
         "tableName": "credit",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `person_name` TEXT NOT NULL, `description` TEXT NOT NULL, `amount` INTEGER NOT NULL, `date` TEXT NOT NULL, `telephone` TEXT NOT NULL, PRIMARY KEY(`id`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `person_name` TEXT NOT NULL, `description` TEXT, `amount` INTEGER NOT NULL, `date` TEXT NOT NULL, `telephone` TEXT, PRIMARY KEY(`id`))",
         "fields": [
           {
             "fieldPath": "id",
@@ -142,7 +207,7 @@
             "fieldPath": "description",
             "columnName": "description",
             "affinity": "TEXT",
-            "notNull": true
+            "notNull": false
           },
           {
             "fieldPath": "amount",
@@ -160,7 +225,7 @@
             "fieldPath": "telephone",
             "columnName": "telephone",
             "affinity": "TEXT",
-            "notNull": true
+            "notNull": false
           }
         ],
         "primaryKey": {
@@ -174,7 +239,7 @@
       },
       {
         "tableName": "depense",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `description` TEXT NOT NULL, `amount` INTEGER NOT NULL, `date` TEXT NOT NULL, PRIMARY KEY(`id`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `description` TEXT, `amount` INTEGER NOT NULL, `date` TEXT NOT NULL, PRIMARY KEY(`id`))",
         "fields": [
           {
             "fieldPath": "id",
@@ -186,7 +251,7 @@
             "fieldPath": "description",
             "columnName": "description",
             "affinity": "TEXT",
-            "notNull": true
+            "notNull": false
           },
           {
             "fieldPath": "amount",
@@ -212,7 +277,7 @@
       },
       {
         "tableName": "client",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `person_name` TEXT NOT NULL, `description` TEXT NOT NULL, `date` TEXT NOT NULL, `telephone` TEXT NOT NULL, PRIMARY KEY(`id`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `person_name` TEXT NOT NULL, `description` TEXT, `date` TEXT NOT NULL, `telephone` TEXT, PRIMARY KEY(`id`))",
         "fields": [
           {
             "fieldPath": "id",
@@ -230,7 +295,7 @@
             "fieldPath": "description",
             "columnName": "description",
             "affinity": "TEXT",
-            "notNull": true
+            "notNull": false
           },
           {
             "fieldPath": "date",
@@ -242,7 +307,7 @@
             "fieldPath": "telephone",
             "columnName": "telephone",
             "affinity": "TEXT",
-            "notNull": true
+            "notNull": false
           }
         ],
         "primaryKey": {
@@ -256,7 +321,7 @@
       },
       {
         "tableName": "fournisseur",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `person_name` TEXT NOT NULL, `description` TEXT NOT NULL, `date` TEXT NOT NULL, `telephone` TEXT NOT NULL, PRIMARY KEY(`id`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `person_name` TEXT NOT NULL, `description` TEXT, `date` TEXT NOT NULL, `telephone` TEXT, PRIMARY KEY(`id`))",
         "fields": [
           {
             "fieldPath": "id",
@@ -274,7 +339,7 @@
             "fieldPath": "description",
             "columnName": "description",
             "affinity": "TEXT",
-            "notNull": true
+            "notNull": false
           },
           {
             "fieldPath": "date",
@@ -286,7 +351,7 @@
             "fieldPath": "telephone",
             "columnName": "telephone",
             "affinity": "TEXT",
-            "notNull": true
+            "notNull": false
           }
         ],
         "primaryKey": {
@@ -340,16 +405,16 @@
     "views": [
       {
         "viewName": "product_movement",
-        "createSql": "CREATE VIEW `${VIEW_NAME}` AS select p.id,p.resourceId,p.name,p.description,p.quantity,p.p_vente,p.p_achat , m.movement_id,m.product_id,m.movement_quantity,m.movement_date,m.movement_status,m.movement_p_vente,m.movement_p_achat from products_table p inner join movement m on p.id = m.product_id  order by m.movement_date desc"
+        "createSql": "CREATE VIEW `${VIEW_NAME}` AS select p.id,p.resourceId,p.name,p.description,p.quantity,p.p_vente,p.p_achat,p_date , m.movement_id,m.product_id,m.movement_quantity,m.movement_date,m.movement_status,m.movement_p_vente,m.movement_p_achat from products_table p inner join movement m on p.id = m.product_id  order by m.movement_date desc"
       },
       {
         "viewName": "rapport",
-        "createSql": "CREATE VIEW `${VIEW_NAME}` AS select date_only as date, sum(movement_p_vente) as total_vente from (select *, substr(movement_date, 1, 10)  as date_only  from movement) group by date_only"
+        "createSql": "CREATE VIEW `${VIEW_NAME}` AS select date_only as date, sum(movement_p_vente * movement_quantity ) as total_vente from (select *, substr(movement_date, 1, 10)  as date_only  from movement where movement_status = 'Exit') group by date_only"
       }
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '224632ba1cab2d86f15a40f4a009e45e')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '549a55d6f31eb1c0dee043e836801011')"
     ]
   }
 }

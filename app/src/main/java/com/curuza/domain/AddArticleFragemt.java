@@ -18,6 +18,7 @@ import com.curuza.R;
 import com.curuza.data.movements.Movement;
 import com.curuza.data.movements.MovementRepository;
 import com.curuza.data.movements.MovementStatus;
+import com.curuza.data.photos.PhotoRepository;
 import com.curuza.data.stock.Product;
 import com.curuza.data.stock.ProductRepository;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
@@ -44,6 +45,7 @@ public class AddArticleFragemt extends BottomSheetDialogFragment  {
     ProductsAdapter.OnItemListener mOnitemListener;
     ProductRepository mProductRepository;
     MovementRepository mMovementRepository;
+    PhotoRepository mPhotoRepository;
     Product mProduct;
     Movement mMovement;
     public static void showDialog(FragmentManager fragmentManager) {
@@ -72,7 +74,8 @@ public class AddArticleFragemt extends BottomSheetDialogFragment  {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         mProductRepository = new ProductRepository(getContext());
         mMovementRepository = new MovementRepository(getContext());
-        product_image.setImageURI(mProduct.getProductImageUri());
+        mPhotoRepository = new PhotoRepository(getContext());
+        product_image.setImageURI(mPhotoRepository.getProductPhotoUri(mProduct.getId()));
         mName.setText(mProduct.getName());
     }
 

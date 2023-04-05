@@ -12,11 +12,11 @@
         android:layout_width="45dp"
         android:layout_height="45dp"
         android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
         android:src="@drawable/ic_baseline_shopping_basket_green"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="TODO" />
 
     <TextView
         android:id="@+id/quantity"
@@ -38,12 +38,11 @@
         android:id="@+id/name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
+        android:layout_marginStart="16dp"
         android:ellipsize="end"
         android:fontFamily="@font/montserrat_bold"
         android:singleLine="true"
-        android:textColor="@color/colorPrimary"
+        android:textColor="#009688"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="@+id/img_product"
         app:layout_constraintEnd_toStartOf="@+id/quantity"

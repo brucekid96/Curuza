@@ -62,5 +62,6 @@
     <string name="French">Igifaransa</string>
     <string name="swahili">Igiswahili</string>
     <string name="list_product" translatable="false">Urutonde rw\'ibicuruzwa</string>
+    <string name="about_text">Curuza ni porogaramu igufasha gukurikirana no gutunganya ibicuruzwa vyawe vyoroshye.</string>
 
 </resources>

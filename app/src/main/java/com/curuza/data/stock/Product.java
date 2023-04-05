@@ -127,6 +127,7 @@ public class Product implements Parcelable {
                 + "["
                 + "mId="
                 + mId.toString()
+                + ","
                 +"mEventImageUri="
                 + (mProductImageUri == null ? "null" : mProductImageUri.toString())
                 + ","

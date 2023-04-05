@@ -77,7 +77,7 @@ public class SellArticleFragment extends BottomSheetDialogFragment {
         int P_Vente = (mProduct.getPVente());
         mProductRepository = new ProductRepository(getContext());
         mMovementRepository = new MovementRepository(getContext());
-        product_image.setImageURI(mProduct.getProductImageUri());
+       // product_image.setImageURI(mProduct.getProductImageUri());
         mName.setText(mProduct.getName());
         mQuantity.addTextChangedListener(
                 new TextWatcher() {

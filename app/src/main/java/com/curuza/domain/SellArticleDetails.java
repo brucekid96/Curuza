@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
@@ -59,8 +58,8 @@ public class SellArticleDetails  extends BaseActivity {
 
         int P_Vente = (produit.getPVente());
 
-        mArticleImageView = findViewById(R.id.image_content);
-        mArticleImageView.setImageURI(produit.getProductImageUri());
+       /* mArticleImageView = findViewById(R.id.image_content);
+        mArticleImageView.setImageURI(produit.getProductImageUri());*/
         mName = findViewById(R.id.nom_stock);
         mName.getEditText().setText(produit.getName());
         mQuantity = findViewById(R.id.add_quantity_stock);
@@ -88,43 +87,40 @@ public class SellArticleDetails  extends BaseActivity {
         mAmount = findViewById(R.id.name_textview_error);
         mValidate = findViewById(R.id.credit_validate);
 
-        mValidate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-            if(areInputsValid()&&produit.getQuantity()>= Integer.parseInt(mQuantity.getEditText().getText().toString())){
+        mValidate.setOnClickListener(v -> {
+        if(areInputsValid()&&produit.getQuantity()>= Integer.parseInt(mQuantity.getEditText().getText().toString())){
 
-                int inputQuantity = Integer.parseInt(mQuantity.getEditText().getText().toString());
-                produit.setQuantity(produit.getQuantity() - inputQuantity);
+            int inputQuantity = Integer.parseInt(mQuantity.getEditText().getText().toString());
+            produit.setQuantity(produit.getQuantity() - inputQuantity);
 
-                Movement movement = new Movement(
-                        UUID.randomUUID().toString(),
-                        produit.getId(),
-                        inputQuantity,
-                        produit.getPAchat(),
-                        produit.getPVente(),
-                        ZonedDateTime.now().toInstant().toString(),
-                        MovementStatus.Exit
-                );
+            Movement movement = new Movement(
+                    UUID.randomUUID().toString(),
+                    produit.getId(),
+                    inputQuantity,
+                    produit.getPAchat(),
+                    produit.getPVente(),
+                    ZonedDateTime.now().toInstant().toString(),
+                    MovementStatus.Exit
+            );
 
-                mProductRepository.update(produit)
-                    .subscribeOn(Schedulers.io())
-                    .subscribeOn(AndroidSchedulers.mainThread())
-                    .subscribe(() -> {
-                    }, e -> {
-                    });
-                mMovementRepository.insert(movement)
-                    .subscribeOn(Schedulers.io())
-                    .subscribeOn(AndroidSchedulers.mainThread())
-                    .subscribe(() -> {
-                    }, e -> {
-                    });
+            mProductRepository.update(produit)
+                .subscribeOn(Schedulers.io())
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .subscribe(() -> {
+                }, e -> {
+                });
+            mMovementRepository.insert(movement)
+                .subscribeOn(Schedulers.io())
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .subscribe(() -> {
+                }, e -> {
+                });
 
-            }
+        }
 
-                Intent intent = new Intent(SellArticleDetails.this, SellArticleActivity.class);
-                startActivity(intent);
+            Intent intent1 = new Intent(SellArticleDetails.this, SellArticleActivity.class);
+            startActivity(intent1);
 
-            }
         });
 
 

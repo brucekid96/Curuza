@@ -219,10 +219,6 @@ public class StockActivity extends BaseActivity implements NavigationView.OnNavi
             Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
             i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(i);
-        } else if (id == R.id.nav_subscription) {
-            startActivity(new Intent( StockActivity.this,SubscriptionsActivity.class));
-        } else if (id == R.id.nav_help) {
-            startActivity(new Intent( StockActivity.this,HelpActivity.class));
         }  else if (id == R.id.nav_share) {
             startActivity(new Intent( StockActivity.this,ShareApp.class));
         }

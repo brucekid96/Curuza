@@ -101,4 +101,5 @@
     <string name="list_product" translatable="false">Kuuza nje kwenye Excel</string>
     <string name="share_list_product">Shiriki</string>
     <string name="export_vers_excel">Kuuza nje kwenye Excel</string>
+    <string name="about_text">Curuza ni programu inayokusaidia kudhibiti na kupanga bidhaa zako kwa urahisi.</string>
 </resources>

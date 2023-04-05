@@ -54,8 +54,8 @@ public class StockDetail extends BaseActivity {
 
         Intent intent = getIntent();
         produit = intent.getParcelableExtra(Product.PRODUCT_EXTRA);
-        mProductImageURI = produit.getProductImageUri();
-        Log.d(StockDetail.class.getSimpleName(), "Retrieved credit: " + produit);
+        mProductImageURI = null/*produit.getProductImageUri()*/;
+        Log.d(StockDetail.class.getSimpleName(), "Retrieved produit: " + produit);
 
         Toolbar toolbar = findViewById (R.id.toolbar_detail_article);
         setSupportActionBar(toolbar);
@@ -64,10 +64,10 @@ public class StockDetail extends BaseActivity {
 
         mProductRepository = new ProductRepository(this);
 
-        mArticleImageView = findViewById(R.id.image_content);
-        mCameraIconView = findViewById(R.id.iconview);
-        mArticleImageView.setImageURI(produit.getProductImageUri());
-        mCameraIconView.setVisibility(View.INVISIBLE);
+        //mArticleImageView = findViewById(R.id.image_content);
+       // mCameraIconView = findViewById(R.id.iconview);
+       // mArticleImageView.setImageURI(produit.getProductImageUri());
+      //  mCameraIconView.setVisibility(View.INVISIBLE);
         mName = findViewById(R.id.nom_stock);
         mName.getEditText().setText(produit.getName());
         mDescription = findViewById(R.id.description_stock);
@@ -78,8 +78,8 @@ public class StockDetail extends BaseActivity {
         mPxAchat.getEditText().setText(Integer.toString(produit.getPAchat()));
         mPxVente = findViewById(R.id.p_vente_stock);
         mPxVente.getEditText().setText(Integer.toString(produit.getPVente()));
-        mUploadImageButton = findViewById(R.id.uploadbutton);
-        mUploadImageButton.setOnClickListener(v -> choosePhotoFromGallary());
+        /*mUploadImageButton = findViewById(R.id.uploadbutton);
+        mUploadImageButton.setOnClickListener(v -> choosePhotoFromGallary());*/
         mFab = findViewById(R.id.floatingActionButton);
         mFab.setOnClickListener(v -> {
             mDate = ZonedDateTime.now().toInstant().toString();
@@ -123,13 +123,15 @@ public class StockDetail extends BaseActivity {
             return;
         }
 
-        if (requestCode == GALLERY_REQUEST_CODE && data != null) {
+        if (requestCode == ImagePicker.REQUEST_CODE && data != null) {
 
             mProductImageURI = data.getData();
 
             Glide.with(this)
                     .load(mProductImageURI)
-                    .into(mArticleImageView);
+                   .into(mArticleImageView);
+
+            Log.d(StockDetail.class.getSimpleName(),"verifie Uri" + mProductImageURI);
 
             mCameraIconView.setVisibility(View.INVISIBLE);
 

@@ -18,12 +18,12 @@ public class Client implements Parcelable {
     @NonNull
     @ColumnInfo(name = "person_name")
     private String personName;
-    @NonNull
+
     @ColumnInfo(name = "description")
     private String description;
     @NonNull
     private String date;
-    @NonNull
+
     private String telephone;
 
     public Client( String id,  String personName, String description,  String date,  String telephone) {

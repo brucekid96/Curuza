@@ -31,7 +31,7 @@
                 android:layout_height="64dp"
                 android:layout_marginTop="72dp"
                 android:scaleType="centerCrop"
-                android:src="@drawable/bestii"
+                android:src="@drawable/ic_baseline_person_green_id"
                 android:gravity="center"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -45,7 +45,7 @@
                 android:fontFamily="sans-serif-black"
                 android:gravity="center"
                 android:includeFontPadding="true"
-                android:text="Welcome KAZE !"
+                android:text="Welcome !"
                 android:textColor="@color/black"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -396,10 +396,10 @@
                     android:layout_height="56dp">
 
                     <ImageView
-                        android:id="@+id/help_icon"
+                        android:id="@+id/client_icon"
                         android:layout_width="65dp"
                         android:layout_height="25dp"
-                        android:src="@drawable/ic_baseline_help_24"
+                        android:src="@drawable/ic_client_white"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"

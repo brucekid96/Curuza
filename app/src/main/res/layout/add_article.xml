@@ -55,7 +55,7 @@
                 android:id="@+id/textView4"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="32dp"
                 android:text="@string/nom"
                 android:textColor="@color/colorPrimary"
                 android:textSize="18sp"
@@ -63,7 +63,7 @@
                 app:layout_constraintEnd_toStartOf="@+id/guideline2"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="@+id/guideline"
-                app:layout_constraintTop_toBottomOf="@+id/uploadbutton" />
+                app:layout_constraintTop_toBottomOf="@+id/parent" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/nom_stock"
@@ -128,7 +128,7 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
-            <androidx.appcompat.widget.AppCompatButton
+            <!--<androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/uploadbutton"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -141,8 +141,8 @@
                 app:drawableRightCompat="@drawable/upload_white"
                 app:layout_constraintEnd_toStartOf="@+id/guideline2"
                 app:layout_constraintStart_toStartOf="@+id/guideline"
-                app:layout_constraintTop_toBottomOf="@+id/image_constraint" />
-<androidx.constraintlayout.widget.ConstraintLayout
+                app:layout_constraintTop_toBottomOf="@+id/image_constraint" />-->
+ <!--<androidx.constraintlayout.widget.ConstraintLayout
     android:id="@+id/image_constraint"
     android:layout_width="match_parent"
     android:layout_height="0dp"
@@ -173,7 +173,7 @@
         app:layout_constraintEnd_toEndOf="@+id/image_content"
         app:layout_constraintStart_toStartOf="@+id/image_content"
         app:layout_constraintTop_toTopOf="@+id/image_content" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>-->
 
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -210,16 +210,17 @@
                 app:layout_constraintStart_toStartOf="@+id/guideline"
                 app:layout_constraintTop_toBottomOf="@+id/description_stock" />
 
-            <TextView
+           <!-- <TextView
                 android:id="@+id/EventImageUriErrorTextview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
                 android:text="@string/invalid_picture"
                 android:textColor="@color/colorPrimary"
                 android:visibility="invisible"
                 app:drawableLeftCompat="@drawable/ic_report_black_24dp"
                 app:layout_constraintStart_toStartOf="@+id/guideline"
-                app:layout_constraintTop_toBottomOf="@+id/uploadbutton" />
+                app:layout_constraintTop_toBottomOf="@+id/uploadbutton" />-->
 
             <TextView
                 android:id="@+id/textView6"

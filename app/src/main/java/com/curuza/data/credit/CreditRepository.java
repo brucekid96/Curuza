@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.curuza.data.MainDatabase;
 import com.curuza.data.remote.AmplifyAPI;
+import com.curuza.data.remote.AppSyncApi;
 
 import java.util.List;
 
@@ -34,7 +35,7 @@ public class CreditRepository {
 
     public Completable insert(Credit credit) {
        return db.creditDao().insert(credit)
-           .andThen(AmplifyAPI.addCredit(credit));
+           .andThen(AppSyncApi.addCredit(credit));
     }
 
     public Completable delete(Credit credit)  {
@@ -43,7 +44,8 @@ public class CreditRepository {
     }
 
     public Completable update(Credit credit)  {
-        return db.creditDao().update(credit);
+        return db.creditDao().update(credit)
+            .andThen(AppSyncApi.updateCredit(credit));
     }
 
     public Completable syncCredits() {

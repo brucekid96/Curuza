@@ -13,6 +13,7 @@
     <string name="article_detail">Article Detail</string>
     <string name="client_detail">Customer Detail</string>
     <string name="sell_article_detail">Client Detail</string>
+    <string name="uploading_product_photo">Uploading product photo...</string>
     <string name="depense_detail">Expenses Detail</string>
     <string name="add_client">Add Customer</string>
     <string name="add_fournisseur">Add Supplier</string>
@@ -100,4 +101,15 @@
     <string name="list_product" translatable="false">Exporter vers Excel</string>
     <string name="share_list_product">Share</string>
     <string name="export_vers_excel">export vers excel</string>
+    <string name="edit_photo">Edit Photo</string>
+    <string name="open_gallery_first_line">Open</string>
+    <string name="open_gallery_second_line">gallery</string>
+    <string name="remove_photo_first_line">Remove</string>
+    <string name="remove_photo_second_line">photo</string>
+    <string name="take_photo_first_line">Take</string>
+    <string name="take_photo_second_line">photo</string>
+    <string name="uploading_profile_photo">Uploading Profile Picture</string>
+    <string name="removing_profile_photo">Removing Profile Picture</string>
+    <string name="copyright_line">&#169; 2023 Kaze Technologies sprl</string>
+    <string name="about_text">Curuza is the App that  help you to manage your business, made by Burundians, for Burundians. \n\nOur vision is to help  businesses owner to manage their business, with a new modern and easy way to track their products.</string>
 </resources>

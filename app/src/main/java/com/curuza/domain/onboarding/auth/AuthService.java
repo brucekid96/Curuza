@@ -25,7 +25,7 @@ import io.reactivex.Single;
 public class AuthService {
 
     private static final String DBG_TAG = AuthService.class.getSimpleName();
-    private static final String VALID_PHONE_NUMBER_REGEX = "\\+257(71|72|76|79|75|61|68|69)[0-9]{6}";
+    private static final String VALID_PHONE_NUMBER_REGEX = "\\+257(71|72|76|79|75|61|68|69|77)[0-9]{6}";
     private static final String VALID_PASSWORD_REGEX = "[A-Za-z0-9^$*.?\"!@#%&,':;_~`]{6,99}";
     private static final String VALID_NAME_REGEX = "[A-zÀ-ú\\-]+( [A-zÀ-ú\\-]+)?";
 

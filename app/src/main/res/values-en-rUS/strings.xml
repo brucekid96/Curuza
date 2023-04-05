@@ -65,5 +65,6 @@
     <string name="French">French</string>
     <string name="swahili">Swahili</string>
     <string name="list_product" translatable="false">List of Products</string>
+    <string name="about_text">Curuza is an App that help you to manage and organize your products with ease.</string>
 
 </resources>

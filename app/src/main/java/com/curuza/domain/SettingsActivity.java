@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AlertDialog;
@@ -13,14 +14,20 @@ import androidx.cardview.widget.CardView;
 
 import com.curuza.R;
 import com.curuza.domain.common.BaseActivity;
+import com.curuza.domain.common.EditPhotoFragment;
 
 import java.util.Locale;
 
-public class SettingsActivity extends BaseActivity {
+public class SettingsActivity extends BaseActivity  {
+
+
     private CardView language_card;
     private TextView language;
+    private ImageView mProfilePhotoView;
 
-
+    private EditPhotoFragment mEditProfilePhotoFragment;
+    private AlertDialog mUploadPhotoProgressDialog;
+    private AlertDialog mRemovePhotoProgressDialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,7 +48,10 @@ public class SettingsActivity extends BaseActivity {
             }
         });
 
+
+
     }
+
 
     private void showChangeLangageDialog() {
         final String[] listItems = {"French","Kirundi","English","Swahili"};

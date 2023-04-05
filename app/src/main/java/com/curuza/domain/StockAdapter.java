@@ -13,14 +13,11 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
 import com.curuza.R;
 import com.curuza.data.photos.PhotoRepository;
-import com.curuza.data.photos.PhotoType;
 import com.curuza.data.stock.Product;
 import com.curuza.data.stock.ProductRepository;
 
-import java.io.File;
 import java.util.List;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -123,23 +120,25 @@ public class StockAdapter extends RecyclerView.Adapter<StockAdapter.ViewHolder> 
             tvName.setText(product.getName());
             tvQuantity.setText(String.valueOf(product.getQuantity()));
             displayCoverThumbnail(product.getId());
-            mPhotoRepository.fetchPhotoUpstream(product.getId(), PhotoType.PRODUCT_THUMBNAIL)
+           /* mPhotoRepository.fetchPhotoUpstream(product.getId(), PhotoType.PRODUCT_THUMBNAIL)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(() -> displayCoverThumbnail(product.getId()));
+                .subscribe(() -> displayCoverThumbnail(product.getId()));*/
         }
 
         private void displayCoverThumbnail(String productId) {
-            File thumbnailFile =
-                new File(mPhotoRepository.getProductPhotoUri(productId).getPath());
 
-            if(thumbnailFile.exists()) {
-                Glide.with(mContext)
+            imgProduct.setImageResource(R.drawable.ic_baseline_shopping_basket_green);
+            /*File thumbnailFile =
+                new File(mPhotoRepository.getProductThumbnailUri(productId).getPath());*/
+
+           /* if(thumbnailFile.exists()) {
+                *//*Glide.with(mContext)
                     .load(thumbnailFile)
-                    .into(imgProduct);
+                    .into(imgProduct);*//*
             } else {
                 imgProduct.setImageResource(R.drawable.ic_baseline_shopping_basket_green);
-            }
+            }*/
         }
 
         public ViewHolder(@NonNull View itemView) {

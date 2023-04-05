@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.curuza.data.MainDatabase;
 import com.curuza.data.remote.AmplifyAPI;
+import com.curuza.data.remote.AppSyncApi;
 
 import java.util.List;
 
@@ -33,7 +34,7 @@ public class ClientRepository {
 
     public Completable insert(Client client) {
         return db.clientDao().insert(client)
-            .andThen(AmplifyAPI.addClient(client));
+            .andThen(AppSyncApi.addClient(client));
     }
 
     public Completable delete(Client client)  {
@@ -42,7 +43,8 @@ public class ClientRepository {
     }
 
     public Completable update(Client client)  {
-        return db.clientDao().update(client);
+        return db.clientDao().update(client)
+            .andThen(AppSyncApi.updateClient(client));
     }
 
     public Completable syncClients() {

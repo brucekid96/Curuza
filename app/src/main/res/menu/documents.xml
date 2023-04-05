@@ -31,11 +31,11 @@
         android:icon="@drawable/ic_baseline_share_modifie"
         android:title="@string/share_list_product"
         app:showAsAction="never" />
-    <item
+<!--    <item
         android:id="@+id/list_product"
         android:icon="@drawable/ic_baseline_more_vert_24"
         android:title="aide"
-        app:showAsAction="never" />
+        app:showAsAction="never" />-->
 
 
 </menu>

@@ -6,6 +6,7 @@ import androidx.lifecycle.LiveData;
 
 import com.curuza.data.MainDatabase;
 import com.curuza.data.remote.AmplifyAPI;
+import com.curuza.data.remote.AppSyncApi;
 import com.curuza.data.view.ProductMovement;
 import com.curuza.data.view.Rapport;
 
@@ -56,7 +57,7 @@ public class MovementRepository {
 
     public Completable insert(Movement movement) {
         return db.movementDao().insert(movement)
-            .andThen(AmplifyAPI.addMovement(movement));
+            .andThen(AppSyncApi.addMovement(movement));
     }
 
     public Completable delete(Movement movement)  {

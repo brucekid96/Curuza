@@ -6,16 +6,37 @@
         <entry key="../../../layout/custom_preview.xml" value="0.221875" />
         <entry key="app/src/main/res/drawable-v24/add_profile_picture_bg.xml" value="0.168" />
         <entry key="app/src/main/res/drawable-v24/add_profile_picture_pressed_bg.xml" value="0.168" />
+        <entry key="app/src/main/res/drawable-v24/fundraiser_cover_photo_option_bg.xml" value="0.157" />
+        <entry key="app/src/main/res/drawable-v24/ic_photo_camera_2_24dp.xml" value="0.157" />
+        <entry key="app/src/main/res/drawable-v24/ic_trash_can_24dp.xml" value="0.157" />
         <entry key="app/src/main/res/drawable/bottom_sheet_background.xml" value="0.168" />
+        <entry key="app/src/main/res/drawable/cercle_background_black.xml" value="0.2015" />
+        <entry key="app/src/main/res/drawable/cercle_background_purple.xml" value="0.2015" />
+        <entry key="app/src/main/res/drawable/cercle_background_red.xml" value="0.2015" />
         <entry key="app/src/main/res/drawable/fab_label.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_baseline_add.xml" value="0.168" />
         <entry key="app/src/main/res/drawable/ic_baseline_add_24.xml" value="0.168" />
         <entry key="app/src/main/res/drawable/ic_baseline_arrow_back_24.xml" value="0.1455" />
         <entry key="app/src/main/res/drawable/ic_baseline_home_24.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/ic_baseline_person_green.xml" value="0.2015" />
+        <entry key="app/src/main/res/drawable/ic_baseline_person_green_id.xml" value="0.2015" />
+        <entry key="app/src/main/res/drawable/ic_baseline_settings_24.xml" value="0.2015" />
+        <entry key="app/src/main/res/drawable/ic_client.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/ic_client_white.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_open_box.xml" value="0.115" />
+        <entry key="app/src/main/res/drawable/ic_profile_user.xml" value="0.2015" />
+        <entry key="app/src/main/res/drawable/profile_pict_big.xml" value="0.2015" />
+        <entry key="app/src/main/res/drawable/profile_picture_selector.xml" value="0.2015" />
+        <entry key="app/src/main/res/drawable/wallet_id_bg.xml" value="0.1865" />
+        <entry key="app/src/main/res/layout/about_app_fragment.xml" value="0.178125" />
+        <entry key="app/src/main/res/layout/account_management_item.xml" value="0.1411229135053111" />
         <entry key="app/src/main/res/layout/account_settings.xml" value="0.19375" />
-        <entry key="app/src/main/res/layout/activity_identification.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/accounts_management_bottom_sheet.xml" value="0.1411229135053111" />
+        <entry key="app/src/main/res/layout/activity_identification.xml" value="0.22" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_profile.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/activity_verification_number.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/activity_verification_number2.xml" value="0.25" />
         <entry key="app/src/main/res/layout/add_article.xml" value="0.19375" />
         <entry key="app/src/main/res/layout/add_client.xml" value="0.19375" />
         <entry key="app/src/main/res/layout/add_credit.xml" value="0.19375" />
@@ -33,44 +54,53 @@
         <entry key="app/src/main/res/layout/change_language_dialog.xml" value="0.22" />
         <entry key="app/src/main/res/layout/client.xml" value="0.1" />
         <entry key="app/src/main/res/layout/client_item.xml" value="0.15904232578024796" />
+        <entry key="app/src/main/res/layout/complete_registration_activity.xml" value="0.1411229135053111" />
+        <entry key="app/src/main/res/layout/content_client.xml" value="0.1411229135053111" />
         <entry key="app/src/main/res/layout/content_depense.xml" value="0.10280797101449275" />
         <entry key="app/src/main/res/layout/content_help.xml" value="0.1411229135053111" />
-        <entry key="app/src/main/res/layout/content_home.xml" value="0.2" />
+        <entry key="app/src/main/res/layout/content_home.xml" value="0.22" />
         <entry key="app/src/main/res/layout/content_products.xml" value="0.19375" />
         <entry key="app/src/main/res/layout/content_rapport.xml" value="0.19375" />
         <entry key="app/src/main/res/layout/content_rapport_overview.xml" value="0.19375" />
         <entry key="app/src/main/res/layout/content_settings.xml" value="0.19375" />
         <entry key="app/src/main/res/layout/credit.xml" value="0.19375" />
         <entry key="app/src/main/res/layout/credit_detail.xml" value="0.19375" />
+        <entry key="app/src/main/res/layout/credit_item.xml" value="0.1411229135053111" />
+        <entry key="app/src/main/res/layout/depense.xml" value="0.1411229135053111" />
         <entry key="app/src/main/res/layout/depense_detail.xml" value="0.19375" />
         <entry key="app/src/main/res/layout/documents.xml" value="0.19375" />
+        <entry key="app/src/main/res/layout/edit_photo_fragment.xml" value="0.1411229135053111" />
         <entry key="app/src/main/res/layout/enter_movement_detail.xml" value="0.19375" />
+        <entry key="app/src/main/res/layout/entree_item.xml" value="0.1411229135053111" />
         <entry key="app/src/main/res/layout/fournisseur_detail.xml" value="0.19375" />
         <entry key="app/src/main/res/layout/fragment_enter_products.xml" value="0.19375" />
         <entry key="app/src/main/res/layout/help.xml" value="0.19375" />
+        <entry key="app/src/main/res/layout/item_products.xml" value="0.1411229135053111" />
         <entry key="app/src/main/res/layout/nav_header_documents.xml" value="0.19375" />
         <entry key="app/src/main/res/layout/nav_header_home.xml" value="0.17119565217391305" />
         <entry key="app/src/main/res/layout/nav_header_products.xml" value="0.19375" />
         <entry key="app/src/main/res/layout/nav_header_rapport.xml" value="0.19375" />
         <entry key="app/src/main/res/layout/products.xml" value="0.12273550724637682" />
+        <entry key="app/src/main/res/layout/profile_photo_view.xml" value="0.1411229135053111" />
         <entry key="app/src/main/res/layout/rapport.xml" value="0.19375" />
         <entry key="app/src/main/res/layout/rapport_item.xml" value="0.19375" />
         <entry key="app/src/main/res/layout/rapports_cards.xml" value="0.19375" />
         <entry key="app/src/main/res/layout/sell_article_details.xml" value="0.19375" />
         <entry key="app/src/main/res/layout/sell_bottom_sheet_dialg.xml" value="0.19375" />
-        <entry key="app/src/main/res/layout/sell_movement_detail.xml" value="0.19375" />
+        <entry key="app/src/main/res/layout/sell_movement_detail.xml" value="0.12" />
         <entry key="app/src/main/res/layout/settings.xml" value="0.19375" />
         <entry key="app/src/main/res/layout/stock.xml" value="0.19375" />
         <entry key="app/src/main/res/layout/stock_detail.xml" value="0.19375" />
+        <entry key="app/src/main/res/layout/stock_item.xml" value="0.1411229135053111" />
         <entry key="app/src/main/res/menu/activity_home_drawer.xml" value="0.19375" />
-        <entry key="app/src/main/res/menu/client.xml" value="0.19375" />
-        <entry key="app/src/main/res/menu/credit.xml" value="0.19375" />
-        <entry key="app/src/main/res/menu/depense.xml" value="0.19375" />
-        <entry key="app/src/main/res/menu/documents.xml" value="0.19375" />
-        <entry key="app/src/main/res/menu/fournisseur.xml" value="0.19375" />
+        <entry key="app/src/main/res/menu/client.xml" value="0.1" />
+        <entry key="app/src/main/res/menu/credit.xml" value="0.1" />
+        <entry key="app/src/main/res/menu/depense.xml" value="0.1" />
+        <entry key="app/src/main/res/menu/documents.xml" value="0.1" />
+        <entry key="app/src/main/res/menu/fournisseur.xml" value="0.1" />
         <entry key="app/src/main/res/menu/main.xml" value="0.19375" />
         <entry key="app/src/main/res/menu/product.xml" value="0.22" />
-        <entry key="app/src/main/res/menu/stock.xml" value="0.19375" />
+        <entry key="app/src/main/res/menu/stock.xml" value="0.1" />
         <entry key="app/src/main/res/xml/prefer.xml" value="0.19375" />
       </map>
     </option>

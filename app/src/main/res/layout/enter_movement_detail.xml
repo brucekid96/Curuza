@@ -16,7 +16,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:title="Modifier un article"
+        app:title="Document Details"
         app:titleTextAppearance="@style/Curuza_TextAppearance_Toolbar"
         app:titleTextColor="@android:color/white" />
 
@@ -25,16 +25,14 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:fillViewport="true"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar_detail_article"
-        app:layout_constraintVertical_bias="0.0"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_enter_movement_detail"
         tools:layout_editor_absoluteX="-90dp">
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/scrollview_container"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent">
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/guideline"
@@ -62,7 +60,7 @@
                 app:layout_constraintEnd_toStartOf="@+id/guideline2"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="@+id/guideline"
-                app:layout_constraintTop_toBottomOf="@+id/enter_movement_detail_constraint" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/nom_enter"
@@ -126,7 +124,7 @@
 
 
             </com.google.android.material.textfield.TextInputLayout>
-        <androidx.constraintlayout.widget.ConstraintLayout
+            <!--<androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/enter_movement_detail_constraint"
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -157,8 +155,7 @@
                 app:layout_constraintEnd_toEndOf="@+id/image_content"
                 app:layout_constraintStart_toStartOf="@+id/image_content"
                 app:layout_constraintTop_toTopOf="@+id/image_content"/>
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
+        </androidx.constraintlayout.widget.ConstraintLayout>-->
 
 
             <TextView

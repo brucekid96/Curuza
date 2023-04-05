@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.curuza.data.MainDatabase;
 import com.curuza.data.remote.AmplifyAPI;
+import com.curuza.data.remote.AppSyncApi;
 
 import java.util.List;
 
@@ -33,8 +34,10 @@ public  class ProductRepository {
 
     public Completable insert(Product product) {
         return db.productDao().insert(product)
-            .andThen(AmplifyAPI.addProduct(product));
+            .andThen(AppSyncApi.addProduct(product));
     }
+
+
 
     public Completable delete(Product product)  {
         return db.productDao().delete(product)
@@ -42,7 +45,8 @@ public  class ProductRepository {
     }
 
     public Completable update(Product product)  {
-       return db.productDao().update(product);
+       return db.productDao().update(product)
+           .andThen(AppSyncApi.updateProduct(product));
     }
 
   public Completable syncProducts() {

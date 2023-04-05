@@ -104,12 +104,10 @@
         fab2.setOnClickListener(v -> startActivity(new Intent(ProductsActivity.this, AddArticle.class)));
 
 
-        productsAdapter = new ProductsAdapter(getListProduct(),this,OnitemListener);
+        productsAdapter = new ProductsAdapter(this,OnitemListener);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         rcvProduct.setLayoutManager(linearLayoutManager);
-
-        productsAdapter.setData(getListProduct());
         rcvProduct.setAdapter(productsAdapter);
       mDisposable.add(
           mProductRepository.getProducts()
@@ -260,10 +258,6 @@
           Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
           i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
           startActivity(i);
-        } else if (id == R.id.nav_subscription) {
-            startActivity(new Intent( ProductsActivity.this,SubscriptionsActivity.class));
-        } else if (id == R.id.nav_help) {
-            startActivity(new Intent( ProductsActivity.this,HelpActivity.class));
         } else if (id == R.id.nav_share) {
           startActivity(new Intent( ProductsActivity.this,ShareApp.class));
         }

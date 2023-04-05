@@ -18,7 +18,7 @@ public class Depense implements Parcelable {
     @PrimaryKey
     @ColumnInfo(name = "id")
     private String id;
-    @NonNull
+
     @ColumnInfo(name = "description")
     private String description;
     @NonNull

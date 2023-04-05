@@ -134,10 +134,6 @@ public class ShareApp extends AppCompatActivity  implements NavigationView.OnNav
             Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
             i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(i);
-        } else if (id == R.id.nav_subscription) {
-            startActivity(new Intent( ShareApp.this,SubscriptionsActivity.class));
-        } else if (id == R.id.nav_help) {
-            startActivity(new Intent( ShareApp.this,HelpActivity.class));
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

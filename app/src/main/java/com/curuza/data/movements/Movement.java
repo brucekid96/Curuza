@@ -23,10 +23,10 @@ public class Movement implements Parcelable {
     @NonNull
     @ColumnInfo(name = "movement_quantity")
     private int mQuantity;
-    @NonNull
+
     @ColumnInfo(name = "movement_p_achat")
     private int mPAchat;
-    @NonNull
+
     @ColumnInfo(name = "movement_p_vente")
     private int mPVente;
     @NonNull

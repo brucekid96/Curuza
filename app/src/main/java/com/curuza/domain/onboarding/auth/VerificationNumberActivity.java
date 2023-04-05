@@ -1,10 +1,5 @@
 package com.curuza.domain.onboarding.auth;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.Group;
-
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -17,6 +12,11 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.Group;
 
 import com.curuza.R;
 import com.google.android.material.textfield.TextInputEditText;
@@ -137,6 +137,7 @@ public class VerificationNumberActivity extends AppCompatActivity {
                     .addOnCompleteListener(this, task -> {
                         if (task.isSuccessful()){
                             Log.d(DBG_TAG, "Sign-in successful",null);
+                            onVerificationSuccessful();
                         } else {
                             Log.d(DBG_TAG, "Sign-in failed: " + task.getException().toString());
                         }

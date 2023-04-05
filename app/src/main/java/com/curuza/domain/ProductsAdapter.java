@@ -19,6 +19,7 @@ import com.curuza.data.photos.PhotoType;
 import com.curuza.data.stock.Product;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -37,8 +38,8 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.Produc
     public interface OnItemListener{
         void onItemClick(int position);
     }
-    public ProductsAdapter(List<Product> mListProduct, Context mContext,OnItemListener OnitemListener) {
-        this.mListProduct = mListProduct;
+    public ProductsAdapter(Context mContext,OnItemListener OnitemListener) {
+        this.mListProduct = new ArrayList<>();
         this.mContext = mContext;
         this.mOnitemListener = OnitemListener;
         mPhotoRepository = new PhotoRepository(mContext);
@@ -103,11 +104,12 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.Produc
 
         private void displayCoverThumbnail(String productId) {
             File thumbnailFile =
-                new File(mPhotoRepository.getProductPhotoUri(productId).getPath());
+                new File(mPhotoRepository.getProductThumbnailUri(productId).getPath());
 
             if(thumbnailFile.exists()) {
                 Glide.with(mContext)
                     .load(thumbnailFile)
+                    .circleCrop()
                     .into(imgProduct);
             } else {
                 imgProduct.setImageResource(R.drawable.ic_baseline_shopping_basket_green);

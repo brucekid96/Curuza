@@ -29,9 +29,13 @@ public class DialogUtils {
         showErrorDialog(context, R.string.request_unsuccessful);
     }
 
-    public static AlertDialog getProgressDialog(Context context) {
+    public static AlertDialog getProgressDialog(Context context, int stringResId) {
         AlertDialog dialog = new AlertDialog.Builder(context).create();
         View dialogView = View.inflate(context, R.layout.progress_dialog, null);
+
+        TextView dialogText = dialogView.findViewById(R.id.dialog_text);
+        dialogText.setText(stringResId);
+
         dialog.setView(dialogView);
         dialog.setCanceledOnTouchOutside(false);
 

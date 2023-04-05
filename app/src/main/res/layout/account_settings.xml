@@ -38,7 +38,7 @@
             android:fontFamily="@font/montserrat_semi_bold"
             android:gravity="center"
             android:includeFontPadding="true"
-            android:text="Kaze Brice"
+            android:text="."
             android:textColor="@color/black" />
 
 
@@ -94,7 +94,7 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/contact_us_container"
+        android:id="@+id/about_us_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?android:selectableItemBackground"
@@ -113,7 +113,7 @@
             android:layout_marginLeft="16dp" />
 
         <TextView
-            android:id="@+id/contact_us_label"
+            android:id="@+id/about_us_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"

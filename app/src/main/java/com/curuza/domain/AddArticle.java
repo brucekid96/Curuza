@@ -3,23 +3,28 @@ package com.curuza.domain;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.Toolbar;
 
-import com.bumptech.glide.Glide;
 import com.curuza.R;
 import com.curuza.data.movements.Movement;
 import com.curuza.data.movements.MovementRepository;
 import com.curuza.data.movements.MovementStatus;
 import com.curuza.data.photos.PhotoRepository;
 import com.curuza.data.photos.PhotoType;
+import com.curuza.data.s3.S3Transfer;
+import com.curuza.data.s3.S3TransferRepository;
+import com.curuza.data.s3.S3TransferState;
 import com.curuza.data.stock.Product;
 import com.curuza.data.stock.ProductRepository;
 import com.curuza.domain.common.BaseActivity;
+import com.curuza.utils.DialogUtils;
 import com.github.dhaval2404.imagepicker.ImagePicker;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputLayout;
@@ -28,7 +33,6 @@ import org.threeten.bp.ZonedDateTime;
 
 import java.util.UUID;
 
-import io.reactivex.Completable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
@@ -52,13 +56,16 @@ public class AddArticle extends BaseActivity {
     private TextView mPVenteErrorTextview;
     private FloatingActionButton mAdd;
     private  String mDate;
+    private String productId;
 
     private Uri mProductImageURI;
     Product mProduct;
     Movement mMovement;
     ProductRepository mProductRepository;
     MovementRepository mMovementRepository;
+    S3TransferRepository mS3TransferRepository;
     PhotoRepository mPhotoRepository;
+    private AlertDialog mPhotoUploadProgressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,6 +77,9 @@ public class AddArticle extends BaseActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+
+        mPhotoRepository = new PhotoRepository(this);
+        mS3TransferRepository = new S3TransferRepository(this);
 
         mTitleErrorTextview = findViewById(R.id.title_error_textView);
         mDescriptionErrorTextview = findViewById(R.id.Description_error_textview);
@@ -85,7 +95,7 @@ public class AddArticle extends BaseActivity {
         mPrixAchatView = findViewById(R.id.p_vente_input_stock);
         mPrixVenteView = findViewById(R.id.p_vente_stock);
 
-        mUploadImageButton.setOnClickListener(v -> choosePhotoFromGallery());
+      //  mUploadImageButton.setOnClickListener(v -> choosePhotoFromGallery());
 
 
         mAdd = findViewById(R.id.floatingActionButton);
@@ -104,23 +114,34 @@ public class AddArticle extends BaseActivity {
                 mPVenteErrorTextview.setVisibility(View.VISIBLE);
             } else if (mNameView.getEditText().length() != 0 && mQuantityView.getEditText().length() != 0 && mPrixAchatView.getEditText().length() != 0 && mPrixVenteView.getEditText().length() != 0) {
 
-                String productId = UUID.randomUUID().toString();
+                 productId = UUID.randomUUID().toString();
 
                 mProductRepository = new ProductRepository(this);
                 mMovementRepository = new MovementRepository(this);
-                mPhotoRepository = new PhotoRepository(this);
+
+                mPhotoRepository.uploadProductPhoto(productId, mProductImageURI)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(this::onPhotoUploadSuccess, this::onPhotoUploadFailure);
 
 
-                Completable.concatArray(
-                    mProductRepository.insert(generateProduct(productId)),
-                    mMovementRepository.insert(generateMovement(productId)),
-                    mProductImageURI != null
-                        ? mPhotoRepository.saveProductPhoto(productId, mProductImageURI)
-                        : Completable.complete())
+
+
+                    mProductRepository.insert(generateProduct(productId))
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(() -> {
+
+                        }, e -> {
+
+                        });
+                    mMovementRepository.insert(generateMovement(productId))
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(() -> {
+
                     }, e -> {
+
                     });
                 Intent intent = new Intent(AddArticle.this, ProductsActivity.class);
                 intent.putExtra(Product.PRODUCT_EXTRA, mProduct);
@@ -193,13 +214,21 @@ public class AddArticle extends BaseActivity {
             .maxResultSize(
                 PhotoType.PRODUCT_PHOTO.getWidth(),
                 PhotoType.PRODUCT_PHOTO.getHeight())
+            .saveDir(getCacheDir())
             .start();
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-
+        if (requestCode == ImagePicker.REQUEST_CODE && resultCode == RESULT_OK) {
+            onPhotoPicked(data.getData());
+            Log.d(TAG, "ImagePicker data: " + data.getDataString());
+        } else if (resultCode == ImagePicker.RESULT_ERROR) {
+            DialogUtils.showErrorDialog(this);
+        }
         super.onActivityResult(requestCode, resultCode, data);
+
+   /*     super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == this.RESULT_CANCELED) {
             return;
         }
@@ -214,7 +243,33 @@ public class AddArticle extends BaseActivity {
 
             mCameraIconView.setVisibility(View.INVISIBLE);
 
-        }
+        }*/
+    }
+
+    private void onPhotoPicked(Uri photoUri) {
+        mPhotoUploadProgressDialog = DialogUtils.getProgressDialog(this, R.string.uploading_product_photo);
+        //mPhotoUploadProgressDialog.show();
+
+            mProductImageView.setImageURI(photoUri);
+            mCameraIconView.setVisibility(View.GONE);
+
+           mProductImageURI = photoUri;
+
+    }
+
+    private void onPhotoUploadSuccess() {
+
+        mPhotoUploadProgressDialog.dismiss();
+    }
+
+    private void onPhotoUploadFailure(Throwable e) {
+        mS3TransferRepository.addTransfer(new S3Transfer(productId, S3TransferState.Queued))
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe();
+        mPhotoUploadProgressDialog.dismiss();
+        DialogUtils.showErrorDialog(this);
+        Log.d(TAG, "Product  photo upload failed", e);
     }
 
 }

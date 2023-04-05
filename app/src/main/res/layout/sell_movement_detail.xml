@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    style="bold"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#FFFFFF"
-    android:visibility="visible">
+    android:layout_height="match_parent">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar_sell_movement_detail"
@@ -18,7 +16,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:title="Modifier un article"
+        app:title="Document Details"
         app:titleTextAppearance="@style/Curuza_TextAppearance_Toolbar"
         app:titleTextColor="@android:color/white" />
 
@@ -27,16 +25,14 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:fillViewport="true"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar_detail_article"
-        app:layout_constraintVertical_bias="0.0"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_sell_movement_detail"
         tools:layout_editor_absoluteX="-90dp">
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/scrollview_container"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent">
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/guideline"
@@ -64,7 +60,7 @@
                 app:layout_constraintEnd_toStartOf="@+id/guideline2"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="@+id/guideline"
-                app:layout_constraintTop_toBottomOf="@+id/sell_movement_detail_constraint" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/nom_sell"
@@ -128,41 +124,38 @@
 
 
             </com.google.android.material.textfield.TextInputLayout>
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/sell_movement_detail_constraint"
+            <!--<androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/enter_movement_detail_constraint"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toStartOf="@+id/guideline2"
+            app:layout_constraintStart_toStartOf="@+id/guideline"
+            app:layout_constraintTop_toTopOf="parent">
+            <ImageView
+                android:id="@+id/image_content"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                app:layout_constraintDimensionRatio="1:1"
-                app:layout_constraintEnd_toStartOf="@+id/guideline2"
-                app:layout_constraintStart_toStartOf="@+id/guideline"
-                app:layout_constraintTop_toTopOf="parent">
-                <ImageView
-                    android:id="@+id/image_content"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:adjustViewBounds="true"
-                    android:background="#aaa"
-                    android:scaleType="centerCrop"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    />
-                <ImageView
-                    android:id="@+id/iconview"
-                    android:layout_width="0dp"
-                    android:layout_height="44dp"
-                    android:padding="5dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/image_content"
-                    app:layout_constraintEnd_toEndOf="@+id/image_content"
-                    app:layout_constraintStart_toStartOf="@+id/image_content"
-                    app:layout_constraintTop_toTopOf="@+id/image_content"
-                    android:src="@drawable/ic_baseline_camera_alt_24" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                android:adjustViewBounds="true"
+                android:background="#aaa"
+                android:scaleType="centerCrop"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                 />
 
-
-
+            <ImageView
+                android:id="@+id/iconview"
+                android:layout_width="0dp"
+                android:layout_height="44dp"
+                android:padding="5dp"
+                android:src="@drawable/ic_baseline_camera_alt_24"
+                app:layout_constraintBottom_toBottomOf="@+id/image_content"
+                app:layout_constraintEnd_toEndOf="@+id/image_content"
+                app:layout_constraintStart_toStartOf="@+id/image_content"
+                app:layout_constraintTop_toTopOf="@+id/image_content"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>-->
 
 
             <TextView
@@ -232,7 +225,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
-                android:id="@+id/prix_vente_sell"
+                android:id="@+id/prix_achat"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
@@ -248,7 +241,7 @@
                 android:id="@+id/p_vente_input_sell"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="24dp"
+                android:layout_marginBottom="16dp"
                 app:boxBackgroundMode="outline"
                 app:boxCornerRadiusBottomEnd="4dp"
                 app:boxCornerRadiusBottomStart="4dp"
@@ -258,7 +251,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/guideline2"
                 app:layout_constraintStart_toStartOf="@+id/guideline"
-                app:layout_constraintTop_toBottomOf="@+id/prix_vente_sell">
+                app:layout_constraintTop_toBottomOf="@+id/prix_achat">
 
                 <com.google.android.material.textfield.TextInputEditText
                     style="bold"

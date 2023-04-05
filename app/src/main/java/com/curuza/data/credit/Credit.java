@@ -18,7 +18,7 @@ public class Credit implements Parcelable  {
     @NonNull
     @ColumnInfo(name = "person_name")
     private String personName;
-    @NonNull
+
     @ColumnInfo(name = "description")
     private String description;
     @NonNull
@@ -26,7 +26,7 @@ public class Credit implements Parcelable  {
     private int amount;
     @NonNull
     private String date;
-    @NonNull
+
     private String telephone;
 
     public Credit( String id,  String personName, String description,  int amount,  String date,  String telephone) {

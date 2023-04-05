@@ -2,10 +2,12 @@ package com.curuza.domain;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
+import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.widget.Toolbar;
 
 import com.curuza.R;
@@ -32,18 +34,19 @@ public class SellMovementDetail extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.sell_movement_detail);
 
+        setupToolbar();
+
         Intent intent = getIntent();
         produit = intent.getParcelableExtra(ProductMovement.ProductMovement_EXTRA);
 
-        Toolbar toolbar = findViewById (R.id.toolbar_sell_movement_detail);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        mArticleImageView = findViewById(R.id.image_content);
-        mCameraIconView = findViewById(R.id.iconview);
-        mArticleImageView.setImageURI(produit.getProduct().getProductImageUri());
-        mCameraIconView.setVisibility(View.INVISIBLE);
+
+
+
+       // mArticleImageView = findViewById(R.id.image_content);
+        //mCameraIconView = findViewById(R.id.iconview);
+       // mArticleImageView.setImageURI(produit.getProduct().getProductImageUri());
+        //mCameraIconView.setVisibility(View.INVISIBLE);
         mName = findViewById(R.id.nom_sell);
         mName.getEditText().setText(produit.getProduct().getName());
         mDescription = findViewById(R.id.description_sell);
@@ -56,5 +59,24 @@ public class SellMovementDetail extends BaseActivity {
 
 
 
+    }
+
+    private void setupToolbar() {
+        Toolbar toolbar = findViewById(R.id.toolbar_sell_movement_detail);
+        setSupportActionBar(toolbar);
+
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }

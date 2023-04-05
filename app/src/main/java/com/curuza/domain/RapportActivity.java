@@ -153,11 +153,7 @@ public class RapportActivity extends BaseActivity implements NavigationView.OnNa
             Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
             i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(i);
-        } else if (id == R.id.nav_subscription) {
-            startActivity(new Intent( RapportActivity.this,SubscriptionsActivity.class));
-        } else if (id == R.id.nav_help) {
-            startActivity(new Intent( RapportActivity.this,HelpActivity.class));
-        }  else if (id == R.id.nav_share) {
+        } else if (id == R.id.nav_share) {
             startActivity(new Intent( RapportActivity.this,ShareApp.class));
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
